@@ -369,9 +369,8 @@ function HeroSection({ onShop }) {
               style={{
                 position: "relative", zIndex: 1,
                 width: "clamp(280px, 35vw, 480px)",
-                borderRadius: 24,
+                mixBlendMode: "screen",
                 transform: "perspective(900px) rotateY(-18deg) rotateX(6deg)",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
               }}
             />
           </div>
