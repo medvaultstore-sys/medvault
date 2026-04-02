@@ -28,6 +28,45 @@ const globalStyles = `
   @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
   @keyframes float3d{0%,100%{transform:perspective(900px) rotateY(-18deg) rotateX(6deg) translateY(0px);}50%{transform:perspective(900px) rotateY(-18deg) rotateX(6deg) translateY(-18px);}}
   @keyframes glowPulse{0%,100%{box-shadow:0 30px 80px rgba(29,191,115,0.25),0 0 0 1px rgba(29,191,115,0.1);}50%{box-shadow:0 40px 100px rgba(29,191,115,0.4),0 0 0 1px rgba(29,191,115,0.2);}}
+
+  /* ── Responsive layout classes ── */
+  .hero-row{display:flex;align-items:center;justify-content:space-between;gap:40px;}
+  .hero-img{flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+  .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .cart-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;}
+  .checkout-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .trust-bar{display:flex;justify-content:center;gap:10%;flex-wrap:wrap;padding:20px 5%;}
+  .trust-item{display:flex;align-items:center;gap:10;color:rgba(255,255,255,0.8);font-size:13px;font-weight:500;}
+
+  @media(max-width:768px){
+    .hero-row{flex-direction:column;text-align:center;}
+    .hero-img{order:-1;width:100%;}
+    .hero-img img{width:clamp(220px,70vw,340px) !important;transform:perspective(900px) rotateY(0deg) rotateX(4deg) !important;}
+    .mission-grid{grid-template-columns:1fr;}
+    .detail-grid{grid-template-columns:1fr;}
+    .cart-grid{grid-template-columns:1fr;}
+    .checkout-grid{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .form-grid>*{grid-column:span 1 !important;}
+    .trust-bar{gap:20px;padding:20px 5%;}
+    .nav-inner{height:60px !important;}
+    .nav-logo-text{font-size:16px !important;}
+    .hero-text h1{font-size:clamp(44px,14vw,80px) !important;}
+    .hero-text p{font-size:15px !important;}
+    .section-pad{padding:60px 4% !important;}
+    .detail-image{height:280px !important;}
+    .cart-item{flex-direction:column;align-items:flex-start !important;gap:12px !important;}
+    .cart-item-actions{flex-direction:row !important;align-items:center !important;}
+  }
+
+  @media(max-width:480px){
+    .hero-img img{width:clamp(180px,80vw,280px) !important;}
+    .hero-text h1{font-size:clamp(40px,16vw,64px) !important;}
+    .products-header{flex-direction:column !important;align-items:flex-start !important;}
+    .search-bar{width:100% !important;min-width:unset !important;}
+  }
 `;
 
 // ── Products ──────────────────────────────────────────────────
@@ -226,7 +265,7 @@ function Navbar({ cartCount, onCart, onHome, currentPage }) {
       transition: "all 0.3s ease",
       padding: "0 5%",
     }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
+      <div className="nav-inner" style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
         <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{
             width: 36, height: 36, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`,
@@ -297,9 +336,9 @@ function HeroSection({ onShop }) {
         pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40 }}>
+      <div className="hero-row" style={{ maxWidth: 1200, margin: "0 auto", width: "100%" }}>
         {/* Left: text */}
-        <div style={{ flex: "0 0 auto", maxWidth: 560, animation: "fadeUp 0.8s ease both" }}>
+        <div className="hero-text" style={{ flex: "0 0 auto", maxWidth: 560, animation: "fadeUp 0.8s ease both" }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             background: "rgba(29,191,115,0.12)", border: `1px solid rgba(29,191,115,0.3)`,
@@ -345,11 +384,7 @@ function HeroSection({ onShop }) {
         </div>
 
         {/* Right: 3D floating pouch */}
-        <div style={{
-          flex: "0 0 auto",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          animation: "fadeUp 1s ease 0.2s both",
-        }}>
+        <div className="hero-img" style={{ animation: "fadeUp 1s ease 0.2s both" }}>
           <div style={{
             position: "relative",
             animation: "float3d 5s ease-in-out infinite",
@@ -496,7 +531,7 @@ function HomePage({ onView, onAddToCart, cartCount, onCart }) {
       <div id="products" style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 5%" }}>
         <div style={{ marginBottom: 40 }}>
           <p style={{ fontSize: 12, color: C.accent, letterSpacing: 3, textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Our Collection</p>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
+          <div className="products-header" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
             <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(36px,5vw,60px)", textTransform: "uppercase", lineHeight: 0.95 }}>
               <span style={{ color: C.white }}>CHOOSE YOUR </span>
               <span style={{ color: C.primary }}>KIT</span>
@@ -563,7 +598,7 @@ function HomePage({ onView, onAddToCart, cartCount, onCart }) {
         borderTop: `1px solid rgba(29,191,115,0.15)`,
         borderBottom: `1px solid rgba(29,191,115,0.15)`,
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48 }}>
+        <div className="mission-grid" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div>
             <p style={{ fontSize: 11, color: C.accent, letterSpacing: 2.5, fontWeight: 700, marginBottom: 16, textTransform: "uppercase" }}>Our Mission</p>
             <p style={{ fontSize: 18, lineHeight: 1.7, color: "rgba(255,255,255,0.75)" }}>
@@ -600,7 +635,7 @@ function ProductDetailPage({ product, onBack, onAddToCart }) {
         fontSize: 14, fontWeight: 600, display: "flex", alignItems: "center", gap: 8, marginBottom: 48,
       }}>← Back to Products</button>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }}>
+      <div className="detail-grid">
         {/* Image */}
         <div style={{
           background: `linear-gradient(135deg, rgba(29,191,115,0.08), rgba(15,92,77,0.2))`,
@@ -713,7 +748,7 @@ function CartPage({ cart, onRemove, onQty, onCheckout, onBack }) {
         <span style={{ color: C.white }}>YOUR </span><span style={{ color: C.primary }}>CART</span>
       </h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 32 }}>
+      <div className="cart-grid">
         {/* Items */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {cart.map(item => (
@@ -869,12 +904,12 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
         <span style={{ color: C.white }}>CHECKOUT</span>
       </h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 32, alignItems: "start" }}>
+      <div className="checkout-grid">
         <div>
           {/* Delivery info */}
           <div style={{ background: C.navyLight, border: `1px solid rgba(255,255,255,0.06)`, borderRadius: 20, padding: 32, marginBottom: 24 }}>
             <h3 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: 22, marginBottom: 24 }}>Delivery Details</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="form-grid">
               <FormField label="Full Name" field="name" placeholder="Dr. Arjun Sharma" errors={errors} form={form} setForm={setForm} setErrors={setErrors} />
               <FormField label="Email" field="email" type="email" placeholder="you@email.com" half errors={errors} form={form} setForm={setForm} setErrors={setErrors} />
               <FormField label="Phone" field="phone" type="tel" placeholder="9876543210" half errors={errors} form={form} setForm={setForm} setErrors={setErrors} />

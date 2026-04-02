@@ -1,6 +1,12 @@
 import "./globals.css";
 import ChatWidget from "./components/ChatWidget";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL("https://medvault.store"),
   title: {
