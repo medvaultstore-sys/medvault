@@ -28,8 +28,8 @@ const globalStyles = `
   @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
 `;
 
-// ── Products ──────────────────────────────────────────────────
-const PRODUCTS = [
+// ── Fallback products (used when DB is empty) ─────────────────
+const FALLBACK_PRODUCTS = [
   {
     id: 1,
     name: "MedVault Pouch — Premium",
@@ -203,7 +203,7 @@ const PRODUCTS = [
 
 // ── Helpers ───────────────────────────────────────────────────
 const fmt = (n) => `₹${n.toLocaleString("en-IN")}`;
-const disc = (p, o) => Math.round(((o - p) / o) * 100);
+const disc = (p, o) => (o && o > p) ? Math.round(((o - p) / o) * 100) : 0;
 const isImgUrl = (s) => typeof s === "string" && (s.startsWith("/") || s.startsWith("http"));
 
 // ── Components ────────────────────────────────────────────────
@@ -376,26 +376,30 @@ function ProductCard({ product, onView, onAddToCart }) {
         background: `linear-gradient(135deg, rgba(29,191,115,0.08) 0%, rgba(15,92,77,0.15) 100%)`,
         position: "relative", fontSize: 72, overflow: "hidden",
       }}>
-        {isImgUrl(product.img)
-          ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-          : product.img}
-        <div style={{
-          position: "absolute", top: 16, left: 16,
-          background: C.primary, color: C.dark,
-          borderRadius: 100, padding: "4px 12px",
-          fontSize: 10, fontWeight: 800, letterSpacing: 1.5,
-        }}>{product.badge}</div>
-        <div style={{
-          position: "absolute", top: 16, right: 16,
-          background: "rgba(0,0,0,0.5)", color: C.accent,
-          borderRadius: 100, padding: "4px 12px",
-          fontSize: 11, fontWeight: 700,
-        }}>−{pct}%</div>
+        {isImgUrl(product.img || product.image)
+          ? <img src={product.img || product.image} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          : (product.img || "💊")}
+        {product.badge && (
+          <div style={{
+            position: "absolute", top: 16, left: 16,
+            background: C.primary, color: C.dark,
+            borderRadius: 100, padding: "4px 12px",
+            fontSize: 10, fontWeight: 800, letterSpacing: 1.5,
+          }}>{product.badge}</div>
+        )}
+        {pct > 0 && (
+          <div style={{
+            position: "absolute", top: 16, right: 16,
+            background: "rgba(0,0,0,0.5)", color: C.accent,
+            borderRadius: 100, padding: "4px 12px",
+            fontSize: 11, fontWeight: 700,
+          }}>−{pct}%</div>
+        )}
       </div>
 
       {/* Content */}
       <div style={{ padding: "24px 24px 20px" }}>
-        <div style={{ fontSize: 11, color: C.accent, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>{product.tagline}</div>
+        {product.tagline && <div style={{ fontSize: 11, color: C.accent, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>{product.tagline}</div>}
         <h3 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: 22, lineHeight: 1.1, marginBottom: 12 }}>{product.name}</h3>
         <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6, marginBottom: 20, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{product.desc}</p>
 
@@ -423,21 +427,22 @@ function ProductCard({ product, onView, onAddToCart }) {
   );
 }
 
-function HomePage({ onView, onAddToCart, cartCount, onCart }) {
+function HomePage({ onView, onAddToCart, cartCount, onCart, products }) {
   const [query, setQuery] = useState("");
   const scrollToProducts = () => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
 
   const q = query.trim().toLowerCase();
   const filtered = q
-    ? PRODUCTS.filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.tagline.toLowerCase().includes(q) ||
-        p.desc.toLowerCase().includes(q) ||
-        p.features.some(f => f.toLowerCase().includes(q)) ||
-        p.instruments.some(i => i.toLowerCase().includes(q)) ||
-        p.badge.toLowerCase().includes(q)
+    ? products.filter(p =>
+        p.name?.toLowerCase().includes(q) ||
+        p.tagline?.toLowerCase().includes(q) ||
+        p.desc?.toLowerCase().includes(q) ||
+        p.description?.toLowerCase().includes(q) ||
+        p.features?.some(f => f.toLowerCase().includes(q)) ||
+        p.instruments?.some(i => i.toLowerCase().includes(q)) ||
+        p.badge?.toLowerCase().includes(q)
       )
-    : PRODUCTS;
+    : products;
 
   return (
     <div>
@@ -795,27 +800,33 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
     if (Object.keys(e).length) return;
     setPaying(true);
 
+    const fullAddress = `${form.address}, ${form.city}, ${form.state} - ${form.pincode}`;
     const orderData = {
       orderId: "MV" + Date.now(),
       customerName: form.name,
       email: form.email,
       phone: form.phone,
-      address: `${form.address}, ${form.city}, ${form.state} - ${form.pincode}`,
+      address: fullAddress,
       items: cart,
       total,
     };
 
+    // Save order to DB
     await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
     });
 
-    await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ order: orderData }),
-    });
+    // Build WhatsApp message
+    const productList = cart
+      .map(i => `• ${i.name} × ${i.quantity} — ₹${(i.price * i.quantity).toLocaleString("en-IN")}`)
+      .join("\n");
+    const waMessage =
+      `Hello, I want to place an order:\n\n${productList}\n\nTotal: ₹${total.toLocaleString("en-IN")}\n\nCustomer Details:\nName: ${form.name}\nPhone: ${form.phone}\nAddress: ${fullAddress}`;
+
+    // Redirect to WhatsApp
+    window.open(`https://wa.me/918248613274?text=${encodeURIComponent(waMessage)}`, "_blank");
 
     setPaying(false);
     onPlaceOrder(orderData);
@@ -853,19 +864,19 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
             </div>
           </div>
 
-          {/* Payment note */}
+          {/* WhatsApp order note */}
           <div style={{
             background: "rgba(29,191,115,0.06)", border: `1px solid rgba(29,191,115,0.2)`,
             borderRadius: 16, padding: 20, display: "flex", gap: 16, alignItems: "flex-start",
           }}>
-            <span style={{ fontSize: 28 }}>🔒</span>
+            <span style={{ fontSize: 28 }}>💬</span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Secure Payment via Razorpay</div>
+              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Order via WhatsApp</div>
               <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
-                Pay securely using UPI, Credit/Debit cards, Net Banking, or Wallets. Your payment is processed by Razorpay — India&apos;s most trusted payment gateway.
+                After placing your order, you&apos;ll be redirected to WhatsApp with your order details pre-filled. We&apos;ll confirm your order and arrange payment manually.
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
-                {["UPI", "VISA", "Mastercard", "Rupay", "NetBanking", "Wallets"].map(m => (
+                {["WhatsApp", "Cash on Delivery", "UPI on Confirmation"].map(m => (
                   <span key={m} style={{ background: "rgba(255,255,255,0.08)", borderRadius: 6, padding: "3px 10px", fontSize: 11, fontWeight: 600 }}>{m}</span>
                 ))}
               </div>
@@ -907,9 +918,9 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
             {paying ? (
               <>
                 <span style={{ width: 18, height: 18, border: `2px solid rgba(255,255,255,0.3)`, borderTopColor: C.accent, borderRadius: "50%", animation: "spin 0.8s linear infinite", display: "inline-block" }} />
-                Processing…
+                Sending…
               </>
-            ) : `Pay ${fmt(total)}`}
+            ) : `Place Order via WhatsApp`}
           </button>
           <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 12 }}>By placing order you agree to our Terms &amp; Conditions</p>
         </div>
@@ -944,7 +955,7 @@ function ConfirmationPage({ order, onHome }) {
         <div style={{ fontSize: 11, color: C.accent, letterSpacing: 3, fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>Order Confirmed!</div>
         <h1 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 42, marginBottom: 8 }}>Thank You, {order.customerName.split(" ")[0]}!</h1>
         <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 15, lineHeight: 1.7, marginBottom: 28 }}>
-          Your order has been placed successfully. A confirmation has been sent to <strong style={{ color: C.accent }}>{order.email}</strong>
+          Your order has been saved and sent to us via WhatsApp. We&apos;ll confirm your order and reach out to <strong style={{ color: C.accent }}>{order.phone}</strong> shortly.
         </p>
 
         <div style={{ background: "rgba(29,191,115,0.06)", border: `1px solid rgba(29,191,115,0.12)`, borderRadius: 16, padding: 20, marginBottom: 28, textAlign: "left" }}>
@@ -976,7 +987,8 @@ function ConfirmationPage({ order, onHome }) {
 
         <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: 12, padding: 16, marginBottom: 28 }}>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
-            🚀 Orders are dispatched from our <strong style={{ color: "rgba(255,255,255,0.7)" }}>SRM campus dark store</strong> within 24 hours. You&apos;ll receive a tracking link shortly.
+            💬 Check your WhatsApp — your order details have been sent. Didn&apos;t open automatically?{" "}
+            <a href={`https://wa.me/918248613274`} target="_blank" rel="noopener noreferrer" style={{ color: C.accent, fontWeight: 600 }}>Click here to open WhatsApp</a>
           </p>
         </div>
 
@@ -1018,6 +1030,33 @@ export default function App() {
   const [order, setOrder] = useState(null);
   const [toast, setToast] = useState({ msg: "", visible: false });
   const [toastTimer, setToastTimer] = useState(null);
+  const [products, setProducts] = useState(FALLBACK_PRODUCTS);
+
+  // Fetch products from DB; fall back to hardcoded catalog if DB is empty
+  useEffect(() => {
+    fetch("/api/products")
+      .then(r => r.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          setProducts(data.products.map(p => ({
+            id: p._id,
+            name: p.name,
+            price: p.price,
+            originalPrice: null, // no discount for DB products
+            img: null,
+            image: p.image || "",
+            tagline: "",
+            desc: p.description || "",
+            badge: "NEW",
+            color: C.primary,
+            features: [],
+            instruments: [],
+            stock: 99,
+          })));
+        }
+      })
+      .catch(() => {}); // fail silently, FALLBACK_PRODUCTS already set
+  }, []);
 
   const showToast = useCallback((msg) => {
     if (toastTimer) clearTimeout(toastTimer);
@@ -1063,7 +1102,7 @@ export default function App() {
           <Navbar cartCount={cartCount} onCart={goCart} onHome={goHome} currentPage={page} />
         )}
 
-        {page === "home" && <HomePage onView={goDetail} onAddToCart={addToCart} cartCount={cartCount} onCart={goCart} />}
+        {page === "home" && <HomePage onView={goDetail} onAddToCart={addToCart} cartCount={cartCount} onCart={goCart} products={products} />}
         {page === "detail" && selectedProduct && <ProductDetailPage product={selectedProduct} onBack={goHome} onAddToCart={addToCart} />}
         {page === "cart" && <CartPage cart={cart} onRemove={removeFromCart} onQty={updateQty} onCheckout={goCheckout} onBack={goHome} />}
         {page === "checkout" && <CheckoutPage cart={cart} onPlaceOrder={handlePlaceOrder} onBack={goCart} />}
