@@ -127,7 +127,9 @@ function OrderModal({ order, onClose, onStatusChange }) {
           {Array.isArray(order.items) && order.items.map((item, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < order.items.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                <span style={{ fontSize: 24 }}>{item.img}</span>
+                {item.img && (item.img.startsWith("/") || item.img.startsWith("http"))
+                  ? <img src={item.img} alt={item.name} style={{ width: 36, height: 36, objectFit: "cover", borderRadius: 6, background: "rgba(29,191,115,0.08)" }} />
+                  : <span style={{ fontSize: 24 }}>{item.img}</span>}
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 600 }}>{item.name}</div>
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>Qty: {item.quantity}</div>

@@ -86,11 +86,125 @@ const PRODUCTS = [
     stock: 120,
     img: "💊",
   },
+  // ── Individual Instruments ─────────────────────────────────
+  {
+    id: 5,
+    name: "Littmann-Style Stethoscope",
+    tagline: "Dual-head acoustic stethoscope",
+    price: 3499,
+    originalPrice: 5500,
+    badge: "TOP PICK",
+    color: C.primary,
+    desc: "Dual-head acoustic stethoscope with high acoustic sensitivity. Ideal for auscultation of heart, lung and bowel sounds. Includes both diaphragm and bell.",
+    features: ["Dual-head (bell + diaphragm)","High acoustic sensitivity","Soft-sealing ear tips","Latex-free tubing","2-year warranty"],
+    instruments: ["Cardiac","Pulmonary","Pediatric use"],
+    stock: 35,
+    img: "/products/stethoscope.jpg",
+  },
+  {
+    id: 6,
+    name: "Aneroid BP Apparatus",
+    tagline: "Manual sphygmomanometer set",
+    price: 899,
+    originalPrice: 1400,
+    badge: "ESSENTIAL",
+    color: C.accent,
+    desc: "Precision aneroid sphygmomanometer with adult cuff and integrated stethoscope. Meets clinical accuracy standards. Ideal for bedside and ward use.",
+    features: ["Calibrated aneroid gauge","Adult & child cuff sizes","Easy-read dial","Durable nylon cuff","Carrying case included"],
+    instruments: ["Blood pressure monitoring","Clinical examination"],
+    stock: 42,
+    img: "/products/bp-apparatus.jpg",
+  },
+  {
+    id: 7,
+    name: "Taylor Reflex Hammer",
+    tagline: "Standard neurological hammer",
+    price: 349,
+    originalPrice: 550,
+    badge: "CLINICAL",
+    color: "#5BE6A8",
+    desc: "Classic Taylor percussion hammer for testing deep tendon reflexes. Triangular rubber head delivers consistent, reliable responses across all standard reflex sites.",
+    features: ["Triangular rubber head","Chrome-plated handle","Balanced weight distribution","Durable & autoclavable","Standard clinical size"],
+    instruments: ["Neurological examination","Reflex testing"],
+    stock: 95,
+    img: "/products/reflex-hammer.jpg",
+  },
+  {
+    id: 8,
+    name: "Digital Thermometer",
+    tagline: "Fast-read oral & rectal thermometer",
+    price: 249,
+    originalPrice: 399,
+    badge: "MUST-HAVE",
+    color: "#89D4B0",
+    desc: "Mercury-free digital thermometer with 60-second fast reading, fever alert beep, and auto shut-off. Accurate to ±0.1°C. Comes with protective case.",
+    features: ["Mercury-free","60-second reading","Fever alert beep","Waterproof tip","Auto shut-off"],
+    instruments: ["Temperature monitoring","Fever assessment"],
+    stock: 150,
+    img: "/products/thermometer.jpg",
+  },
+  {
+    id: 9,
+    name: "Bandage Scissors",
+    tagline: "Blunt-tip safety scissors",
+    price: 299,
+    originalPrice: 450,
+    badge: "UTILITY",
+    color: C.primary,
+    desc: "Stainless steel bandage scissors with angled blunt tip for safe dressing removal. Serrated lower blade grips material without slipping. Essential for wound care.",
+    features: ["Stainless steel","Angled blunt tip","Serrated lower blade","Rust resistant","Autoclavable"],
+    instruments: ["Wound dressing","Bandage removal","Suture cutting"],
+    stock: 80,
+    img: "/products/scissors.jpg",
+  },
+  {
+    id: 10,
+    name: "Tongue Depressors (100 pcs)",
+    tagline: "Wooden sterile depressors",
+    price: 149,
+    originalPrice: 250,
+    badge: "VALUE PACK",
+    color: C.accent,
+    desc: "Pack of 100 smooth-edged wooden tongue depressors. Sterile, splinter-free, and individually suitable for oral cavity examination and throat inspection.",
+    features: ["Pack of 100","Sterile & splinter-free","Smooth rounded edges","Standard 15 cm length","Individually wrapped option"],
+    instruments: ["Oral examination","Throat inspection","Gag reflex testing"],
+    stock: 200,
+    img: "/products/tongue-depressor.jpg",
+  },
+  {
+    id: 11,
+    name: "Diagnostic Penlight",
+    tagline: "LED pupil & throat light",
+    price: 199,
+    originalPrice: 329,
+    badge: "COMPACT",
+    color: "#5BE6A8",
+    desc: "Bright LED penlight for pupillary reflex assessment and oral cavity inspection. Features a crisp focused beam with a built-in pupil gauge printed on the barrel.",
+    features: ["Bright LED beam","Pupil gauge on barrel","Pocket clip included","Replaceable batteries","Durable chrome finish"],
+    instruments: ["Pupillary reflex","Oral inspection","Ear canal check"],
+    stock: 110,
+    img: "🔦",
+  },
+  {
+    id: 12,
+    name: "Tuning Fork 128 Hz",
+    tagline: "Vibration & hearing testing",
+    price: 399,
+    originalPrice: 650,
+    badge: "NEURO",
+    color: "#89D4B0",
+    desc: "Aluminium alloy tuning fork at 128 Hz — the standard frequency for testing vibration sense and the Rinne/Weber hearing tests. Clearly stamped with frequency.",
+    features: ["128 Hz frequency","Aluminium alloy","Frequency stamped","Smooth weighted tines","Long resonance duration"],
+    instruments: ["Vibration sense testing","Rinne test","Weber test","Hearing screening"],
+    stock: 60,
+    img: "🎼",
+  },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────
 const fmt = (n) => `₹${n.toLocaleString("en-IN")}`;
 const disc = (p, o) => Math.round(((o - p) / o) * 100);
+const isImgUrl = (s) => typeof s === "string" && (s.startsWith("/") || s.startsWith("http"));
 
 // ── Components ────────────────────────────────────────────────
 function Navbar({ cartCount, onCart, onHome, currentPage }) {
@@ -260,9 +374,11 @@ function ProductCard({ product, onView, onAddToCart }) {
       <div style={{
         height: 200, display: "flex", alignItems: "center", justifyContent: "center",
         background: `linear-gradient(135deg, rgba(29,191,115,0.08) 0%, rgba(15,92,77,0.15) 100%)`,
-        position: "relative", fontSize: 72,
+        position: "relative", fontSize: 72, overflow: "hidden",
       }}>
-        {product.img}
+        {isImgUrl(product.img)
+          ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          : product.img}
         <div style={{
           position: "absolute", top: 16, left: 16,
           background: C.primary, color: C.dark,
@@ -409,7 +525,9 @@ function ProductDetailPage({ product, onBack, onAddToCart }) {
             background: "rgba(0,0,0,0.4)", color: C.accent, borderRadius: 100, padding: "6px 16px",
             fontSize: 12, fontWeight: 700,
           }}>−{pct}% OFF</div>
-          {product.img}
+          {isImgUrl(product.img)
+            ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 24 }} />
+            : product.img}
         </div>
 
         {/* Info */}
