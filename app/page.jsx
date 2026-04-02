@@ -424,8 +424,20 @@ function ProductCard({ product, onView, onAddToCart }) {
 }
 
 function HomePage({ onView, onAddToCart, cartCount, onCart }) {
-  const productsRef = { current: null };
+  const [query, setQuery] = useState("");
   const scrollToProducts = () => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.tagline.toLowerCase().includes(q) ||
+        p.desc.toLowerCase().includes(q) ||
+        p.features.some(f => f.toLowerCase().includes(q)) ||
+        p.instruments.some(i => i.toLowerCase().includes(q)) ||
+        p.badge.toLowerCase().includes(q)
+      )
+    : PRODUCTS;
 
   return (
     <div>
@@ -445,21 +457,66 @@ function HomePage({ onView, onAddToCart, cartCount, onCart }) {
 
       {/* Products */}
       <div id="products" style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 5%" }}>
-        <div style={{ marginBottom: 52 }}>
+        <div style={{ marginBottom: 40 }}>
           <p style={{ fontSize: 12, color: C.accent, letterSpacing: 3, textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Our Collection</p>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(36px,5vw,60px)", textTransform: "uppercase", lineHeight: 0.95 }}>
-            <span style={{ color: C.white }}>CHOOSE YOUR </span>
-            <span style={{ color: C.primary }}>KIT</span>
-          </h2>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(36px,5vw,60px)", textTransform: "uppercase", lineHeight: 0.95 }}>
+              <span style={{ color: C.white }}>CHOOSE YOUR </span>
+              <span style={{ color: C.primary }}>KIT</span>
+            </h2>
+
+            {/* Search bar */}
+            <div style={{ position: "relative", minWidth: 260 }}>
+              <span style={{
+                position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)",
+                fontSize: 16, pointerEvents: "none", opacity: 0.4,
+              }}>🔍</span>
+              <input
+                type="text"
+                placeholder="Search instruments, kits…"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                style={{
+                  width: "100%", padding: "12px 40px 12px 40px",
+                  background: "rgba(255,255,255,0.05)",
+                  border: `1px solid ${query ? "rgba(29,191,115,0.4)" : "rgba(255,255,255,0.1)"}`,
+                  borderRadius: 12, color: C.white, fontSize: 14,
+                  outline: "none", transition: "border-color 0.2s",
+                  fontFamily: "'Barlow',sans-serif",
+                }}
+              />
+              {query && (
+                <button onClick={() => setQuery("")} style={{
+                  position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+                  background: "none", border: "none", color: "rgba(255,255,255,0.4)",
+                  cursor: "pointer", fontSize: 16, lineHeight: 1,
+                }}>✕</button>
+              )}
+            </div>
+          </div>
+
+          {q && (
+            <p style={{ marginTop: 16, fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
+              {filtered.length} result{filtered.length !== 1 ? "s" : ""} for &ldquo;{query}&rdquo;
+            </p>
+          )}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 24 }}>
-          {PRODUCTS.map((p, i) => (
-            <div key={p.id} style={{ animationDelay: `${i * 0.1}s` }}>
-              <ProductCard product={p} onView={onView} onAddToCart={onAddToCart} />
-            </div>
-          ))}
-        </div>
+        {filtered.length > 0 ? (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 24 }}>
+            {filtered.map((p, i) => (
+              <div key={p.id} style={{ animationDelay: `${i * 0.1}s` }}>
+                <ProductCard product={p} onView={onView} onAddToCart={onAddToCart} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ textAlign: "center", padding: "80px 0", color: "rgba(255,255,255,0.3)" }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
+            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>No products found</p>
+            <p style={{ fontSize: 14 }}>Try &ldquo;stethoscope&rdquo;, &ldquo;BP&rdquo;, or &ldquo;kit&rdquo;</p>
+          </div>
+        )}
       </div>
 
       {/* Mission strip */}
