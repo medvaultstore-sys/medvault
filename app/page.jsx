@@ -724,7 +724,7 @@ function CartPage({ cart, onRemove, onQty, onCheckout, onBack }) {
             fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 20,
             letterSpacing: 2, textTransform: "uppercase",
             boxShadow: `0 0 30px rgba(29,191,115,0.25)`,
-          }}>Checkout →</button>
+          }}>Order on WhatsApp →</button>
           <div style={{ marginTop: 16, display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
             {["🔒 Secure", "Razorpay", "UPI / Cards"].map(t => (
               <span key={t} style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>{t}</span>
@@ -805,17 +805,21 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
       total,
     };
 
+    // Save order to DB
     await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
     });
 
-    await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ order: orderData }),
-    });
+    // Build WhatsApp message
+    const productList = cart
+      .map(i => `• ${i.name} × ${i.quantity} — ₹${(i.price * i.quantity).toLocaleString("en-IN")}`)
+      .join("\n");
+    const waMsg = `Hello MedVault! I want to place an order 🛒\n\n${productList}\n\n*Total: ₹${total.toLocaleString("en-IN")}*\n\n*Customer Details:*\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nAddress: ${form.address}, ${form.city}, ${form.state} - ${form.pincode}`;
+
+    // Open WhatsApp with pre-filled message
+    window.open(`https://wa.me/918248613274?text=${encodeURIComponent(waMsg)}`, "_blank");
 
     setPaying(false);
     onPlaceOrder(orderData);
@@ -860,12 +864,12 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
           }}>
             <span style={{ fontSize: 28 }}>🔒</span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Secure Payment via Razorpay</div>
+              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Order via WhatsApp</div>
               <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
-                Pay securely using UPI, Credit/Debit cards, Net Banking, or Wallets. Your payment is processed by Razorpay — India&apos;s most trusted payment gateway.
+                Your order details will be sent directly to our WhatsApp. We&apos;ll confirm and arrange delivery from our SRM campus store.
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
-                {["UPI", "VISA", "Mastercard", "Rupay", "NetBanking", "Wallets"].map(m => (
+                {["💬 WhatsApp", "Cash on Delivery", "UPI on Confirmation"].map(m => (
                   <span key={m} style={{ background: "rgba(255,255,255,0.08)", borderRadius: 6, padding: "3px 10px", fontSize: 11, fontWeight: 600 }}>{m}</span>
                 ))}
               </div>
@@ -909,7 +913,7 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
                 <span style={{ width: 18, height: 18, border: `2px solid rgba(255,255,255,0.3)`, borderTopColor: C.accent, borderRadius: "50%", animation: "spin 0.8s linear infinite", display: "inline-block" }} />
                 Processing…
               </>
-            ) : `Pay ${fmt(total)}`}
+            ) : `Order on WhatsApp — ${fmt(total)}`}
           </button>
           <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 12 }}>By placing order you agree to our Terms &amp; Conditions</p>
         </div>

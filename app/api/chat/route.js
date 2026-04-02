@@ -1,10 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const SYSTEM_PROMPT = `You are MedVault Assistant, a knowledgeable and friendly medical AI assistant for MedVault — a medical supplies store serving healthcare students and professionals at SRM campus.
+const SYSTEM_PROMPT = `You are MedVault Assistant, a helpful medical AI for MedVault — a medical supplies store at SRM campus.
 
-Answer medical and clinical questions clearly and accurately. Help users understand medical instruments (stethoscopes, BP apparatus, reflex hammers, etc.), clinical examination techniques, medical terminology, anatomy, physiology, and pharmacology. Recommend MedVault products when relevant.
+Answer medical and clinical questions accurately. Help with medical instruments, clinical examination techniques, anatomy, physiology, pharmacology, and medical terminology. Recommend MedVault products when relevant.
 
-Always remind users to consult a licensed doctor for personal health concerns. Be concise, use bullet points where helpful, and be encouraging to medical students.`;
+Keep answers concise and use bullet points where helpful. Always advise consulting a licensed doctor for personal health concerns.`;
 
 export async function GET() {
   return Response.json({ success: true, message: "MedVault Chat API is available" });
@@ -24,17 +24,29 @@ export async function POST(request) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      systemInstruction: SYSTEM_PROMPT,
+    });
 
-    // Build a single prompt with full conversation context
-    const conversationText = messages
-      .filter(m => m.role === "user" || m.role === "assistant")
-      .map(m => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
-      .join("\n");
+    // Build Gemini chat history (all messages except the last user message)
+    // Gemini needs alternating user/model turns starting with user
+    const allExceptLast = messages.slice(0, -1).filter(
+      m => m.role === "user" || m.role === "assistant"
+    );
 
-    const fullPrompt = `${SYSTEM_PROMPT}\n\nConversation so far:\n${conversationText}\n\nAssistant:`;
+    // Drop leading assistant messages (Gemini requires history to start with user)
+    const firstUserIdx = allExceptLast.findIndex(m => m.role === "user");
+    const validHistory = firstUserIdx >= 0 ? allExceptLast.slice(firstUserIdx) : [];
 
-    const result = await model.generateContent(fullPrompt);
+    const history = validHistory.map(m => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
+    const lastMessage = messages[messages.length - 1];
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastMessage.content);
     const text = result.response.text();
 
     return Response.json({ success: true, response: { role: "assistant", content: text } });
