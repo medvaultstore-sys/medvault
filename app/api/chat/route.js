@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const SYSTEM_PROMPT = `You are MedVault Assistant, a knowledgeable and friendly medical AI assistant for MedVault — a medical supplies store serving healthcare students and professionals at SRM campus.
 
@@ -27,29 +27,37 @@ export async function POST(request) {
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return Response.json(
-        { success: false, error: "Please send a messages array in the request body." },
+        { success: false, error: "Please send a messages array." },
         { status: 400 }
       );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return Response.json({ success: false, error: "OpenAI API key not configured." }, { status: 500 });
+    if (!process.env.GEMINI_API_KEY) {
+      return Response.json({ success: false, error: "Gemini API key not configured." }, { status: 500 });
     }
 
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-    const conversation = messages.map(({ role, content }) => ({ role, content }));
-
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...conversation],
-      max_tokens: 600,
-      temperature: 0.7,
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: SYSTEM_PROMPT,
     });
 
-    const reply = completion.choices[0].message;
+    // Convert messages to Gemini format (role: "user" | "model")
+    // Skip the initial assistant greeting for history
+    const history = messages
+      .slice(0, -1) // all but the last message
+      .filter(m => !(m.role === "assistant" && messages.indexOf(m) === 0)) // skip initial greeting
+      .map(m => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
 
-    return Response.json({ success: true, response: { role: reply.role, content: reply.content } });
+    const lastMessage = messages[messages.length - 1];
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastMessage.content);
+    const text = result.response.text();
+
+    return Response.json({ success: true, response: { role: "assistant", content: text } });
   } catch (err) {
     console.error("Chat API error:", err);
     return Response.json(
