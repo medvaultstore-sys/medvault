@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(python -c ':*)"
+      "Bash(python -c ':*)",
+      "Bash(vercel --version)",
+      "Bash(npm install:*)",
+      "Bash(vercel whoami:*)",
+      "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")"
     ]
   }
 }

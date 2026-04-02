@@ -614,24 +614,36 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
     return e;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length) return;
     setPaying(true);
 
-    // Simulate Razorpay
-    setTimeout(() => {
-      setPaying(false);
-      onPlaceOrder({
-        orderId: "MV" + Date.now(),
-        customerName: form.name,
-        email: form.email,
-        total,
-        items: cart,
-        address: `${form.address}, ${form.city}, ${form.state} - ${form.pincode}`,
-      });
-    }, 2200);
+    const orderData = {
+      orderId: "MV" + Date.now(),
+      customerName: form.name,
+      email: form.email,
+      phone: form.phone,
+      address: `${form.address}, ${form.city}, ${form.state} - ${form.pincode}`,
+      items: cart,
+      total,
+    };
+
+    await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderData),
+    });
+
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order: orderData }),
+    });
+
+    setPaying(false);
+    onPlaceOrder(orderData);
   };
 
   return (
