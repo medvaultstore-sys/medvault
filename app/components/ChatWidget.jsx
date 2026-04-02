@@ -39,9 +39,13 @@ export default function ChatWidget() {
         body: JSON.stringify({ messages: next }),
       });
       const data = await res.json();
-      if (data.response) setMessages(prev => [...prev, data.response]);
-    } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Sorry, something went wrong. Please try again." }]);
+      if (data.response) {
+        setMessages(prev => [...prev, data.response]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", content: `Error: ${data.error || "No response received."}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", content: `Error: ${err.message || "Network error. Please try again."}` }]);
     }
     setLoading(false);
   };

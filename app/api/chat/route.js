@@ -21,33 +21,40 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const body = await request.json();
-  const messages = body?.messages;
+  try {
+    const body = await request.json();
+    const messages = body?.messages;
 
-  if (!Array.isArray(messages) || messages.length === 0) {
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return Response.json(
+        { success: false, error: "Please send a messages array in the request body." },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.OPENAI_API_KEY) {
+      return Response.json({ success: false, error: "OpenAI API key not configured." }, { status: 500 });
+    }
+
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    const conversation = messages.map(({ role, content }) => ({ role, content }));
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...conversation],
+      max_tokens: 600,
+      temperature: 0.7,
+    });
+
+    const reply = completion.choices[0].message;
+
+    return Response.json({ success: true, response: { role: reply.role, content: reply.content } });
+  } catch (err) {
+    console.error("Chat API error:", err);
     return Response.json(
-      { success: false, error: "Please send a messages array in the request body." },
-      { status: 400 }
+      { success: false, error: err?.message || "Failed to get response from AI." },
+      { status: 500 }
     );
   }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return Response.json({ success: false, error: "OpenAI API key not configured." }, { status: 500 });
-  }
-
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-  // Keep only role + content for the API call
-  const conversation = messages.map(({ role, content }) => ({ role, content }));
-
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [{ role: "system", content: SYSTEM_PROMPT }, ...conversation],
-    max_tokens: 600,
-    temperature: 0.7,
-  });
-
-  const reply = completion.choices[0].message;
-
-  return Response.json({ success: true, response: { role: reply.role, content: reply.content } });
 }
