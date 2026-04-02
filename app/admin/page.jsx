@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const C = {
   primary: "#1DBF73",
@@ -178,12 +178,11 @@ export default function AdminPage() {
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
   const [authed, setAuthed] = useState(false);
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const ADMIN_EMAIL = "medvaultstore@gmail.com";
   const ADMIN_PASS = "medvault2026";
-
-  useEffect(() => {
-    if (authed) fetchOrders();
-  }, [authed]);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -197,6 +196,7 @@ export default function AdminPage() {
     setLoading(false);
   };
 
+
   const updateStatus = async (id, status) => {
     try {
       await fetch(`/api/orders/${id}`, {
@@ -209,28 +209,47 @@ export default function AdminPage() {
     } catch (e) { console.error(e); }
   };
 
-  // Password gate
+  const handleLogin = () => {
+    if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+      setLoginError("");
+      setAuthed(true);
+      fetchOrders();
+    } else {
+      setLoginError("Invalid email or password.");
+    }
+  };
+
   if (!authed) return (
     <div style={{ minHeight: "100vh", background: C.navy, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Barlow',sans-serif" }}>
       <div style={{ background: C.navyLight, border: "1px solid rgba(29,191,115,0.2)", borderRadius: 24, padding: 48, maxWidth: 400, width: "100%", textAlign: "center" }}>
         <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 32, color: C.primary, marginBottom: 8 }}>MEDVAULT</div>
         <div style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", marginBottom: 32 }}>Admin Dashboard</div>
         <input
-          type="password" placeholder="Enter admin password" value={pass}
-          onChange={e => setPass(e.target.value)}
-          onKeyDown={e => e.key === "Enter" && pass === ADMIN_PASS && setAuthed(true)}
+          type="email" placeholder="Admin email" value={email}
+          onChange={e => setEmail(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleLogin()}
           style={{
             width: "100%", padding: "14px 16px", borderRadius: 12, fontSize: 15,
             background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
             color: C.white, outline: "none", marginBottom: 12,
           }}
         />
-        <button onClick={() => pass === ADMIN_PASS ? setAuthed(true) : alert("Wrong password")} style={{
+        <input
+          type="password" placeholder="Admin password" value={pass}
+          onChange={e => setPass(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleLogin()}
+          style={{
+            width: "100%", padding: "14px 16px", borderRadius: 12, fontSize: 15,
+            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
+            color: C.white, outline: "none", marginBottom: 12,
+          }}
+        />
+        {loginError && <div style={{ color: "#ff6464", fontSize: 13, marginBottom: 12 }}>{loginError}</div>}
+        <button onClick={handleLogin} style={{
           width: "100%", padding: "14px", borderRadius: 12, border: "none",
           background: C.primary, color: C.dark, cursor: "pointer",
           fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: 18, letterSpacing: 2,
         }}>LOGIN</button>
-        <div style={{ marginTop: 16, fontSize: 12, color: "rgba(255,255,255,0.25)" }}>Default password: medvault2026</div>
       </div>
     </div>
   );
