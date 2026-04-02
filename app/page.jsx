@@ -26,6 +26,8 @@ const globalStyles = `
   @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}};
   @keyframes slideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}
   @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+  @keyframes float3d{0%,100%{transform:perspective(900px) rotateY(-18deg) rotateX(6deg) translateY(0px);}50%{transform:perspective(900px) rotateY(-18deg) rotateX(6deg) translateY(-18px);}}
+  @keyframes glowPulse{0%,100%{box-shadow:0 30px 80px rgba(29,191,115,0.25),0 0 0 1px rgba(29,191,115,0.1);}50%{box-shadow:0 40px 100px rgba(29,191,115,0.4),0 0 0 1px rgba(29,191,115,0.2);}}
 `;
 
 // ── Products ──────────────────────────────────────────────────
@@ -295,47 +297,83 @@ function HeroSection({ onShop }) {
         pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", animation: "fadeUp 0.8s ease both" }}>
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: 8,
-          background: "rgba(29,191,115,0.12)", border: `1px solid rgba(29,191,115,0.3)`,
-          borderRadius: 100, padding: "6px 16px", marginBottom: 28,
-        }}>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.primary, display: "block" }} />
-          <span style={{ fontSize: 12, color: C.accent, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase" }}>Premium Medical Essentials</span>
+      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40 }}>
+        {/* Left: text */}
+        <div style={{ flex: "0 0 auto", maxWidth: 560, animation: "fadeUp 0.8s ease both" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "rgba(29,191,115,0.12)", border: `1px solid rgba(29,191,115,0.3)`,
+            borderRadius: 100, padding: "6px 16px", marginBottom: 28,
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.primary, display: "block" }} />
+            <span style={{ fontSize: 12, color: C.accent, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase" }}>Premium Medical Essentials</span>
+          </div>
+
+          <h1 style={{
+            fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900,
+            fontSize: "clamp(56px, 9vw, 120px)", lineHeight: 0.9,
+            textTransform: "uppercase", letterSpacing: "-2px", marginBottom: 24,
+          }}>
+            <span style={{ display: "block", color: C.white }}>SECURE</span>
+            <span style={{ display: "block", color: C.primary }}>YOUR</span>
+            <span style={{ display: "block", color: C.white }}>ESSENTIALS</span>
+          </h1>
+
+          <p style={{
+            fontSize: 18, color: "rgba(255,255,255,0.55)", fontWeight: 300,
+            maxWidth: 480, lineHeight: 1.7, marginBottom: 44,
+          }}>
+            Smart medical kits and organised storage solutions built for healthcare students and professionals who value precision, quality, and confidence.
+          </p>
+
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            <button onClick={onShop} style={{
+              background: C.primary, color: C.dark, border: "none",
+              padding: "16px 40px", borderRadius: 12, cursor: "pointer",
+              fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800,
+              fontSize: 16, letterSpacing: 2, textTransform: "uppercase",
+              transition: "all 0.2s", boxShadow: `0 0 40px rgba(29,191,115,0.3)`,
+            }}
+              onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "none"}
+            >Shop Now →</button>
+            <div style={{ display: "flex", gap: 32, alignItems: "center", paddingLeft: 8 }}>
+              <Stat num="4000+" label="Students" />
+              <Stat num="3+" label="Kit Types" />
+            </div>
+          </div>
         </div>
 
-        <h1 style={{
-          fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900,
-          fontSize: "clamp(56px, 9vw, 120px)", lineHeight: 0.9,
-          textTransform: "uppercase", letterSpacing: "-2px", marginBottom: 24,
+        {/* Right: 3D floating pouch */}
+        <div style={{
+          flex: "0 0 auto",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          animation: "fadeUp 1s ease 0.2s both",
         }}>
-          <span style={{ display: "block", color: C.white }}>SECURE</span>
-          <span style={{ display: "block", color: C.primary }}>YOUR</span>
-          <span style={{ display: "block", color: C.white }}>ESSENTIALS</span>
-        </h1>
-
-        <p style={{
-          fontSize: 18, color: "rgba(255,255,255,0.55)", fontWeight: 300,
-          maxWidth: 480, lineHeight: 1.7, marginBottom: 44,
-        }}>
-          Smart medical kits and organised storage solutions built for healthcare students and professionals who value precision, quality, and confidence.
-        </p>
-
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <button onClick={onShop} style={{
-            background: C.primary, color: C.dark, border: "none",
-            padding: "16px 40px", borderRadius: 12, cursor: "pointer",
-            fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800,
-            fontSize: 16, letterSpacing: 2, textTransform: "uppercase",
-            transition: "all 0.2s", boxShadow: `0 0 40px rgba(29,191,115,0.3)`,
-          }}
-            onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "none"}
-          >Shop Now →</button>
-          <div style={{ display: "flex", gap: 32, alignItems: "center", paddingLeft: 8 }}>
-            <Stat num="4000+" label="Students" />
-            <Stat num="3+" label="Kit Types" />
+          <div style={{
+            position: "relative",
+            animation: "float3d 5s ease-in-out infinite",
+            filter: "drop-shadow(0 40px 60px rgba(29,191,115,0.3))",
+          }}>
+            {/* Glow ring behind image */}
+            <div style={{
+              position: "absolute", inset: -20,
+              borderRadius: 32,
+              background: "radial-gradient(ellipse at center, rgba(29,191,115,0.18) 0%, transparent 70%)",
+              animation: "glowPulse 5s ease-in-out infinite",
+              zIndex: 0,
+            }} />
+            <img
+              src="/pouch.jpg"
+              alt="MedVault Pouch"
+              style={{
+                position: "relative", zIndex: 1,
+                width: "clamp(280px, 35vw, 480px)",
+                borderRadius: 24,
+                transform: "perspective(900px) rotateY(-18deg) rotateX(6deg)",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            />
           </div>
         </div>
       </div>
