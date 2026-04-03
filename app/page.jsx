@@ -109,7 +109,7 @@ const AI2 = (prompt, seed) => `https://image.pollinations.ai/prompt/${encodeURIC
 
 const IMG = {
   kit1: [
-    AI("flat lay top view: goniometer set, taylor reflex hammer, 128hz tuning fork, LED pen torch, stethoscope, yoga mat, resistance band, vaseline jar, measuring tape, physio textbook all arranged together on dark navy background, physiotherapy complete student kit"),
+    "/kit.jpg",
     AI2("physiotherapy complete BPT kit contents: goniometer, stethoscope, knee hammer, tuning fork, pen torch, yoga mat, resistance band laid out professionally", 10),
     AI2("medvault navy blue physio pouch open revealing all instruments: goniometer stethoscope reflex hammer penlight tuning fork inside compartments", 20),
     AI2("BPT first year student physiotherapy kit all 10 instruments neatly arranged flat lay white background professional product photography", 30),
