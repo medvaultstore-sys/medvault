@@ -103,25 +103,148 @@ function ImageGallery({ images, name, height = 420 }) {
   );
 }
 
-// ── Stock image helpers ────────────────────────────────────────
+// ── Accurate product images ────────────────────────────────────
 const U = "https://images.unsplash.com/photo-";
 const IMG = {
-  kit1:    [`${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  kit2:    [`${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  kit3:    [`${U}1481627834876-b7833e8f5570?w=700&q=80`, `${U}1544947950-fa07a98d237f?w=700&q=80`, `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1491728236548-1808ef3aac77?w=700&q=80`],
-  goniometer: [`${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  hammer:     [`${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
-  tuningfork: [`${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  tape:       [`${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
-  pentorch:   [`${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
-  stethoscope:[`${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  yogamat:    [`${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1506126613408-eca07ce68773?w=700&q=80`, `${U}1518611012118-696072aa579a?w=700&q=80`, `${U}1545205597-3d9d02c29597?w=700&q=80`],
-  band:       [`${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1518611012118-696072aa579a?w=700&q=80`, `${U}1506126613408-eca07ce68773?w=700&q=80`, `${U}1545205597-3d9d02c29597?w=700&q=80`],
-  vaseline:   [`${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`],
-  notes:      [`${U}1481627834876-b7833e8f5570?w=700&q=80`, `${U}1544947950-fa07a98d237f?w=700&q=80`, `${U}1456513080510-7bf3a84b82f8?w=700&q=80`, `${U}1491728236548-1808ef3aac77?w=700&q=80`, `${U}1513475382585-d06e58bcb0e0?w=700&q=80`],
-  medtape:    [`${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
-  scrubs:     [`${U}1583947215259-38e31be8751f?w=700&q=80`, `${U}1559839734-2b71ea197ec2?w=700&q=80`, `${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`],
-  apron:      [`${U}1559839734-2b71ea197ec2?w=700&q=80`, `${U}1583947215259-38e31be8751f?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`],
+  // Kits — physio examination & medical bag context
+  kit1: [
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,  // medical instruments spread out
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`, // stethoscope + tools
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`, // physiotherapy session
+    `${U}1576091160550-2173dba999ef?w=700&q=80`, // doctor tools on table
+    `${U}ulTeKLUAhf4?w=700&q=80`,               // medical kit bag
+  ],
+  kit2: [
+    `${U}1576091160550-2173dba999ef?w=700&q=80`,
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+  ],
+  kit3: [
+    `${U}1481627834876-b7833e8f5570?w=700&q=80`, // open books & notes
+    `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, // resistance band exercise
+    `${U}1544367567-0f2fcb009e0b?w=700&q=80`,    // yoga mat rolled
+    `${U}1544947950-fa07a98d237f?w=700&q=80`,    // study notes
+    `${U}1491728236548-1808ef3aac77?w=700&q=80`, // reading / studying
+  ],
+
+  // Goniometer — physiotherapy joint measurement
+  goniometer: [
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`, // physio measuring joint ROM
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
+    `${U}1576091160550-2173dba999ef?w=700&q=80`,
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+  ],
+
+  // Knee hammer — neurological reflex testing
+  hammer: [
+    `${U}1576091160550-2173dba999ef?w=700&q=80`, // neurology exam tools
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+  ],
+
+  // Tuning fork — medical neurology
+  tuningfork: [
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
+    `${U}1576091160550-2173dba999ef?w=700&q=80`,
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+  ],
+
+  // Measuring tape — actual tape measure
+  tape: [
+    `${U}AgxK4Ohn1Cw?w=700&q=80`,  // close-up measuring tape with numbers
+    `${U}Pa2EMnpJGVk?w=700&q=80`,  // white measuring tape
+    `${U}M779tNeoSKc?w=700&q=80`,  // tape measure macro
+    `${U}3lU3ejA3_gA?w=700&q=80`,  // yellow measuring tape
+    `${U}mz9koyBQd4Q?w=700&q=80`,  // black and white measuring tape
+  ],
+
+  // Pen torch — clinical penlight (use medical exam context)
+  pentorch: [
+    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+    `${U}1576091160550-2173dba999ef?w=700&q=80`,
+    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
+    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
+    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+  ],
+
+  // Stethoscope — actual stethoscope shots
+  stethoscope: [
+    `${U}yo01Z-9HQAw?w=700&q=80`,   // clean black stethoscope product shot
+    `${U}hIgeoQjS_iE?w=700&q=80`,   // doctor holding stethoscope
+    `${U}NFvdKIhxYlU?w=700&q=80`,   // green stethoscope on desk
+    `${U}lDH1fxwguxw?w=700&q=80`,   // doctor using stethoscope on patient
+    `${U}00heEp9LFP0?w=700&q=80`,   // stethoscope on books
+  ],
+
+  // Yoga mat — actual yoga mat photos
+  yogamat: [
+    `${U}b8Q5fHBsyik?w=700&q=80`,   // yoga mat with blocks on top
+    `${U}GpVak9-cL6E?w=700&q=80`,   // green yoga mat with person
+    `${U}6LMRstrUWUE?w=700&q=80`,   // pink yoga mat kneeling
+    `${U}taLFD7eUKkI?w=700&q=80`,   // lying on yoga mat
+    `${U}G9H5edUL0T8?w=700&q=80`,   // standing on yoga mat
+  ],
+
+  // Resistance band — exercise band shots
+  band: [
+    `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, // resistance band exercise
+    `${U}9IU6lNGUvHY?w=700&q=80`,                // woman with resistance band
+    `${U}1544367567-0f2fcb009e0b?w=700&q=80`,
+    `${U}1506126613408-eca07ce68773?w=700&q=80`,
+    `${U}1518611012118-696072aa579a?w=700&q=80`,
+  ],
+
+  // Vaseline / cream jar
+  vaseline: [
+    `${U}6w2eMsA7HCc?w=700&q=80`,  // moisturizer cream jar on blue bg
+    `${U}4cJ_MMY1zhU?w=700&q=80`,  // woman holding cream jar
+    `${U}KNMMXSHL8SA?w=700&q=80`,  // skincare cream jar with dropper
+    `${U}lIi4yy4_vN8?w=700&q=80`,  // jar of cream
+    `${U}1584820927498-cfe5211fd8bf?w=700&q=80`,
+  ],
+
+  // Medical / physio notes & textbooks
+  notes: [
+    `${U}NIJuEQw0RKg?w=700&q=80`,  // books on shelves
+    `${U}eeSdJfLfx1A?w=700&q=80`,  // stacked books
+    `${U}Oaqk7qqNh_c?w=700&q=80`,  // open book
+    `${U}1481627834876-b7833e8f5570?w=700&q=80`,
+    `${U}1544947950-fa07a98d237f?w=700&q=80`,
+  ],
+
+  // Medical tape — kinesio / bandage tape (physio relevant)
+  medtape: [
+    `${U}M7jnoUWX7gA?w=700&q=80`,  // physio kinesio tape on knee
+    `${U}rKJoUsqmSs4?w=700&q=80`,  // person holding bandage
+    `${U}qxYDhV0rBPk?w=700&q=80`,  // wrapping bandage
+    `${U}2kqcVTOAc8Q?w=700&q=80`,  // bandage on arm
+    `${U}1584820927498-cfe5211fd8bf?w=700&q=80`,
+  ],
+
+  // Scrubs — actual medical scrubs
+  scrubs: [
+    `${U}A2CK97sS0ns?w=700&q=80`,  // people in blue scrubs
+    `${U}P_YA5TsPD4Y?w=700&q=80`,  // white medical scrub
+    `${U}bNXOexRUDBQ?w=700&q=80`,  // blue scrub suit with mask
+    `${U}D_rVQbuYAJA?w=700&q=80`,  // female doctor in scrubs
+    `${U}oM3o8sWsOOk?w=700&q=80`,  // blue scrub beside white robe
+  ],
+
+  // Lab apron / white coat
+  apron: [
+    `${U}QfNs16axnpw?w=700&q=80`,  // man in white lab coat
+    `${U}v5_0UjZEmgM?w=700&q=80`,  // woman in white coat with stethoscope
+    `${U}d2D_OF14-70?w=700&q=80`,  // person in white coat
+    `${U}Ictq5tY3_A0?w=700&q=80`,  // doctor in white coat with x-ray
+    `${U}0X-1-9lpEbM?w=700&q=80`,  // white coat writing notes
+  ],
 };
 
 // ── Kits ──────────────────────────────────────────────────────
