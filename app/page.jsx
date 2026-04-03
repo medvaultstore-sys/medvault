@@ -103,147 +103,122 @@ function ImageGallery({ images, name, height = 420 }) {
   );
 }
 
-// ── Accurate product images ────────────────────────────────────
-const U = "https://images.unsplash.com/photo-";
+// ── AI-generated product images via Pollinations.ai ───────────
+const AI = (prompt) => `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", product photography, clean white background, professional, high quality, 4k")}?width=700&height=500&nologo=true&seed=42`;
+const AI2 = (prompt, seed) => `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", product photography, clean white background, professional, high quality, 4k")}?width=700&height=500&nologo=true&seed=${seed}`;
+
 const IMG = {
-  // Kits — physio examination & medical bag context
   kit1: [
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,  // medical instruments spread out
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`, // stethoscope + tools
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`, // physiotherapy session
-    `${U}1576091160550-2173dba999ef?w=700&q=80`, // doctor tools on table
-    `${U}ulTeKLUAhf4?w=700&q=80`,               // medical kit bag
+    AI("physiotherapy complete kit with goniometer stethoscope knee hammer tuning fork pen torch yoga mat resistance band arranged neatly on dark surface"),
+    AI2("medvault physiotherapy medical kit bag open showing instruments inside", 10),
+    AI2("BPT student physiotherapy instruments laid out on table top view", 20),
+    AI2("physiotherapy tools goniometer stethoscope reflex hammer medical kit", 30),
+    AI2("medical physiotherapy kit bundle packaged with all instruments", 40),
   ],
   kit2: [
-    `${U}1576091160550-2173dba999ef?w=700&q=80`,
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
-    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+    AI("practical exam kit five physiotherapy instruments goniometer knee hammer tuning fork inch tape pen torch on white surface"),
+    AI2("clinical exam tools for physiotherapy student compact kit", 11),
+    AI2("physiotherapy practical examination instruments neatly arranged", 21),
+    AI2("BPT exam essential tools goniometer reflex hammer tuning fork", 31),
+    AI2("physiotherapy student exam kit portable compact medical tools", 41),
   ],
   kit3: [
-    `${U}1481627834876-b7833e8f5570?w=700&q=80`, // open books & notes
-    `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, // resistance band exercise
-    `${U}1544367567-0f2fcb009e0b?w=700&q=80`,    // yoga mat rolled
-    `${U}1544947950-fa07a98d237f?w=700&q=80`,    // study notes
-    `${U}1491728236548-1808ef3aac77?w=700&q=80`, // reading / studying
+    AI("smart study kit resistance band vaseline medical tape physiotherapy notes books on desk"),
+    AI2("physiotherapy study materials notes textbooks resistance band consumables", 12),
+    AI2("semester refill kit medical tape resistance band vaseline jar", 22),
+    AI2("physio student study kit consumables and textbook notes", 32),
+    AI2("physiotherapy refill consumables kit semester essentials", 42),
   ],
-
-  // Goniometer — physiotherapy joint measurement
   goniometer: [
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`, // physio measuring joint ROM
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
-    `${U}1576091160550-2173dba999ef?w=700&q=80`,
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
-    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+    AI("medical goniometer set 3 pieces joint angle measurement tool silver metal physiotherapy instrument"),
+    AI2("goniometer protractor medical device measuring joint range of motion", 13),
+    AI2("physiotherapy goniometer 360 degree angle measurement instrument close up", 23),
+    AI2("three piece goniometer set large medium small finger physiotherapy", 33),
+    AI2("doctor using goniometer to measure knee joint angle patient", 43),
   ],
-
-  // Knee hammer — neurological reflex testing
   hammer: [
-    `${U}1576091160550-2173dba999ef?w=700&q=80`, // neurology exam tools
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
-    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+    AI("Taylor percussion reflex hammer medical triangular rubber head chrome handle neurological examination tool"),
+    AI2("knee reflex hammer medical instrument triangular rubber head close up", 14),
+    AI2("neurological reflex hammer Taylor percussion hammer chrome silver", 24),
+    AI2("doctor using reflex hammer on patient knee patellar reflex test", 34),
+    AI2("medical reflex hammer stainless steel handle rubber head product shot", 44),
   ],
-
-  // Tuning fork — medical neurology
   tuningfork: [
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
-    `${U}1576091160550-2173dba999ef?w=700&q=80`,
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
-    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
+    AI("medical tuning fork 128 Hz aluminium alloy silver vibration testing neurological examination instrument"),
+    AI2("128Hz medical tuning fork aluminium close up vibration sense test", 15),
+    AI2("doctor holding tuning fork neurological exam Rinne Weber test", 25),
+    AI2("silver aluminium medical tuning fork on white background product", 35),
+    AI2("tuning fork vibration sense testing physiotherapy neurological", 45),
   ],
-
-  // Measuring tape — actual tape measure
   tape: [
-    `${U}AgxK4Ohn1Cw?w=700&q=80`,  // close-up measuring tape with numbers
-    `${U}Pa2EMnpJGVk?w=700&q=80`,  // white measuring tape
-    `${U}M779tNeoSKc?w=700&q=80`,  // tape measure macro
-    `${U}3lU3ejA3_gA?w=700&q=80`,  // yellow measuring tape
-    `${U}mz9koyBQd4Q?w=700&q=80`,  // black and white measuring tape
+    AI("flexible measuring tape 150cm medical inch tape body measurement physiotherapy white background"),
+    AI2("measuring tape rolled up centimeter markings medical measurement", 16),
+    AI2("physiotherapy body measurement tape 60 inch flexible close up", 26),
+    AI2("medical measuring tape limb circumference measurement tool", 36),
+    AI2("inch tape measurement tool physiotherapy assessment close up", 46),
   ],
-
-  // Pen torch — clinical penlight (use medical exam context)
   pentorch: [
-    `${U}1504439904031-93ced9f77fcf?w=700&q=80`,
-    `${U}1576091160550-2173dba999ef?w=700&q=80`,
-    `${U}1559757148-5c350d0d3c56?w=700&q=80`,
-    `${U}1530026405845-96b785d5e0db?w=700&q=80`,
-    `${U}1584308666744-24d5c474f2ae?w=700&q=80`,
+    AI("medical pen torch LED penlight chrome silver pupil gauge printed on barrel clinical examination tool"),
+    AI2("doctor penlight torch silver medical grade LED close up", 17),
+    AI2("clinical pen torch with pupil gauge scale chrome finish", 27),
+    AI2("medical penlight flashlight doctor examination tool pocket clip", 37),
+    AI2("LED pen torch neurological pupil examination medical instrument", 47),
   ],
-
-  // Stethoscope — actual stethoscope shots
   stethoscope: [
-    `${U}yo01Z-9HQAw?w=700&q=80`,   // clean black stethoscope product shot
-    `${U}hIgeoQjS_iE?w=700&q=80`,   // doctor holding stethoscope
-    `${U}NFvdKIhxYlU?w=700&q=80`,   // green stethoscope on desk
-    `${U}lDH1fxwguxw?w=700&q=80`,   // doctor using stethoscope on patient
-    `${U}00heEp9LFP0?w=700&q=80`,   // stethoscope on books
+    AI("dual head stethoscope navy blue diaphragm bell acoustic medical grade clean white background product shot"),
+    AI2("stethoscope chest piece diaphragm bell close up medical grade", 18),
+    AI2("doctor wearing stethoscope around neck medical professional", 28),
+    AI2("black stethoscope on white surface clean product photography", 38),
+    AI2("acoustic stethoscope soft seal ear tips latex free tubing", 48),
   ],
-
-  // Yoga mat — actual yoga mat photos
   yogamat: [
-    `${U}b8Q5fHBsyik?w=700&q=80`,   // yoga mat with blocks on top
-    `${U}GpVak9-cL6E?w=700&q=80`,   // green yoga mat with person
-    `${U}6LMRstrUWUE?w=700&q=80`,   // pink yoga mat kneeling
-    `${U}taLFD7eUKkI?w=700&q=80`,   // lying on yoga mat
-    `${U}G9H5edUL0T8?w=700&q=80`,   // standing on yoga mat
+    AI("non slip yoga mat 6mm thick rolled up teal green physiotherapy exercise rehabilitation"),
+    AI2("yoga exercise mat unrolled on floor clean minimal", 19),
+    AI2("physiotherapy rehabilitation mat with person stretching on it", 29),
+    AI2("rolled yoga mat with carry strap green purple exercise", 39),
+    AI2("yoga mat close up texture non slip surface exercise", 49),
   ],
-
-  // Resistance band — exercise band shots
   band: [
-    `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, // resistance band exercise
-    `${U}9IU6lNGUvHY?w=700&q=80`,                // woman with resistance band
-    `${U}1544367567-0f2fcb009e0b?w=700&q=80`,
-    `${U}1506126613408-eca07ce68773?w=700&q=80`,
-    `${U}1518611012118-696072aa579a?w=700&q=80`,
+    AI("resistance exercise band medium strength latex free green physiotherapy strength training rehabilitation"),
+    AI2("resistance band loop exercise physiotherapy strength training", 50),
+    AI2("person using resistance band for knee rehabilitation physiotherapy", 51),
+    AI2("set of resistance bands different strengths physiotherapy rehab", 52),
+    AI2("latex resistance band close up texture physiotherapy exercise", 53),
   ],
-
-  // Vaseline / cream jar
   vaseline: [
-    `${U}6w2eMsA7HCc?w=700&q=80`,  // moisturizer cream jar on blue bg
-    `${U}4cJ_MMY1zhU?w=700&q=80`,  // woman holding cream jar
-    `${U}KNMMXSHL8SA?w=700&q=80`,  // skincare cream jar with dropper
-    `${U}lIi4yy4_vN8?w=700&q=80`,  // jar of cream
-    `${U}1584820927498-cfe5211fd8bf?w=700&q=80`,
+    AI("Vaseline petroleum jelly 100g white jar medical grade ultrasound coupling medium skin care white background"),
+    AI2("petroleum jelly jar open white cream medical grade close up", 54),
+    AI2("vaseline jar medical ultrasound gel substitute physiotherapy", 55),
+    AI2("white cream jar petroleum jelly 100g product photography", 56),
+    AI2("medical grade vaseline petroleum jelly skin care jar clean", 57),
   ],
-
-  // Medical / physio notes & textbooks
   notes: [
-    `${U}NIJuEQw0RKg?w=700&q=80`,  // books on shelves
-    `${U}eeSdJfLfx1A?w=700&q=80`,  // stacked books
-    `${U}Oaqk7qqNh_c?w=700&q=80`,  // open book
-    `${U}1481627834876-b7833e8f5570?w=700&q=80`,
-    `${U}1544947950-fa07a98d237f?w=700&q=80`,
+    AI("physiotherapy BPT first year textbook notes anatomy physiology clinical notes stack on desk"),
+    AI2("medical physio textbook open showing anatomy diagrams notes", 58),
+    AI2("BPT first year study material physio notes handwritten", 59),
+    AI2("physiotherapy clinical notes book stack medical education", 60),
+    AI2("anatomy physiology medical notes physiotherapy student study", 61),
   ],
-
-  // Medical tape — kinesio / bandage tape (physio relevant)
   medtape: [
-    `${U}M7jnoUWX7gA?w=700&q=80`,  // physio kinesio tape on knee
-    `${U}rKJoUsqmSs4?w=700&q=80`,  // person holding bandage
-    `${U}qxYDhV0rBPk?w=700&q=80`,  // wrapping bandage
-    `${U}2kqcVTOAc8Q?w=700&q=80`,  // bandage on arm
-    `${U}1584820927498-cfe5211fd8bf?w=700&q=80`,
+    AI("medical micropore tape roll white hypoallergenic bandage tape physiotherapy strapping wound dressing"),
+    AI2("kinesio tape rolls colorful physiotherapy strapping knee", 62),
+    AI2("medical tape applied on knee physiotherapy strapping", 63),
+    AI2("micropore white medical tape roll close up product shot", 64),
+    AI2("physiotherapy taping technique kinesiology tape application", 65),
   ],
-
-  // Scrubs — actual medical scrubs
   scrubs: [
-    `${U}A2CK97sS0ns?w=700&q=80`,  // people in blue scrubs
-    `${U}P_YA5TsPD4Y?w=700&q=80`,  // white medical scrub
-    `${U}bNXOexRUDBQ?w=700&q=80`,  // blue scrub suit with mask
-    `${U}D_rVQbuYAJA?w=700&q=80`,  // female doctor in scrubs
-    `${U}oM3o8sWsOOk?w=700&q=80`,  // blue scrub beside white robe
+    AI("medical scrubs set navy blue top and bottom MedVault branded professional hospital uniform physiotherapy"),
+    AI2("physiotherapy student wearing navy blue scrubs professional", 66),
+    AI2("medical scrub uniform top and bottom set ceil blue", 67),
+    AI2("nurse doctor wearing blue scrubs hospital clinical uniform", 68),
+    AI2("medical scrubs folded neat product photography navy blue", 69),
   ],
-
-  // Lab apron / white coat
   apron: [
-    `${U}QfNs16axnpw?w=700&q=80`,  // man in white lab coat
-    `${U}v5_0UjZEmgM?w=700&q=80`,  // woman in white coat with stethoscope
-    `${U}d2D_OF14-70?w=700&q=80`,  // person in white coat
-    `${U}Ictq5tY3_A0?w=700&q=80`,  // doctor in white coat with x-ray
-    `${U}0X-1-9lpEbM?w=700&q=80`,  // white coat writing notes
+    AI("white full length lab apron two front pockets adjustable neck strap polyester cotton medical laboratory"),
+    AI2("white lab coat apron medical student wearing laboratory", 70),
+    AI2("full length white lab apron clinical protective garment", 71),
+    AI2("lab apron white with pockets medical student physio practical", 72),
+    AI2("white protective lab apron folded product photography clean", 73),
   ],
 };
 
