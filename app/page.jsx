@@ -109,25 +109,25 @@ const AI2 = (prompt, seed) => `https://image.pollinations.ai/prompt/${encodeURIC
 
 const IMG = {
   kit1: [
-    AI("physiotherapy complete kit with goniometer stethoscope knee hammer tuning fork pen torch yoga mat resistance band arranged neatly on dark surface"),
-    AI2("medvault physiotherapy medical kit bag open showing instruments inside", 10),
-    AI2("BPT student physiotherapy instruments laid out on table top view", 20),
-    AI2("physiotherapy tools goniometer stethoscope reflex hammer medical kit", 30),
-    AI2("medical physiotherapy kit bundle packaged with all instruments", 40),
+    AI("flat lay top view: goniometer set, taylor reflex hammer, 128hz tuning fork, LED pen torch, stethoscope, yoga mat, resistance band, vaseline jar, measuring tape, physio textbook all arranged together on dark navy background, physiotherapy complete student kit"),
+    AI2("physiotherapy complete BPT kit contents: goniometer, stethoscope, knee hammer, tuning fork, pen torch, yoga mat, resistance band laid out professionally", 10),
+    AI2("medvault navy blue physio pouch open revealing all instruments: goniometer stethoscope reflex hammer penlight tuning fork inside compartments", 20),
+    AI2("BPT first year student physiotherapy kit all 10 instruments neatly arranged flat lay white background professional product photography", 30),
+    AI2("physiotherapy curated starter bundle complete kit goniometer stethoscope reflex hammer tuning fork yoga mat resistance band vaseline notes packaged", 40),
   ],
   kit2: [
-    AI("practical exam kit five physiotherapy instruments goniometer knee hammer tuning fork inch tape pen torch on white surface"),
-    AI2("clinical exam tools for physiotherapy student compact kit", 11),
-    AI2("physiotherapy practical examination instruments neatly arranged", 21),
-    AI2("BPT exam essential tools goniometer reflex hammer tuning fork", 31),
-    AI2("physiotherapy student exam kit portable compact medical tools", 41),
+    AI("flat lay: goniometer, taylor reflex hammer, 128hz tuning fork, flexible measuring tape, LED medical pen torch arranged neatly on white background, physiotherapy practical exam kit 5 instruments"),
+    AI2("five core physiotherapy exam instruments goniometer knee hammer tuning fork inch tape pen torch minimal clean product photography", 11),
+    AI2("physiotherapy practical examination essential tools kit compact 5 piece goniometer reflex hammer tuning fork penlight tape", 21),
+    AI2("BPT practical exam kit 5 instruments laid out top view white background professional", 31),
+    AI2("clinical physio exam tools compact lightweight kit five instruments packed neatly", 41),
   ],
   kit3: [
-    AI("smart study kit resistance band vaseline medical tape physiotherapy notes books on desk"),
-    AI2("physiotherapy study materials notes textbooks resistance band consumables", 12),
-    AI2("semester refill kit medical tape resistance band vaseline jar", 22),
-    AI2("physio student study kit consumables and textbook notes", 32),
-    AI2("physiotherapy refill consumables kit semester essentials", 42),
+    AI("flat lay: green resistance band, vaseline petroleum jelly jar, white medical micropore tape roll, physio textbook notes arranged on desk, smart study refill kit"),
+    AI2("physiotherapy semester refill kit: resistance exercise band, vaseline jar, medical tape, BPT study notes on clean background", 12),
+    AI2("smart study kit consumables: resistance band green, white medical tape roll, petroleum jelly jar, anatomy notes stacked", 22),
+    AI2("physio student semester essential consumables kit resistance band vaseline medical tape textbook notes", 32),
+    AI2("physiotherapy refill study bundle: green resistance band, vaseline cream jar, medical tape, notes book flat lay", 42),
   ],
   goniometer: [
     AI("medical goniometer set 3 pieces joint angle measurement tool silver metal physiotherapy instrument"),
@@ -339,7 +339,7 @@ function Navbar({ cartCount, onCart, onHome }) {
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
         <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer" }}>
-          <img src="/logo.png" alt="MedVault" style={{ height: 44, width: "auto", display: "block" }} />
+          <img src="/logo.png" alt="MedVault" style={{ height: 44, width: "auto", display: "block", mixBlendMode: "screen" }} />
         </button>
 
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
