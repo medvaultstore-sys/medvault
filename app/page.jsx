@@ -65,17 +65,73 @@ const fmt = (n) => `₹${n.toLocaleString("en-IN")}`;
 const disc = (p, o) => Math.round(((o - p) / o) * 100);
 const isUrl = (s) => typeof s === "string" && (s.startsWith("/") || s.startsWith("http"));
 
+// ── Image Gallery ─────────────────────────────────────────────
+function ImageGallery({ images, name, height = 420 }) {
+  const [active, setActive] = useState(0);
+  if (!images || images.length === 0) return null;
+  return (
+    <div>
+      <div style={{ height, borderRadius: 20, overflow: "hidden", border: `1px solid ${C.border}`, background: C.card, position: "relative" }}>
+        <img
+          src={images[active]}
+          alt={name}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "opacity 0.3s" }}
+          onError={e => { e.target.style.display = "none"; }}
+        />
+        {images.length > 1 && (
+          <>
+            <button onClick={() => setActive(i => (i - 1 + images.length) % images.length)} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", background: "rgba(0,0,0,0.5)", border: "none", color: C.white, width: 36, height: 36, borderRadius: "50%", cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+            <button onClick={() => setActive(i => (i + 1) % images.length)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "rgba(0,0,0,0.5)", border: "none", color: C.white, width: 36, height: 36, borderRadius: "50%", cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+            <div style={{ position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6 }}>
+              {images.map((_, i) => (
+                <span key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 6, height: 6, borderRadius: 3, background: i === active ? C.primary : "rgba(255,255,255,0.35)", cursor: "pointer", transition: "all 0.2s" }} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      {images.length > 1 && (
+        <div style={{ display: "flex", gap: 8, marginTop: 10, overflowX: "auto", paddingBottom: 4 }}>
+          {images.map((img, i) => (
+            <div key={i} onClick={() => setActive(i)} style={{ width: 60, height: 60, flexShrink: 0, borderRadius: 10, overflow: "hidden", cursor: "pointer", border: `2px solid ${i === active ? C.primary : "transparent"}`, transition: "border 0.2s" }}>
+              <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Stock image helpers ────────────────────────────────────────
+const U = "https://images.unsplash.com/photo-";
+const IMG = {
+  kit1:    [`${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  kit2:    [`${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  kit3:    [`${U}1481627834876-b7833e8f5570?w=700&q=80`, `${U}1544947950-fa07a98d237f?w=700&q=80`, `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1491728236548-1808ef3aac77?w=700&q=80`],
+  goniometer: [`${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  hammer:     [`${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
+  tuningfork: [`${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  tape:       [`${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
+  pentorch:   [`${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584308666744-24d5c474f2ae?w=700&q=80`],
+  stethoscope:[`${U}1584308666744-24d5c474f2ae?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  yogamat:    [`${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1506126613408-eca07ce68773?w=700&q=80`, `${U}1518611012118-696072aa579a?w=700&q=80`, `${U}1545205597-3d9d02c29597?w=700&q=80`],
+  band:       [`${U}1571019614242-c5c5dee9f50b?w=700&q=80`, `${U}1544367567-0f2fcb009e0b?w=700&q=80`, `${U}1518611012118-696072aa579a?w=700&q=80`, `${U}1506126613408-eca07ce68773?w=700&q=80`, `${U}1545205597-3d9d02c29597?w=700&q=80`],
+  vaseline:   [`${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`],
+  notes:      [`${U}1481627834876-b7833e8f5570?w=700&q=80`, `${U}1544947950-fa07a98d237f?w=700&q=80`, `${U}1456513080510-7bf3a84b82f8?w=700&q=80`, `${U}1491728236548-1808ef3aac77?w=700&q=80`, `${U}1513475382585-d06e58bcb0e0?w=700&q=80`],
+  medtape:    [`${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`, `${U}1504439904031-93ced9f77fcf?w=700&q=80`],
+  scrubs:     [`${U}1583947215259-38e31be8751f?w=700&q=80`, `${U}1559839734-2b71ea197ec2?w=700&q=80`, `${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1559757148-5c350d0d3c56?w=700&q=80`],
+  apron:      [`${U}1559839734-2b71ea197ec2?w=700&q=80`, `${U}1583947215259-38e31be8751f?w=700&q=80`, `${U}1576091160550-2173dba999ef?w=700&q=80`, `${U}1584820927498-cfe5211fd8bf?w=700&q=80`, `${U}1530026405845-96b785d5e0db?w=700&q=80`],
+};
+
 // ── Kits ──────────────────────────────────────────────────────
 const KITS = [
   {
-    id: "kit-1",
-    type: "kit",
+    id: "kit-1", type: "kit",
     name: "Physio Curated Kit",
     tagline: "The complete BPT starter bundle",
-    price: 1999,
-    originalPrice: 2599,
-    badge: "BESTSELLER",
-    badgeColor: C.primary,
+    price: 1999, originalPrice: 2599,
+    badge: "BESTSELLER", badgeColor: C.primary,
     desc: "Every instrument a first-year BPT student needs — sourced, quality-checked, and packed by MedVault. Walk into your practical lab fully equipped.",
     items: [
       { name: "Goniometer Set (3-in-1)", qty: 1, retail: 450 },
@@ -89,19 +145,15 @@ const KITS = [
       { name: "Vaseline", qty: 1, retail: 80 },
       { name: "Physio Notes (basic)", qty: 1, retail: 300 },
     ],
-    stock: 48,
-    img: "🏥",
+    stock: 48, images: IMG.kit1,
     features: ["Hospital-grade instruments","Curated for BPT curriculum","Delivered to SRM campus","Quality-checked by MedVault"],
   },
   {
-    id: "kit-2",
-    type: "kit",
+    id: "kit-2", type: "kit",
     name: "Practical Exam Kit",
     tagline: "Core tools for clinical practicals",
-    price: 699,
-    originalPrice: 870,
-    badge: "EXAM READY",
-    badgeColor: C.gold,
+    price: 699, originalPrice: 870,
+    badge: "EXAM READY", badgeColor: C.gold,
     desc: "The five instruments you need most for practical exams. Compact, affordable, and ready to carry. Perfect for students who already own some tools.",
     items: [
       { name: "Goniometer", qty: 1, retail: 300 },
@@ -110,19 +162,15 @@ const KITS = [
       { name: "Inch Tape", qty: 1, retail: 80 },
       { name: "Pen Torch", qty: 1, retail: 120 },
     ],
-    stock: 72,
-    img: "🩺",
+    stock: 72, images: IMG.kit2,
     features: ["5 core exam instruments","Lightweight & portable","Exam-compliant tools","Quick delivery"],
   },
   {
-    id: "kit-3",
-    type: "kit",
+    id: "kit-3", type: "kit",
     name: "Smart Study Kit",
     tagline: "Refill consumables + study material",
-    price: 549,
-    originalPrice: 680,
-    badge: "STUDY SMART",
-    badgeColor: C.accent,
+    price: 549, originalPrice: 680,
+    badge: "STUDY SMART", badgeColor: C.accent,
     desc: "Stay stocked throughout the semester. Includes replacement resistance band, Vaseline, medical tape, and curated physio notes — everything that runs out.",
     items: [
       { name: "Resistance Band", qty: 1, retail: 180 },
@@ -130,56 +178,45 @@ const KITS = [
       { name: "Medical Tape", qty: 1, retail: 120 },
       { name: "Physio Notes (basic)", qty: 1, retail: 300 },
     ],
-    stock: 100,
-    img: "📚",
+    stock: 100, images: IMG.kit3,
     features: ["Semester-long consumables","Curated notes included","Affordable refill pack","Pairs with any kit"],
   },
 ];
 
 // ── Individual Items ───────────────────────────────────────────
 const ITEMS = [
-  { id: "i-1",  type: "item", name: "Goniometer Set (3-in-1)", tagline: "Joint angle measurement", price: 450, originalPrice: 600, badge: "MEASUREMENT", img: "📐", desc: "Full 3-piece goniometer set for measuring joint range of motion. Includes large, small, and finger goniometers for comprehensive physio assessment.", stock: 80 },
-  { id: "i-2",  type: "item", name: "Knee Hammer", tagline: "Reflex testing", price: 150, originalPrice: 220, badge: "DIAGNOSTIC", img: "🔨", desc: "Standard Taylor percussion hammer with triangular rubber head. Ideal for testing patellar, achilles, and other deep tendon reflexes.", stock: 95 },
-  { id: "i-3",  type: "item", name: "Tuning Fork (128 Hz)", tagline: "Vibration & hearing tests", price: 220, originalPrice: 300, badge: "DIAGNOSTIC", img: "🎵", desc: "Aluminium alloy 128 Hz tuning fork for vibration sense testing, Rinne and Weber tests. Clearly stamped with frequency.", stock: 60 },
-  { id: "i-4",  type: "item", name: "Inch Tape", tagline: "Body measurement", price: 80, originalPrice: 120, badge: "MEASUREMENT", img: "📏", desc: "Flexible 150 cm measuring tape with dual-side inch and cm markings. Essential for limb girth, length, and posture measurements.", stock: 150 },
-  { id: "i-5",  type: "item", name: "Pen Torch", tagline: "Pupil & oral exam", price: 120, originalPrice: 180, badge: "DIAGNOSTIC", img: "🔦", desc: "Bright LED pen torch with pupil gauge printed on barrel. Pocket clip included. Replaceable batteries, durable chrome finish.", stock: 110 },
-  { id: "i-6",  type: "item", name: "Stethoscope", tagline: "Basic auscultation", price: 299, originalPrice: 420, badge: "MONITORING", img: "/products/stethoscope.jpg", desc: "Dual-head stethoscope with diaphragm and bell. High acoustic sensitivity for heart and lung sounds. Soft-seal ear tips, latex-free tubing.", stock: 55 },
-  { id: "i-7",  type: "item", name: "Yoga Mat", tagline: "Exercise & rehab support", price: 350, originalPrice: 500, badge: "REHAB", img: "🧘", desc: "Non-slip 6mm thick yoga mat for therapeutic exercise, stretching, and rehabilitation sessions. Easy to roll and carry.", stock: 40 },
-  { id: "i-8",  type: "item", name: "Resistance Band", tagline: "Strength training", price: 180, originalPrice: 260, badge: "REHAB", img: "💪", desc: "Medium-resistance latex-free exercise band for upper and lower limb strengthening. Used across most BPT practical sessions.", stock: 120 },
-  { id: "i-9",  type: "item", name: "Vaseline (100g)", tagline: "Skin care & UST medium", price: 80, originalPrice: 120, badge: "CONSUMABLE", img: "🫙", desc: "Medical-grade petroleum jelly used as ultrasound coupling medium and general skin care. 100g jar.", stock: 200 },
-  { id: "i-10", type: "item", name: "Physio Notes", tagline: "Basic syllabus notes", price: 300, originalPrice: 450, badge: "EDUCATION", img: "📖", desc: "Curated first-year BPT notes covering anatomy, physiology, and basic physiotherapy principles. SRM curriculum-aligned.", stock: 30 },
-  { id: "i-11", type: "item", name: "Medical Tape", tagline: "Consumable strapping tape", price: 120, originalPrice: 170, badge: "CONSUMABLE", img: "🩹", desc: "Hypoallergenic micropore medical tape for wound dressing, strapping, and electrode fixation during electrotherapy.", stock: 180 },
+  { id:"i-1",  type:"item", name:"Goniometer Set (3-in-1)", tagline:"Joint angle measurement",    price:450, originalPrice:600, badge:"MEASUREMENT", images:IMG.goniometer, desc:"Full 3-piece goniometer set for measuring joint range of motion. Includes large, small, and finger goniometers.", stock:80 },
+  { id:"i-2",  type:"item", name:"Knee Hammer",             tagline:"Reflex testing",              price:150, originalPrice:220, badge:"DIAGNOSTIC",  images:IMG.hammer,     desc:"Standard Taylor percussion hammer with triangular rubber head for patellar, achilles, and tendon reflexes.", stock:95 },
+  { id:"i-3",  type:"item", name:"Tuning Fork (128 Hz)",    tagline:"Vibration & hearing tests",   price:220, originalPrice:300, badge:"DIAGNOSTIC",  images:IMG.tuningfork, desc:"Aluminium alloy 128 Hz tuning fork for vibration sense testing, Rinne and Weber tests. Frequency-stamped.", stock:60 },
+  { id:"i-4",  type:"item", name:"Inch Tape",               tagline:"Body measurement",            price:80,  originalPrice:120, badge:"MEASUREMENT", images:IMG.tape,       desc:"Flexible 150 cm measuring tape with dual-side inch and cm markings. Essential for limb girth and posture.", stock:150 },
+  { id:"i-5",  type:"item", name:"Pen Torch",               tagline:"Pupil & oral exam",           price:120, originalPrice:180, badge:"DIAGNOSTIC",  images:IMG.pentorch,   desc:"Bright LED pen torch with pupil gauge on barrel. Pocket clip, replaceable batteries, chrome finish.", stock:110 },
+  { id:"i-6",  type:"item", name:"Stethoscope",             tagline:"Basic auscultation",          price:299, originalPrice:420, badge:"MONITORING",  images:IMG.stethoscope,desc:"Dual-head stethoscope with diaphragm and bell. High acoustic sensitivity, soft-seal ear tips, latex-free.", stock:55 },
+  { id:"i-7",  type:"item", name:"Yoga Mat",                tagline:"Exercise & rehab support",    price:350, originalPrice:500, badge:"REHAB",        images:IMG.yogamat,    desc:"Non-slip 6mm thick yoga mat for therapeutic exercise, stretching, and rehabilitation sessions.", stock:40 },
+  { id:"i-8",  type:"item", name:"Resistance Band",         tagline:"Strength training",           price:180, originalPrice:260, badge:"REHAB",        images:IMG.band,       desc:"Medium-resistance latex-free exercise band for upper and lower limb strengthening. Used in all BPT sessions.", stock:120 },
+  { id:"i-9",  type:"item", name:"Vaseline (100g)",         tagline:"Skin care & UST medium",      price:80,  originalPrice:120, badge:"CONSUMABLE",  images:IMG.vaseline,   desc:"Medical-grade petroleum jelly used as ultrasound coupling medium and general skin care. 100g jar.", stock:200 },
+  { id:"i-10", type:"item", name:"Physio Notes",            tagline:"Basic syllabus notes",        price:300, originalPrice:450, badge:"EDUCATION",   images:IMG.notes,      desc:"Curated first-year BPT notes covering anatomy, physiology, and basic physiotherapy. SRM curriculum-aligned.", stock:30 },
+  { id:"i-11", type:"item", name:"Medical Tape",            tagline:"Consumable strapping tape",   price:120, originalPrice:170, badge:"CONSUMABLE",  images:IMG.medtape,    desc:"Hypoallergenic micropore medical tape for wound dressing, strapping, and electrode fixation.", stock:180 },
 ];
 
 // ── Apparel ────────────────────────────────────────────────────
 const APPAREL = [
   {
-    id: "ap-1", type: "apparel",
-    name: "MedVault Scrubs Set",
-    tagline: "Top & bottom — clinical-grade",
-    price: 899,
-    originalPrice: 1299,
-    badge: "APPAREL",
-    img: "🥼",
-    desc: "Premium cotton-blend scrubs with MedVault branding. Breathable, easy to wash, and designed for long clinical hours. Available in all standard sizes.",
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    sizeNote: "True to size. Relaxed clinical fit.",
-    stock: 60,
-    colors: ["Navy Blue", "Ceil Blue"],
+    id:"ap-1", type:"apparel",
+    name:"MedVault Scrubs Set", tagline:"Top & bottom — clinical-grade",
+    price:899, originalPrice:1299, badge:"APPAREL",
+    images: IMG.scrubs,
+    desc:"Premium cotton-blend scrubs with MedVault branding. Breathable, easy to wash, designed for long clinical hours.",
+    sizes:["XS","S","M","L","XL","XXL"], sizeNote:"True to size. Relaxed clinical fit.", stock:60, colors:["Navy Blue","Ceil Blue"],
+    features:["Cotton-blend fabric","MedVault branding","Two-pocket top","Drawstring bottoms","Easy-care wash"],
   },
   {
-    id: "ap-2", type: "apparel",
-    name: "Lab Apron",
-    tagline: "Full-length protective apron",
-    price: 349,
-    originalPrice: 499,
-    badge: "APPAREL",
-    img: "🧥",
-    desc: "White full-length lab apron with two front pockets and adjustable neck strap. Durable polyester-cotton blend. SRM practical lab compliant.",
-    sizes: ["S", "M", "L", "XL"],
-    sizeNote: "Select based on your height. M fits 5'4\"–5'8\".",
-    stock: 80,
-    colors: ["White"],
+    id:"ap-2", type:"apparel",
+    name:"Lab Apron", tagline:"Full-length protective apron",
+    price:349, originalPrice:499, badge:"APPAREL",
+    images: IMG.apron,
+    desc:"White full-length lab apron with two front pockets and adjustable neck strap. SRM practical lab compliant.",
+    sizes:["S","M","L","XL"], sizeNote:"Select based on height. M fits 5'4\"–5'8\".", stock:80, colors:["White"],
+    features:["Polyester-cotton blend","Two front pockets","Adjustable neck strap","Easy to clean","SRM compliant"],
   },
 ];
 
@@ -203,13 +240,8 @@ function Navbar({ cartCount, onCart, onHome }) {
       transition: "all 0.3s ease", padding: "0 5%",
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
-        <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{
-            width: 34, height: 34, background: `linear-gradient(135deg, ${C.primary}, ${C.secondary})`,
-            borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center",
-            fontWeight: 800, fontSize: 11, color: C.white, letterSpacing: "-0.5px", fontFamily: "'DM Sans',sans-serif",
-          }}>MV+</div>
-          <span style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 700, fontSize: 20, letterSpacing: 2, color: C.white }}>MEDVAULT</span>
+        <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer" }}>
+          <img src="/logo.png" alt="MedVault" style={{ height: 44, width: "auto", display: "block" }} />
         </button>
 
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -361,10 +393,16 @@ function KitCard({ kit, onView, onAddToCart }) {
         display: "flex", flexDirection: "column",
       }}
     >
+      {/* Kit image */}
+      <div style={{ height: 200, overflow: "hidden", position: "relative" }}>
+        <img src={kit.images[0]} alt={kit.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(10,18,18,0.9) 100%)" }} />
+      </div>
+
       {/* Header */}
       <div style={{
         background: `linear-gradient(135deg, rgba(29,191,115,0.06), rgba(10,18,18,0))`,
-        padding: "32px 28px 24px",
+        padding: "24px 28px 20px",
         borderBottom: `1px solid ${C.border}`,
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
@@ -453,19 +491,10 @@ function ItemCard({ item, onView, onAddToCart }) {
         transform: hovered ? "translateY(-3px)" : "none",
       }}
     >
-      <div style={{
-        height: 140, display: "flex", alignItems: "center", justifyContent: "center",
-        background: "rgba(29,191,115,0.04)", fontSize: 52,
-        borderBottom: `1px solid ${C.border}`, position: "relative",
-      }}>
-        {isUrl(item.img)
-          ? <img src={item.img} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          : item.img}
-        <span style={{
-          position: "absolute", top: 10, right: 10,
-          background: "rgba(0,0,0,0.5)", color: C.accent,
-          borderRadius: 100, padding: "3px 8px", fontSize: 10, fontWeight: 700,
-        }}>−{pct}%</span>
+      <div style={{ height: 160, position: "relative", overflow: "hidden", borderBottom: `1px solid ${C.border}` }}>
+        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => e.target.style.display="none"} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(10,18,18,0.7) 100%)" }} />
+        <span style={{ position: "absolute", top: 10, right: 10, background: "rgba(0,0,0,0.55)", color: C.accent, borderRadius: 100, padding: "3px 9px", fontSize: 10, fontWeight: 700 }}>−{pct}%</span>
       </div>
       <div style={{ padding: "16px 16px 14px" }}>
         <p style={{ fontSize: 10, color: C.muted, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 4, fontWeight: 600 }}>{item.badge}</p>
@@ -514,12 +543,9 @@ function ApparelCard({ item, onView, onAddToCart }) {
         transform: hovered ? "translateY(-4px)" : "none",
       }}
     >
-      <div style={{
-        height: 180, display: "flex", alignItems: "center", justifyContent: "center",
-        background: "linear-gradient(135deg, rgba(29,191,115,0.04), rgba(200,169,110,0.04))",
-        fontSize: 72, borderBottom: `1px solid ${C.border}`, position: "relative",
-      }}>
-        {item.img}
+      <div style={{ height: 200, position: "relative", overflow: "hidden", borderBottom: `1px solid ${C.border}` }}>
+        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(10,18,18,0.6) 100%)" }} />
         <span style={{
           position: "absolute", top: 14, left: 14,
           background: "rgba(200,169,110,0.12)", border: `1px solid rgba(200,169,110,0.25)`,
@@ -698,7 +724,7 @@ function HomePage({ onView, onAddToCart }) {
                   onClick={() => onView(item)}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 14, flex: 1 }}>
-                    <span style={{ fontSize: 24, width: 36, textAlign: "center" }}>{isUrl(item.img) ? <img src={item.img} alt="" style={{ width: 32, height: 32, objectFit: "cover", borderRadius: 6 }} /> : item.img}</span>
+                    <div style={{ width: 44, height: 44, borderRadius: 8, overflow: "hidden", flexShrink: 0 }}><img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} /></div>
                     <div>
                       <p style={{ fontSize: 14, fontWeight: 600, color: C.white }}>{item.name}</p>
                       <p style={{ fontSize: 12, color: C.muted }}>{item.tagline}</p>
@@ -784,28 +810,13 @@ function ProductDetailPage({ product, onBack, onAddToCart }) {
       </button>
 
       <div className="detail-grid">
-        {/* Left */}
-        <div style={{
-          background: "linear-gradient(135deg, rgba(29,191,115,0.05), rgba(10,18,18,0))",
-          borderRadius: 24, height: 420,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 100, border: `1px solid ${C.border}`,
-          position: "relative", overflow: "hidden",
-        }}>
-          <span style={{
-            position: "absolute", top: 20, left: 20,
-            background: "rgba(29,191,115,0.12)", border: `1px solid ${C.borderGreen}`,
-            color: C.primary, borderRadius: 100, padding: "5px 14px",
-            fontSize: 10, fontWeight: 700, letterSpacing: 1.5,
-          }}>{product.badge}</span>
-          <span style={{
-            position: "absolute", top: 20, right: 20,
-            background: "rgba(0,0,0,0.4)", color: C.accent, borderRadius: 100, padding: "5px 14px",
-            fontSize: 11, fontWeight: 700,
-          }}>−{pct}% OFF</span>
-          {isUrl(product.img)
-            ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 24 }} />
-            : <span style={{ fontSize: 100 }}>{product.img}</span>}
+        {/* Left — image gallery */}
+        <div style={{ position: "relative" }}>
+          <div style={{ position: "absolute", top: 14, left: 14, zIndex: 2, display: "flex", gap: 8 }}>
+            <span style={{ background: "rgba(29,191,115,0.15)", border: `1px solid ${C.borderGreen}`, color: C.primary, borderRadius: 100, padding: "5px 14px", fontSize: 10, fontWeight: 700, letterSpacing: 1.5 }}>{product.badge}</span>
+            <span style={{ background: "rgba(0,0,0,0.5)", color: C.accent, borderRadius: 100, padding: "5px 14px", fontSize: 10, fontWeight: 700 }}>−{pct}% OFF</span>
+          </div>
+          <ImageGallery images={product.images} name={product.name} height={420} />
         </div>
 
         {/* Right */}
