@@ -902,6 +902,174 @@ function SizeGuide({ onClose }) {
   );
 }
 
+// ── BPT Book Catalogue Data ───────────────────────────────────
+const BOOKS_DATA = [
+  {
+    year: "1st Year", icon: "🩺", color: "#0057A8", bg: "#EBF5FF",
+    subjects: [
+      { name: "Anatomy", books: [
+        { num: 1, authors: "Ross & Wilson", title: "Anatomy and Physiology in Health and Illness", publisher: "Elsevier" },
+        { num: 2, authors: "Gray H.", title: "Gray's Anatomy", publisher: "Churchill Livingstone" },
+      ]},
+      { name: "Physiology", books: [
+        { num: 3, authors: "Guyton A.C. & Hall J.E.", title: "Textbook of Medical Physiology", publisher: "Elsevier" },
+        { num: 4, authors: "Sembulingam K.", title: "Essentials of Medical Physiology", publisher: "Jaypee" },
+      ]},
+      { name: "Psychology", books: [
+        { num: 5, authors: "Mangal S.K.", title: "General Psychology", publisher: "" },
+      ]},
+      { name: "Sociology", books: [
+        { num: 6, authors: "Sachdeva D.R. & Bhushan V.", title: "An Introduction to Sociology", publisher: "" },
+      ]},
+    ],
+  },
+  {
+    year: "2nd Year", icon: "⚙️", color: "#00875A", bg: "#F0FFF4",
+    subjects: [
+      { name: "Pathology & Microbiology", books: [
+        { num: 7, authors: "Mohan H.", title: "Textbook of Pathology", publisher: "Jaypee" },
+      ]},
+      { name: "Exercise Therapy", books: [
+        { num: 8, authors: "Gardiner D.", title: "Principles of Exercise Therapy", publisher: "CBS Publishers" },
+      ]},
+      { name: "Biomechanics", books: [
+        { num: 9, authors: "Norkin C.C. & Levangie P.K.", title: "Joint Structure and Function", publisher: "F.A. Davis" },
+      ]},
+      { name: "Pharmacology & Biochemistry", books: [
+        { num: 10, authors: "Tripathi K.D.", title: "Essentials of Medical Pharmacology", publisher: "Jaypee" },
+      ]},
+    ],
+  },
+  {
+    year: "3rd Year", icon: "⚡", color: "#B7791F", bg: "#FFFFF0",
+    subjects: [
+      { name: "Electrotherapy", books: [
+        { num: 11, authors: "Robertson V.", title: "Electrotherapy Explained: Principles and Practice", publisher: "Elsevier" },
+      ]},
+      { name: "General Medicine & Surgery", books: [
+        { num: 12, authors: "Davidson's", title: "Principles and Practice of Medicine", publisher: "Elsevier" },
+      ]},
+      { name: "Orthopaedics", books: [
+        { num: 13, authors: "Maheshwari J.", title: "Essential Orthopaedics", publisher: "Jaypee" },
+      ]},
+      { name: "Neurology", books: [
+        { num: 14, authors: "Bickerstaff E.R.", title: "Neurological Examination in Clinical Practice", publisher: "" },
+      ]},
+    ],
+  },
+  {
+    year: "Final Year", icon: "🧠", color: "#6B21A8", bg: "#FAF5FF",
+    subjects: [
+      { name: "Physiotherapy in Orthopaedics", books: [
+        { num: 15, authors: "Brotzman S.B.", title: "Clinical Orthopaedic Rehabilitation", publisher: "Elsevier" },
+      ]},
+      { name: "Physiotherapy in Neurology", books: [
+        { num: 16, authors: "Umphred D.A.", title: "Neurological Rehabilitation", publisher: "Mosby" },
+      ]},
+      { name: "Cardio-Respiratory Physiotherapy", books: [
+        { num: 17, authors: "Pryor J.A. & Prasad S.A.", title: "Physiotherapy for Respiratory and Cardiac Problems", publisher: "" },
+      ]},
+      { name: "Therapeutic Exercise", books: [
+        { num: 18, authors: "Kisner C. & Colby L.", title: "Therapeutic Exercise: Foundations and Techniques", publisher: "F.A. Davis" },
+      ]},
+      { name: "Rehabilitation & Community Medicine", books: [
+        { num: 19, authors: "Park K.", title: "Preventive and Social Medicine", publisher: "" },
+      ]},
+    ],
+  },
+];
+
+// ── BPT Book Catalogue Section ────────────────────────────────
+function BooksSection() {
+  const [activeYear, setActiveYear] = useState("1st Year");
+  const active = BOOKS_DATA.find(y => y.year === activeYear);
+
+  return (
+    <div style={{ background: C.bg, borderTop: `1px solid ${C.border}`, padding: "64px 5%" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ marginBottom: 36, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#EBF5FF", borderRadius: 100, padding: "4px 14px", marginBottom: 12 }}>
+              <span style={{ fontSize: 13 }}>📚</span>
+              <span style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>Reference Library</span>
+            </div>
+            <h2 style={{ fontWeight: 900, fontSize: "clamp(22px,3.5vw,36px)", color: C.text, letterSpacing: "-0.5px" }}>
+              BPT Textbook Catalogue
+            </h2>
+            <p style={{ fontSize: 14, color: C.muted, marginTop: 6 }}>Year-wise recommended textbooks for the BPT curriculum</p>
+          </div>
+        </div>
+
+        {/* Year tabs */}
+        <div style={{ display: "flex", gap: 10, marginBottom: 32, overflowX: "auto", paddingBottom: 2 }}>
+          {BOOKS_DATA.map(y => (
+            <button key={y.year} onClick={() => setActiveYear(y.year)} style={{
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "10px 20px", borderRadius: 12, cursor: "pointer", whiteSpace: "nowrap",
+              background: activeYear === y.year ? y.color : C.white,
+              color: activeYear === y.year ? "#fff" : C.textSub,
+              border: `1.5px solid ${activeYear === y.year ? y.color : C.border}`,
+              fontSize: 13, fontWeight: 700, transition: "all 0.18s",
+              boxShadow: activeYear === y.year ? `0 4px 14px ${y.color}40` : C.shadow,
+            }}>
+              <span>{y.icon}</span> {y.year}
+            </button>
+          ))}
+        </div>
+
+        {/* Year header pill */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+          <div style={{ width: 42, height: 42, borderRadius: 12, background: active.bg, border: `1.5px solid ${active.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>
+            {active.icon}
+          </div>
+          <div>
+            <p style={{ fontSize: 11, color: active.color, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>BPT — {active.year}</p>
+            <p style={{ fontSize: 14, fontWeight: 600, color: C.text }}>{active.subjects.reduce((n, s) => n + s.books.length, 0)} prescribed textbooks</p>
+          </div>
+        </div>
+
+        {/* Subjects + Books grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+          {active.subjects.map(subject => (
+            <div key={subject.name} style={{
+              background: C.white, borderRadius: 14, border: `1.5px solid ${C.border}`,
+              overflow: "hidden", boxShadow: C.shadow,
+            }}>
+              {/* Subject header */}
+              <div style={{ padding: "12px 18px", background: active.bg, borderBottom: `1px solid ${active.color}20` }}>
+                <p style={{ fontSize: 11, fontWeight: 800, color: active.color, letterSpacing: 1.5, textTransform: "uppercase" }}>{subject.name}</p>
+              </div>
+              {/* Books */}
+              <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: 14 }}>
+                {subject.books.map(book => (
+                  <div key={book.num} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span style={{
+                      width: 26, height: 26, borderRadius: 7, flexShrink: 0,
+                      background: active.bg, color: active.color,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 11, fontWeight: 800, border: `1px solid ${active.color}30`,
+                    }}>{book.num}</span>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: C.text, lineHeight: 1.35, marginBottom: 2 }}>{book.title}</p>
+                      <p style={{ fontSize: 11, color: C.muted }}>{book.authors}{book.publisher ? ` · ${book.publisher}` : ""}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <p style={{ fontSize: 12, color: C.muted, marginTop: 20, textAlign: "center" }}>
+          📖 These are the standard BPT curriculum references. Available at your college library and major online bookstores.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ── Home Page ─────────────────────────────────────────────────
 function HomePage({ onView, onAddToCart, searchQuery }) {
   const [tab, setTab] = useState("kits");
@@ -1051,6 +1219,9 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
           </div>
         )}
       </div>
+
+      {/* BPT Book Catalogue */}
+      <BooksSection />
 
       {/* Find Us */}
       <div style={{ background: C.white, borderTop: `1px solid ${C.border}`, padding: "64px 5%" }}>
