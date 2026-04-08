@@ -401,7 +401,130 @@ const APPAREL = [
   },
 ];
 
-const ALL_PRODUCTS = [...KITS, ...ITEMS, ...APPAREL];
+// ── BPT Textbooks ──────────────────────────────────────────────
+const BK = (title, seed) => R(`${title} medical textbook cover, professional academic book, white background, studio photography, no people`, seed);
+
+const BOOK_ITEMS = [
+  // 1st Year
+  { id:"b-1",  type:"book", year:"1st Year", subject:"Anatomy",
+    name:"Anatomy & Physiology in Health and Illness", tagline:"Ross & Wilson · Elsevier",
+    price:799, originalPrice:949, badge:"1ST YEAR", stock:20,
+    desc:"The classic Ross & Wilson text covering human anatomy and physiology with clear diagrams and clinical applications. Widely used in BPT first year for understanding the structural and functional basis of the human body. Elsevier edition with full-colour illustrations, case studies, and self-test questions aligned to BPT curriculum.",
+    images:[BK("Ross Wilson Anatomy Physiology Health Illness Elsevier textbook",401), BK("anatomy physiology textbook open pages with anatomical diagrams and text",402), BK("Elsevier medical textbook anatomy physiology content page",403)] },
+
+  { id:"b-2",  type:"book", year:"1st Year", subject:"Anatomy",
+    name:"Gray's Anatomy", tagline:"Gray H. · Churchill Livingstone",
+    price:1249, originalPrice:1499, badge:"1ST YEAR", stock:15,
+    desc:"The definitive anatomical reference, Gray's Anatomy is the gold standard for medical and physiotherapy students. The Churchill Livingstone edition provides comprehensive coverage of gross anatomy with detailed illustrations, clinical boxes, and dissection guides. Essential for BPT first-year anatomy lab preparation and long-term clinical reference.",
+    images:[BK("Grays Anatomy Churchill Livingstone textbook cover classic medical reference",411), BK("anatomy medical textbook with detailed anatomical illustrations body systems",412), BK("classic anatomy reference book open showing anatomical plates diagrams",413)] },
+
+  { id:"b-3",  type:"book", year:"1st Year", subject:"Physiology",
+    name:"Textbook of Medical Physiology", tagline:"Guyton A.C. & Hall J.E. · Elsevier",
+    price:849, originalPrice:1099, badge:"1ST YEAR", stock:18,
+    desc:"Guyton and Hall's Textbook of Medical Physiology is the most widely used physiology textbook in medical and physiotherapy education. Covers all major organ systems with clinical correlations, updated research, and clear mechanistic explanations. The Elsevier edition includes full-colour illustrations and a comprehensive index — essential for BPT first and second year physiology.",
+    images:[BK("Guyton Hall Textbook Medical Physiology Elsevier textbook cover",421), BK("physiology medical textbook open pages organ systems diagrams",422), BK("Elsevier physiology textbook content cardiovascular respiratory systems",423)] },
+
+  { id:"b-4",  type:"book", year:"1st Year", subject:"Physiology",
+    name:"Essentials of Medical Physiology", tagline:"Sembulingam K. · Jaypee",
+    price:449, originalPrice:549, badge:"1ST YEAR", stock:22,
+    desc:"Sembulingam's Essentials of Medical Physiology is a concise, India-focused physiology text popular among BPT students for its straightforward explanations and exam-oriented approach. The Jaypee edition covers all major physiological systems with relevant clinical applications, making it an ideal companion to Guyton or as a standalone revision resource.",
+    images:[BK("Sembulingam Essentials Medical Physiology Jaypee textbook cover",431), BK("Indian medical physiology textbook Jaypee publishers open pages",432), BK("physiology textbook study guide India medical education",433)] },
+
+  { id:"b-5",  type:"book", year:"1st Year", subject:"Psychology",
+    name:"General Psychology", tagline:"Mangal S.K.",
+    price:279, originalPrice:349, badge:"1ST YEAR", stock:25,
+    desc:"Mangal's General Psychology is the prescribed psychology text for BPT first year, covering fundamental psychological concepts including behaviour, perception, learning, memory, motivation, emotion, and personality. Written in simple language with Indian examples, it helps physiotherapy students understand the psychosocial dimensions of patient care and therapeutic relationships.",
+    images:[BK("General Psychology Mangal textbook cover Indian education publisher",441), BK("psychology textbook open pages behaviour motivation personality chapters",442), BK("Indian psychology textbook student reference guide",443)] },
+
+  { id:"b-6",  type:"book", year:"1st Year", subject:"Sociology",
+    name:"An Introduction to Sociology", tagline:"Sachdeva D.R. & Bhushan V.",
+    price:229, originalPrice:299, badge:"1ST YEAR", stock:25,
+    desc:"Sachdeva and Bhushan's Introduction to Sociology covers the core sociological concepts required in the BPT first-year curriculum: social structure, culture, family, community health, and social determinants of disease. Helps physiotherapy students understand patients in their social context and develop community-oriented clinical practice.",
+    images:[BK("Introduction Sociology textbook Sachdeva Bhushan Indian publisher",451), BK("sociology textbook open pages social structure community health",452), BK("Indian sociology textbook student edition medical curriculum",453)] },
+
+  // 2nd Year
+  { id:"b-7",  type:"book", year:"2nd Year", subject:"Pathology & Microbiology",
+    name:"Textbook of Pathology", tagline:"Mohan H. · Jaypee",
+    price:649, originalPrice:799, badge:"2ND YEAR", stock:18,
+    desc:"Mohan's Textbook of Pathology is the standard pathology reference for BPT second year, providing a comprehensive understanding of disease processes, cellular pathology, inflammation, neoplasia, and organ-specific diseases. The Jaypee edition is widely available in India and includes full-colour histopathology images, relevant clinical correlations, and exam-oriented summaries.",
+    images:[BK("Mohan Textbook Pathology Jaypee medical textbook cover",461), BK("pathology textbook open pages histopathology disease processes",462), BK("Indian pathology medical textbook Jaypee publishers content",463)] },
+
+  { id:"b-8",  type:"book", year:"2nd Year", subject:"Exercise Therapy",
+    name:"Principles of Exercise Therapy", tagline:"Gardiner D. · CBS Publishers",
+    price:449, originalPrice:549, badge:"2ND YEAR", stock:20,
+    desc:"Gardiner's Principles of Exercise Therapy is the core exercise therapy textbook for BPT second year, covering the theoretical and practical foundations of therapeutic exercise including active, passive, resisted, and stretching exercises. Includes principles of strengthening, endurance training, and functional movement — directly applicable to BPT practical lab work.",
+    images:[BK("Principles Exercise Therapy Gardiner CBS Publishers textbook cover",471), BK("exercise therapy textbook open pages therapeutic exercise techniques",472), BK("physiotherapy exercise textbook CBS publishers India content",473)] },
+
+  { id:"b-9",  type:"book", year:"2nd Year", subject:"Biomechanics",
+    name:"Joint Structure and Function", tagline:"Norkin C.C. & Levangie P.K. · F.A. Davis",
+    price:749, originalPrice:899, badge:"2ND YEAR", stock:15,
+    desc:"Norkin and Levangie's Joint Structure and Function is the definitive biomechanics reference for physiotherapy students, covering articular structure, kinematics, and kinetics of all major joints. Published by F.A. Davis, it bridges anatomy and clinical physiotherapy practice, making it essential for understanding normal and pathological movement in BPT second year.",
+    images:[BK("Joint Structure Function Norkin Levangie FA Davis textbook cover",481), BK("biomechanics physiotherapy textbook joint structure movement analysis",482), BK("FA Davis physiotherapy textbook open pages joint biomechanics",483)] },
+
+  { id:"b-10", type:"book", year:"2nd Year", subject:"Pharmacology",
+    name:"Essentials of Medical Pharmacology", tagline:"Tripathi K.D. · Jaypee",
+    price:549, originalPrice:699, badge:"2ND YEAR", stock:20,
+    desc:"Tripathi's Essentials of Medical Pharmacology is the standard pharmacology text used across Indian medical and allied health curricula. Covers all major drug classes with mechanisms of action, indications, contraindications, and clinical uses relevant to physiotherapy practice — including NSAIDs, muscle relaxants, analgesics, and drugs used in neurological and cardiovascular conditions.",
+    images:[BK("Tripathi Essentials Medical Pharmacology Jaypee textbook cover",491), BK("pharmacology textbook open pages drug mechanisms clinical applications",492), BK("Indian pharmacology Jaypee medical textbook content pages",493)] },
+
+  // 3rd Year
+  { id:"b-11", type:"book", year:"3rd Year", subject:"Electrotherapy",
+    name:"Electrotherapy Explained: Principles and Practice", tagline:"Robertson V. · Elsevier",
+    price:649, originalPrice:799, badge:"3RD YEAR", stock:15,
+    desc:"Robertson's Electrotherapy Explained is the comprehensive reference for electrotherapy in BPT third year, covering TENS, ultrasound, IFT, shortwave diathermy, LASER, and neuromuscular electrical stimulation. The Elsevier edition includes physiological rationale, evidence-based clinical applications, dosage guidelines, contraindications, and safety protocols — aligned directly to the BPT electrotherapy curriculum.",
+    images:[BK("Electrotherapy Explained Robertson Elsevier textbook cover",501), BK("electrotherapy physiotherapy textbook TENS ultrasound therapy content",502), BK("Elsevier physiotherapy electrotherapy textbook open pages clinical applications",503)] },
+
+  { id:"b-12", type:"book", year:"3rd Year", subject:"General Medicine & Surgery",
+    name:"Principles and Practice of Medicine", tagline:"Davidson's · Elsevier",
+    price:999, originalPrice:1299, badge:"3RD YEAR", stock:12,
+    desc:"Davidson's Principles and Practice of Medicine is the gold-standard internal medicine reference, widely used by physiotherapy students in their third year clinical postings. Covers major medical conditions, their pathophysiology, diagnosis, and management — providing physiotherapy students the medical background needed for evidence-based clinical reasoning in all specialty areas.",
+    images:[BK("Davidsons Principles Practice Medicine Elsevier textbook cover",511), BK("clinical medicine textbook Davidson open pages internal medicine content",512), BK("Elsevier medicine textbook student edition India content",513)] },
+
+  { id:"b-13", type:"book", year:"3rd Year", subject:"Orthopaedics",
+    name:"Essential Orthopaedics", tagline:"Maheshwari J. · Jaypee",
+    price:549, originalPrice:699, badge:"3RD YEAR", stock:18,
+    desc:"Maheshwari's Essential Orthopaedics is the primary orthopaedics reference for BPT third year, covering fractures, dislocations, joint diseases, spinal conditions, and orthopaedic procedures from a clinical perspective. The Jaypee edition is India-specific, with conditions and clinical cases relevant to the Indian population and hospital setting, making it ideal for ward postings.",
+    images:[BK("Maheshwari Essential Orthopaedics Jaypee textbook cover India",521), BK("orthopaedics textbook open pages fractures joint diseases clinical content",522), BK("Indian orthopaedics medical textbook Jaypee student edition",523)] },
+
+  { id:"b-14", type:"book", year:"3rd Year", subject:"Neurology",
+    name:"Neurological Examination in Clinical Practice", tagline:"Bickerstaff E.R.",
+    price:449, originalPrice:549, badge:"3RD YEAR", stock:15,
+    desc:"Bickerstaff's Neurological Examination in Clinical Practice is the clinical neurology examination guide used by BPT students in their third-year neurology postings. Covers systematic neurological assessment — cranial nerves, motor system, sensory system, reflexes, coordination, and cerebellar function — with practical guidance for examination technique and clinical interpretation.",
+    images:[BK("Bickerstaff Neurological Examination Clinical Practice textbook cover",531), BK("neurology clinical examination textbook open pages assessment techniques",532), BK("neurological examination guide medical textbook content pages",533)] },
+
+  // Final Year
+  { id:"b-15", type:"book", year:"Final Year", subject:"Physiotherapy in Orthopaedics",
+    name:"Clinical Orthopaedic Rehabilitation", tagline:"Brotzman S.B. · Elsevier",
+    price:799, originalPrice:999, badge:"FINAL YEAR", stock:12,
+    desc:"Brotzman's Clinical Orthopaedic Rehabilitation is the definitive rehabilitation protocols reference for final-year BPT students and clinical physiotherapists. Provides evidence-based, protocol-driven rehabilitation programs for all major orthopaedic conditions — ACL reconstruction, rotator cuff repair, hip and knee arthroplasty, and sports injuries — aligned to current clinical practice standards.",
+    images:[BK("Brotzman Clinical Orthopaedic Rehabilitation Elsevier textbook cover",541), BK("orthopaedic rehabilitation physiotherapy textbook open pages rehabilitation protocols",542), BK("Elsevier physiotherapy rehabilitation textbook final year content",543)] },
+
+  { id:"b-16", type:"book", year:"Final Year", subject:"Physiotherapy in Neurology",
+    name:"Neurological Rehabilitation", tagline:"Umphred D.A. · Mosby",
+    price:849, originalPrice:1049, badge:"FINAL YEAR", stock:10,
+    desc:"Umphred's Neurological Rehabilitation is the comprehensive neurorehabilitation reference for final-year BPT students, covering neuroplasticity, motor control theories, and rehabilitation approaches for stroke, traumatic brain injury, spinal cord injury, Parkinson's disease, multiple sclerosis, and cerebral palsy. The Mosby edition is internationally recognised and includes evidence-based intervention frameworks.",
+    images:[BK("Umphred Neurological Rehabilitation Mosby textbook cover physiotherapy",551), BK("neurological rehabilitation physiotherapy textbook open pages stroke spinal cord",552), BK("Mosby neurorehabilitation physiotherapy textbook content pages",553)] },
+
+  { id:"b-17", type:"book", year:"Final Year", subject:"Cardio-Respiratory Physiotherapy",
+    name:"Physiotherapy for Respiratory and Cardiac Problems", tagline:"Pryor J.A. & Prasad S.A.",
+    price:699, originalPrice:849, badge:"FINAL YEAR", stock:12,
+    desc:"Pryor and Prasad's Physiotherapy for Respiratory and Cardiac Problems is the key cardiopulmonary physiotherapy reference for BPT final year, covering lung volumes, airway clearance techniques, breathing exercises, cardiac rehabilitation, and physiotherapy management of COPD, asthma, pneumonia, and post-cardiac surgery conditions. Includes evidence-based clinical reasoning frameworks.",
+    images:[BK("Pryor Prasad Physiotherapy Respiratory Cardiac Problems textbook cover",561), BK("cardiorespiratory physiotherapy textbook open pages breathing exercises cardiac rehab",562), BK("respiratory cardiac physiotherapy textbook content pages clinical",563)] },
+
+  { id:"b-18", type:"book", year:"Final Year", subject:"Therapeutic Exercise",
+    name:"Therapeutic Exercise: Foundations and Techniques", tagline:"Kisner C. & Colby L. · F.A. Davis",
+    price:799, originalPrice:999, badge:"FINAL YEAR", stock:10,
+    desc:"Kisner and Colby's Therapeutic Exercise is the most comprehensive and widely used therapeutic exercise textbook in physiotherapy education. The F.A. Davis edition covers exercise principles, stretching, strengthening, aerobic conditioning, and condition-specific exercise programs for orthopaedic, neurological, and cardiopulmonary conditions — a cornerstone reference for final-year BPT students and practising physiotherapists.",
+    images:[BK("Kisner Colby Therapeutic Exercise Foundations Techniques FA Davis textbook",571), BK("therapeutic exercise physiotherapy textbook open pages exercise techniques",572), BK("FA Davis physiotherapy therapeutic exercise textbook content pages",573)] },
+
+  { id:"b-19", type:"book", year:"Final Year", subject:"Rehabilitation & Community Medicine",
+    name:"Preventive and Social Medicine", tagline:"Park K.",
+    price:449, originalPrice:549, badge:"FINAL YEAR", stock:20,
+    desc:"Park's Preventive and Social Medicine is the standard PSM and community medicine reference for BPT final year, covering epidemiology, public health, nutrition, environmental health, health statistics, and community-based rehabilitation. Provides physiotherapy students with the public health framework needed for community outreach, disability management, and preventive physiotherapy programs.",
+    images:[BK("Park Preventive Social Medicine textbook cover India public health",581), BK("preventive social medicine PSM textbook open pages epidemiology community health",582), BK("Park PSM community medicine textbook India content pages",583)] },
+];
+
+const ALL_PRODUCTS = [...KITS, ...ITEMS, ...APPAREL, ...BOOK_ITEMS];
 
 // ── Navbar ────────────────────────────────────────────────────
 function Navbar({ cartCount, onCart, onHome, searchQuery, onSearchChange }) {
@@ -585,12 +708,92 @@ function TrustStrip() {
   );
 }
 
+// ── Book Year Filter + Grid ───────────────────────────────────
+function BookYearFilter({ items, onView, onAddToCart }) {
+  const years = ["All", "1st Year", "2nd Year", "3rd Year", "Final Year"];
+  const [activeYear, setActiveYear] = useState("All");
+  const yearColors = { "1st Year": "#0057A8", "2nd Year": "#00875A", "3rd Year": "#B7791F", "Final Year": "#6B21A8" };
+
+  const filtered = activeYear === "All" ? items : items.filter(b => b.year === activeYear);
+
+  return (
+    <div>
+      {/* Year pills */}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
+        {years.map(y => {
+          const col = y === "All" ? C.primary : (yearColors[y] || C.primary);
+          const isActive = activeYear === y;
+          return (
+            <button key={y} onClick={() => setActiveYear(y)} style={{
+              padding: "7px 18px", borderRadius: 100, cursor: "pointer", fontSize: 13, fontWeight: 700,
+              background: isActive ? col : C.white,
+              color: isActive ? C.white : col,
+              border: `1.5px solid ${isActive ? col : col + "40"}`,
+              transition: "all 0.15s",
+            }}>{y}</button>
+          );
+        })}
+      </div>
+
+      {/* Books grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 20 }}>
+        {filtered.map(book => {
+          const col = yearColors[book.year] || C.primary;
+          const pct = disc(book.price, book.originalPrice);
+          return (
+            <div key={book.id} style={{
+              background: C.white, border: `1.5px solid ${C.border}`, borderRadius: 16,
+              overflow: "hidden", display: "flex", flexDirection: "column",
+              boxShadow: C.shadow, transition: "all 0.2s",
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = col; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = C.shadowHover; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = C.shadow; }}
+            >
+              {/* Image */}
+              <div style={{ height: 160, background: "#F3F4F6", position: "relative", overflow: "hidden", cursor: "pointer" }} onClick={() => onView(book)}>
+                <img src={book.images[0]} alt={book.name} loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  onError={e => { e.target.style.display = "none"; }}
+                />
+                <div style={{ position: "absolute", top: 10, left: 10, background: col, color: C.white, borderRadius: 6, padding: "3px 9px", fontSize: 10, fontWeight: 800, letterSpacing: 1 }}>{book.year}</div>
+                {pct > 0 && <div style={{ position: "absolute", top: 10, right: 10, background: "#E53E3E", color: C.white, borderRadius: 6, padding: "3px 9px", fontSize: 10, fontWeight: 800 }}>-{pct}%</div>}
+              </div>
+
+              {/* Content */}
+              <div style={{ padding: "16px 18px 18px", flex: 1, display: "flex", flexDirection: "column" }}>
+                <p style={{ fontSize: 10, color: col, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 5 }}>{book.subject}</p>
+                <p style={{ fontSize: 14, fontWeight: 800, color: C.text, lineHeight: 1.3, marginBottom: 4, cursor: "pointer" }} onClick={() => onView(book)}>{book.name}</p>
+                <p style={{ fontSize: 11, color: C.muted, marginBottom: 14, flex: 1 }}>{book.tagline}</p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                  <div>
+                    <span style={{ fontSize: 20, fontWeight: 900, color: C.primary }}>{fmt(book.price)}</span>
+                    {book.originalPrice > book.price && <span style={{ fontSize: 12, color: C.muted, textDecoration: "line-through", marginLeft: 6 }}>{fmt(book.originalPrice)}</span>}
+                  </div>
+                  <button onClick={() => onAddToCart(book)} style={{
+                    background: C.primary, color: C.white, border: "none",
+                    borderRadius: 8, padding: "8px 16px", cursor: "pointer",
+                    fontSize: 12, fontWeight: 700, transition: "background 0.18s",
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.background = C.primaryHover}
+                    onMouseLeave={e => e.currentTarget.style.background = C.primary}
+                  >Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Tab Navigation ────────────────────────────────────────────
 function TabNav({ active, onChange }) {
   const tabs = [
     { id: "kits", label: "🎁 Curated Kits", desc: "Best value bundles" },
     { id: "items", label: "🔬 Individual Items", desc: "Buy what you need" },
     { id: "apparel", label: "🥼 Scrubs & Aprons", desc: "Clinical uniform" },
+    { id: "books", label: "📚 Books", desc: "BPT Textbooks" },
   ];
   return (
     <div style={{ display: "flex", gap: 10, marginBottom: 40, overflowX: "auto", paddingBottom: 2 }}>
@@ -1215,6 +1418,17 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
             </div>
             <div className="apparel-grid">
               {APPAREL.map(item => <ApparelCard key={item.id} item={item} onView={onView} onAddToCart={onAddToCart} />)}
+            </div>
+          </div>
+        )}
+
+        {/* Books tab */}
+        {tab === "books" && (
+          <div style={{ animation: "fadeUp 0.35s ease both" }}>
+            <div style={{ marginBottom: 28 }}>
+              <p style={{ fontSize: 14, color: C.muted, marginBottom: 20 }}>Year-wise BPT textbooks — add directly to cart and we'll deliver to your SRM hostel.</p>
+              {/* Year filter pills */}
+              <BookYearFilter items={BOOK_ITEMS} onView={onView} onAddToCart={onAddToCart} />
             </div>
           </div>
         )}
