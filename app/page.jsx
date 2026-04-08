@@ -2,50 +2,53 @@
 import { useState, useEffect, useCallback } from "react";
 
 const C = {
-  bg: "#F4F6F9",
+  bg: "#F0F4F8",
   white: "#FFFFFF",
-  header: "#0D1B2A",
-  headerBorder: "#1A3350",
-  primary: "#1D4ED8",
-  primaryHover: "#1E40AF",
-  accent: "#16A34A",
-  deal: "#DC2626",
-  dealBg: "#FEF2F2",
-  gold: "#D97706",
-  goldBg: "#FFFBEB",
-  text: "#111827",
-  textSub: "#374151",
-  muted: "#6B7280",
-  border: "#E5E7EB",
+  header: "#0A1628",
+  headerBorder: "#162544",
+  primary: "#0057A8",
+  primaryHover: "#004490",
+  accent: "#00875A",
+  deal: "#E53E3E",
+  dealBg: "#FFF5F5",
+  gold: "#B7791F",
+  goldBg: "#FFFFF0",
+  text: "#0D1B2A",
+  textSub: "#2D3748",
+  muted: "#718096",
+  border: "#CBD5E0",
   card: "#FFFFFF",
-  shadow: "0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
-  shadowHover: "0 4px 20px rgba(0,0,0,0.12)",
-  strip: "#1B3A6B",
+  shadow: "0 1px 3px rgba(0,0,0,0.07), 0 4px 14px rgba(0,0,0,0.05)",
+  shadowHover: "0 8px 30px rgba(0,0,0,0.13)",
+  strip: "#0057A8",
+  stripText: "#E8F0FE",
 };
 
 const globalStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Inter',sans-serif;background:#F4F6F9;color:#111827;min-height:100vh;}
+  body{font-family:'Plus Jakarta Sans','Inter',sans-serif;background:#F0F4F8;color:#0D1B2A;min-height:100vh;}
   ::-webkit-scrollbar{width:5px;}
-  ::-webkit-scrollbar-track{background:#F4F6F9;}
-  ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:4px;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  ::-webkit-scrollbar-track{background:#F0F4F8;}
+  ::-webkit-scrollbar-thumb{background:#A0AEC0;border-radius:4px;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
   @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
   @keyframes slideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}
-  @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
-  @keyframes float3d{0%,100%{transform:perspective(900px) rotateY(-8deg) rotateX(3deg) translateY(0);}50%{transform:perspective(900px) rotateY(-8deg) rotateX(3deg) translateY(-12px);}}
+  @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+  @keyframes float3d{0%,100%{transform:translateY(0px) rotate(-1deg);}50%{transform:translateY(-14px) rotate(-1deg);}}
+  @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
 
-  .hero-row{display:flex;align-items:center;justify-content:space-between;gap:48px;}
+  .hero-row{display:flex;align-items:center;justify-content:space-between;gap:56px;}
   .hero-img{flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
   .kits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
-  .apparel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
-  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-  .cart-grid{display:grid;grid-template-columns:1fr 340px;gap:28px;}
-  .checkout-grid{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;}
+  .items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px;}
+  .apparel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .cart-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;}
+  .checkout-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;}
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
 
   @media(max-width:900px){
     .kits-grid{grid-template-columns:1fr;}
@@ -118,200 +121,172 @@ const F = (p, s) => PH(p, s, "flux");
 const IMG = {
   kit1: [
     "/kit.jpg",
-    R("overhead flat lay of physiotherapy student kit: transparent plastic goniometer, chrome Taylor reflex hammer, silver tuning fork, black stethoscope, LED penlight, resistance band, rolled yoga mat, myospaz gel tube, measuring tape, physio textbook arranged neatly on white surface, studio lighting, sharp focus", 11),
-    R("BPT physiotherapy kit contents spread out on white table: goniometer set three pieces, knee hammer, 128hz tuning fork, measuring tape, pen torch, dual head stethoscope, green resistance band — all clearly visible, clean product photography", 12),
-    F("open navy blue physiotherapy case with compartments showing goniometer, reflex hammer, tuning fork, stethoscope, pen torch organised inside, clinical setting, realistic", 13),
-    R("physiotherapy instruments neatly arranged in a row on white background: transparent goniometer, triangular rubber reflex hammer, silver tuning fork, black stethoscope, chrome penlight, resistance band, realistic product photo", 14),
-    R("first year BPT student kit flat lay top view: all instruments labeled goniometer stethoscope hammer tuning fork tape torch yoga mat band, clean white background, studio product photography", 15),
+    R("overhead flat lay of complete physiotherapy student kit on white surface: transparent plastic goniometer, chrome Taylor reflex hammer, silver tuning fork, black stethoscope, LED penlight, green resistance band, rolled teal yoga mat, myospaz gel tube, measuring tape, physio textbook — studio lighting, no people", 11),
+    R("BPT physiotherapy kit contents flat lay on white: three-piece goniometer set, knee hammer, 128hz tuning fork, measuring tape, pen torch, dual head stethoscope, resistance band, yoga mat — all clearly visible, clean product photography, no people", 12),
+    R("physiotherapy instruments neatly arranged in a circle on white background: transparent goniometer, triangular rubber reflex hammer, silver tuning fork, black stethoscope, chrome penlight, resistance band, yoga mat — product only, no people", 14),
+    R("first year BPT kit top-view flat lay: all instruments arranged on white — goniometer, stethoscope, hammer, tuning fork, tape, torch, yoga mat, band, gel tube, textbook — clean studio product photography, no people", 15),
   ],
   kit2: [
-    R("five physiotherapy examination instruments flat lay on white: transparent plastic goniometer, Taylor reflex hammer with triangular rubber head, 128Hz tuning fork silver, fabric measuring tape 150cm, chrome LED pen torch — arranged neatly, studio lighting, sharp product photo", 21),
-    R("physiotherapy practical exam kit five tools: goniometer, knee percussion hammer, tuning fork, inch tape, penlight — top view on white background, realistic clinical instruments", 22),
-    F("compact physio exam kit five instruments arranged on clean white surface: goniometer, reflex hammer, tuning fork, measuring tape coiled, led penlight — professional flat lay photography", 23),
-    R("BPT practical exam instruments displayed on wooden surface: transparent goniometer with degree markings, chrome Taylor hammer, aluminium tuning fork, soft measuring tape, silver penlight — realistic product shot", 24),
-    R("physiotherapy five core clinical instruments on white — clear goniometer protractor device, triangular headed reflex hammer, U-shaped 128hz tuning fork, rolled inch tape, LED torch pen — clean studio product photography", 25),
+    R("five physiotherapy examination instruments flat lay on white: transparent plastic goniometer, Taylor reflex hammer with red triangular rubber head, 128Hz silver tuning fork, fabric measuring tape 150cm, chrome LED pen torch — arranged neatly, studio lighting, no people", 21),
+    R("physiotherapy practical exam kit five tools flat lay on white: goniometer, knee percussion hammer, tuning fork, inch tape, penlight — top view, realistic clinical instruments, no people", 22),
+    R("BPT practical exam instruments flat lay on light grey surface: transparent goniometer with degree markings, chrome Taylor hammer, aluminium tuning fork, soft measuring tape coiled, silver penlight — realistic product shot, no people", 24),
+    R("physiotherapy five core clinical instruments on white — clear goniometer protractor, triangular headed reflex hammer, U-shaped 128hz tuning fork, rolled inch tape, LED torch pen — clean studio product photography, no people", 25),
   ],
   kit3: [
-    R("student smart study kit flat lay on white desk: A5 spiral notepad open, five ballpoint pens fanned out, colourful whiteboard markers, silver 16GB USB drive, small sanitizer foil sachets, blue surgical face masks — top view clean product photography", 31),
-    R("medical student study essentials arranged on white: spiral A5 notebook, ballpoint pen set, multi-colour whiteboard markers, USB flash drive, hand sanitizer sachets, disposable surgical masks — minimal flat lay studio lighting", 32),
-    F("smart study bundle stationery flat lay: spiral notepad, pens, markers, USB drive, sanitizer sachets, mask pack neatly arranged, realistic studio product photography", 33),
-    R("BPT student stationery and hygiene kit: open A5 notepad with ruled lines, 5 pens, marker set, compact USB drive, individual sanitizer sachets, face masks — top view white background", 34),
-    R("study kit items spread on clean white surface: spiral-bound A5 notebook, pen set, markers, silver USB drive, sanitizer sachets, surgical face mask pack — bright studio product photography", 35),
+    R("student smart study kit flat lay on white desk: A5 spiral notepad open, five ballpoint pens fanned out, colourful whiteboard markers, silver 16GB USB drive, small sanitizer foil sachets, blue surgical face masks — top view clean product photography, no people", 31),
+    R("medical student study essentials flat lay on white: spiral A5 notebook, ballpoint pen set, multi-colour whiteboard markers, USB flash drive, hand sanitizer sachets, disposable surgical masks — minimal studio lighting, no people", 32),
+    R("smart study bundle stationery flat lay on white: spiral notepad, pens, markers, USB drive, sanitizer sachets, mask pack neatly arranged — realistic studio product photography, no people", 33),
+    R("study kit items spread on clean white surface: spiral-bound A5 notebook, pen set, markers, silver USB drive, sanitizer sachets, surgical face mask pack — bright studio product photography, no people", 35),
   ],
   goniometer: [
-    "/products/goniometer.jpg",
-    R("close-up of transparent plastic medical goniometer showing angle markings 0 to 360 degrees, two measurement arms, pivot joint — physiotherapy joint range of motion tool, white background", 102),
-    R("physiotherapy goniometer set three sizes: large goniometer, standard goniometer, small finger goniometer laid side by side on white, transparent plastic with printed degree scale, realistic product shot", 103),
-    F("physiotherapist using large transparent goniometer to measure patient knee joint angle, clinical setting, realistic photo", 104),
-    R("medical goniometer close up: transparent semicircular protractor body with degree markings, two white plastic arms extending from pivot — physiotherapy assessment tool, white background studio", 105),
+    R("three-piece medical goniometer set on pure white background: large 360-degree transparent plastic full-circle goniometer, medium 180-degree half-circle goniometer with two adjustable arms, small 90-degree finger goniometer — all three laid side by side, studio product photography, no people", 101),
+    R("close-up of transparent plastic medical goniometer showing clear angle markings 0 to 360 degrees, two measurement arms, pivot joint screw — physiotherapy ROM tool, white background, no people", 102),
+    R("physiotherapy goniometer set three sizes side by side on white: large, standard, and small finger goniometer, transparent plastic with printed degree scale — realistic product shot, no people", 103),
+    R("medical goniometer top-down view on white: transparent semicircular protractor body with degree markings, two white plastic arms from pivot — physiotherapy assessment tool, studio lighting, no people", 105),
   ],
   hammer: [
-    "/products/knee-hammer.jpg",
-    R("close-up of Taylor reflex hammer head: triangular shaped black rubber striking surface attached to chrome handle — medical neurology diagnostic instrument, white background, sharp focus", 112),
-    R("medical reflex hammer full product shot: slim chrome handle, triangular rubber percussion head, stainless steel finish — isolated on white seamless background, studio lighting", 113),
-    F("doctor tapping patient patellar tendon with Taylor reflex hammer, knee jerk reflex test, clinical examination room, realistic photo", 114),
-    R("neurological reflex hammer flat lay on white: Taylor type with triangular rubber head and metal handle, accurate product photography, clinical quality", 115),
+    R("Taylor percussion reflex hammer isolated on pure white background: triangular red rubber striking head, chrome stainless steel handle 25cm — neurological diagnostic instrument, studio product photography, no people", 111),
+    R("close-up of Taylor reflex hammer head on white: triangular red rubber striking surface attached to chrome metal handle — medical neurology diagnostic instrument, sharp focus, no people", 112),
+    R("medical reflex hammer full product shot on white: slim chrome handle, triangular red rubber percussion head, stainless steel finish — isolated on white seamless background, no people", 113),
+    R("neurological reflex hammer flat lay on white: Taylor type triangular rubber head and metal handle, shadow visible beneath — accurate product photography, no people", 115),
   ],
   tuningfork: [
-    "/products/tuning-fork.jpg",
-    R("close-up of 128Hz aluminium medical tuning fork showing the two vibrating prongs and handle with frequency markings — vibration sense testing tool, white background, realistic product photo", 122),
-    R("medical tuning fork lying on white surface showing U-shaped prongs and long silver handle — aluminium alloy construction, 128 Hz, physiotherapy neurological diagnostic tool, studio lighting", 123),
-    F("physiotherapist applying vibrating tuning fork to patient ankle medial malleolus for vibration sense testing, clinical neurological exam, realistic", 124),
-    R("128Hz tuning fork and reflex hammer together on white background — standard neurological examination instruments, clinical product photography", 125),
+    R("128 Hz medical tuning fork isolated on pure white background: aluminium alloy U-shaped fork with two parallel prongs, long cylindrical handle, '128 Hz' stamped on body — neurological diagnostic instrument, studio product photography, no people", 121),
+    R("close-up of 128Hz aluminium medical tuning fork on white: two vibrating prongs with rounded tips, handle with frequency markings — vibration sense testing tool, sharp focus, no people", 122),
+    R("medical tuning fork standing upright on white surface: U-shaped prongs and long silver handle — aluminium alloy 128 Hz physiotherapy neurological tool, studio lighting, no people", 123),
+    R("128Hz tuning fork and reflex hammer arranged together on white background — standard neurological examination instruments, clinical product photography, no people", 125),
   ],
   tape: [
-    "/products/inch-tape.jpg",
-    R("close-up of flexible medical measuring tape partially unrolled showing clear centimetre graduations and numbers — limb circumference measurement tool, white background, sharp focus", 132),
-    R("physiotherapy measuring tape 150cm laid flat showing full length on white surface, dual sided centimetre and inch scale, soft flexible material — clinical assessment tool", 133),
-    F("physiotherapist measuring patient calf circumference with flexible measuring tape, limb girth assessment, clinical setting", 134),
-    R("medical cloth measuring tape coiled on white background: 150cm dual scale flexible tape for limb and body measurement, physiotherapy clinical tool, studio lighting", 135),
+    R("medical measuring tape on pure white background: soft flexible fabric tape 150cm, coiled loop, centimetre and inch markings on both sides — physiotherapy body measurement tool, studio product photography, no people", 131),
+    R("close-up of flexible medical measuring tape partially unrolled on white: clear centimetre graduations and numbers — limb circumference measurement tool, sharp focus, no people", 132),
+    R("physiotherapy measuring tape 150cm laid flat on white surface: dual sided centimetre and inch scale, soft flexible material — clinical assessment tool, studio lighting, no people", 133),
+    R("medical cloth measuring tape coiled neatly on white background: 150cm dual scale flexible tape, yellow and white — physiotherapy clinical tool, studio lighting, no people", 135),
   ],
   pentorch: [
-    "/products/pen-torch.jpg",
-    R("close-up of medical penlight pen torch showing LED bulb end and pupil gauge scale printed along chrome body — neurological examination tool, white background sharp focus", 142),
-    R("medical LED pen torch and pen torch cap side by side on white: chrome finish, pupil gauge on barrel, bright beam — clinical diagnostic instrument, studio lighting", 143),
-    F("doctor shining pen torch into patient pupil for pupillary light reflex examination, clinical neurological assessment, realistic", 144),
-    R("two chrome medical pen torches on white background: LED penlights with pocket clips and pupil gauge scales — diagnostic examination instruments, product photography", 145),
+    R("chrome LED medical pen torch isolated on pure white background: slim cylindrical design, bright LED tip, pupil gauge millimetre scale on barrel, pocket clip — clinical examination penlight, studio product photography, no people", 141),
+    R("close-up of medical penlight pen torch on white: LED bulb end and pupil gauge scale printed along chrome body — neurological examination tool, sharp focus, no people", 142),
+    R("medical LED pen torch with cap beside it on white: chrome finish, pupil gauge on barrel — clinical diagnostic instrument, studio lighting, no people", 143),
+    R("two chrome medical pen torches on white background: LED penlights with pocket clips and pupil gauge scales — diagnostic examination instruments, product photography, no people", 145),
   ],
   stethoscope: [
-    "/products/stethoscope.jpg",
-    R("close-up of stethoscope chest piece on white: silver rim, flat diaphragm membrane, bell on reverse side — medical auscultation instrument, sharp focus realistic photo", 152),
-    R("black stethoscope coiled in circle on white surface: dual-head chest piece diaphragm and bell clearly visible, soft sealing ear tips, flexible tubing — clinical instrument product shot", 153),
-    F("medical student wearing black stethoscope around neck in clinical setting, professional uniform, realistic", 154),
-    R("stethoscope ear tips close-up on white background: soft silicone seal ear tips attached to metal binaural spring headset — medical acoustic instrument component, product photography", 155),
+    R("dual head stethoscope on pure white background: black Y-shaped tubing, chest piece with diaphragm and bell, soft ear tips, spring headset — acoustic medical instrument, studio product photography, no people", 151),
+    R("close-up of stethoscope chest piece on white: silver rim, flat diaphragm membrane, bell on reverse — medical auscultation instrument, sharp focus, no people", 152),
+    R("black stethoscope coiled in circle on white surface: dual-head chest piece diaphragm and bell clearly visible, soft sealing ear tips — clinical instrument product shot, no people", 153),
+    R("stethoscope ear tips close-up on white: soft silicone seal ear tips on metal binaural spring headset — medical acoustic instrument, product photography, no people", 155),
   ],
   sphygmo: [
-    "/products/sphygmomanometer.jpg",
-    R("close-up of aneroid BP gauge dial on white: circular mercury-free manometer showing mmHg markings, needle indicator, chrome bezel — manual blood pressure measurement instrument, sharp focus", 162),
-    R("sphygmomanometer complete set on white: folded BP cuff, gauge dial, hand pump bulb with control valve — clinical blood pressure monitoring kit, studio lighting realistic", 163),
-    F("physiotherapy student measuring blood pressure of patient using aneroid sphygmomanometer and stethoscope, clinical practical session, realistic", 164),
-    R("manual blood pressure cuff unrolled on white background: grey fabric cuff with velcro, connected to aneroid gauge and rubber bulb pump — BP measurement device, product photography", 165),
+    R("aneroid sphygmomanometer blood pressure monitor on pure white background: round gauge dial with mmHg scale 0-300, black inflatable arm cuff, rubber hand bulb pump with metal valve, rubber tubing — clinical BP instrument, studio product photography, no people", 161),
+    R("close-up of aneroid BP gauge dial on white: circular mercury-free manometer showing mmHg markings, needle indicator, chrome bezel — manual blood pressure instrument, sharp focus, no people", 162),
+    R("sphygmomanometer complete set flat lay on white: folded BP cuff, gauge dial, hand pump bulb — clinical blood pressure monitoring kit, studio lighting, no people", 163),
+    R("manual blood pressure cuff unrolled on white background: grey fabric cuff with velcro, connected to aneroid gauge and rubber bulb pump — BP measurement device, product photography, no people", 165),
   ],
   yogamat: [
-    "/products/yoga-mat.jpg",
-    R("yoga mat rolled up tightly on white background: teal/green colour, carry strap around it, textured anti-slip surface visible — physiotherapy rehabilitation exercise mat, sharp product photo", 172),
-    R("yoga mat unrolled flat on white floor: 6mm thick teal exercise mat showing full surface texture and non-slip bottom — physiotherapy rehab mat top view, studio lighting", 173),
-    F("physiotherapy student performing therapeutic exercise on green yoga mat on clinic floor, stretching routine, realistic clinical setting", 174),
-    R("yoga exercise mat close-up on white: thick 6mm foam with textured teal surface and dotted anti-slip backing — physiotherapy rehabilitation equipment, product photography", 175),
+    R("6mm thick teal yoga mat on pure white background: non-slip textured surface, partially rolled showing thickness and cross-section — physiotherapy exercise rehabilitation mat, studio product photography, no people", 171),
+    R("yoga mat rolled up tightly with carry strap on white background: teal colour, textured anti-slip surface visible at end — physiotherapy rehabilitation exercise mat, sharp product photo, no people", 172),
+    R("yoga mat unrolled flat on white floor: 6mm thick teal exercise mat showing full surface texture and non-slip dotted bottom — physio rehab mat top view, studio lighting, no people", 173),
+    R("yoga exercise mat close-up on white: thick 6mm foam with textured teal surface and anti-slip backing pattern — physiotherapy rehabilitation equipment, product photography, no people", 175),
   ],
   band: [
-    R("green latex resistance exercise band on white background: flat loop band medium resistance, smooth elastic texture — physiotherapy strength training rehabilitation tool, studio product photography", 181),
-    R("resistance band stretched between two hands on white background: medium resistance green latex exercise band — physiotherapy upper limb strengthening tool, realistic product photo", 182),
-    R("resistance band coiled flat on white surface: green latex loop exercise band for physiotherapy rehabilitation — strength training tool, studio lighting sharp focus", 183),
-    F("physiotherapist guiding patient in resistance band exercise for knee rehabilitation, clinical setting, realistic photo", 184),
-    R("set of resistance exercise bands on white: green medium resistance, yellow light, red heavy — different strengths for physiotherapy rehab, flat lay product photography", 185),
+    R("green latex resistance exercise band on pure white background: flat loop band, medium resistance, smooth elastic texture, lying flat — physiotherapy strength training tool, studio product photography, no people", 181),
+    R("resistance band coiled flat on white surface: green latex loop exercise band for physiotherapy rehabilitation — strength training tool, studio lighting, no people", 183),
+    R("set of three resistance exercise bands flat lay on white: green medium, yellow light, red heavy resistance — different strengths for physiotherapy rehab, product photography, no people", 185),
+    R("green resistance band folded over itself on white background: elastic latex exercise band showing texture and flexibility — rehabilitation physiotherapy tool, sharp focus, no people", 186),
   ],
   dynamometer: [
-    "/products/dynamometer.jpg",
-    R("close-up of digital hand dynamometer display showing grip strength reading in kg on LCD screen — physiotherapy strength measurement clinical tool, white background sharp focus", 192),
-    R("grip strength dynamometer full product shot on white: hand grip ergonomic device with digital display, chrome and black finish — physiotherapy assessment instrument, studio lighting", 193),
-    F("physiotherapy student gripping dynamometer with maximum force for grip strength measurement test, clinical assessment, realistic", 194),
-    R("hand grip dynamometer isolated on white: compact ergonomic design with digital display for force reading in kilograms — muscle strength measurement physiotherapy tool", 195),
+    R("hand grip dynamometer on pure white background: ergonomic D-shaped grip handle, digital LCD display showing force reading in kg, black and chrome finish — physiotherapy muscle strength assessment instrument, studio product photography, no people", 191),
+    R("close-up of digital hand dynamometer display on white: LCD screen showing grip strength reading in kg — physiotherapy strength measurement clinical tool, sharp focus, no people", 192),
+    R("grip strength dynamometer full product shot on white: hand grip ergonomic device with digital display, chrome and black finish — physiotherapy assessment instrument, studio lighting, no people", 193),
+    R("hand grip dynamometer isolated on white: compact ergonomic D-grip design with digital display for force in kilograms — muscle strength measurement physiotherapy tool, no people", 195),
   ],
   foamroller: [
-    R("EVA foam roller on white background: cylindrical 30cm long 15cm diameter foam roller, textured grid surface, dark teal colour — physiotherapy myofascial release recovery tool, studio product photography", 201),
-    R("foam roller close-up showing textured grid EVA surface — high density physiotherapy myofascial release equipment, white background sharp focus product shot", 202),
-    R("foam roller lying on white surface: cylindrical high density EVA foam, textured outer surface, solid construction — muscle recovery physiotherapy rehabilitation tool, studio lighting", 203),
-    F("physiotherapy student using foam roller on thoracic spine for myofascial release on clinic floor, realistic clinical setting", 204),
-    R("foam roller upright on white background: solid cylindrical EVA foam exercise roller textured surface — physiotherapy muscle recovery equipment product photography", 205),
+    R("EVA foam roller on pure white background: cylindrical 30cm long 15cm diameter roller, textured grid surface, dark teal colour — physiotherapy myofascial release recovery tool, studio product photography, no people", 201),
+    R("foam roller close-up on white showing textured grid EVA surface pattern — high density physiotherapy myofascial release equipment, sharp focus, no people", 202),
+    R("foam roller lying on white surface: cylindrical high density EVA foam, textured outer surface — muscle recovery physiotherapy rehabilitation tool, studio lighting, no people", 203),
+    R("foam roller standing upright on white background: solid cylindrical EVA foam exercise roller, textured grid surface — physiotherapy muscle recovery equipment, no people", 205),
   ],
   myospaz: [
-    R("Myospaz topical gel tube on white background: white and blue plastic tube with printed label 'Myospaz Gel', screw cap, muscle relaxant topical analgesic physiotherapy product — studio product photography", 211),
-    R("close-up of Myospaz gel tube cap and label on white background: physiotherapy muscle relaxant topical gel, cream-coloured tube with blue cap — clinical therapeutic product, sharp focus", 212),
-    R("muscle relaxant gel tube isolated on white: Myospaz topical analgesic gel tube standing upright, blue and white packaging — physiotherapy therapeutic product, studio lighting", 213),
-    F("physiotherapist applying topical muscle relaxant gel on patient's lower back for localised muscle spasm relief, clinical treatment, realistic", 214),
-    R("Myospaz gel tube product shot on white: white squeezable tube with cap, muscle relaxant label, physiotherapy topical application — clean background studio photography", 215),
+    R("Myospaz topical gel tube on pure white background: white plastic tube with blue cap, printed label, muscle relaxant topical analgesic — physiotherapy therapeutic product, studio product photography, no people", 211),
+    R("close-up of Myospaz gel tube on white: cream-coloured tube with blue screw cap, label details visible — physiotherapy muscle relaxant topical gel, sharp focus, no people", 212),
+    R("muscle relaxant gel tube standing upright on white: Myospaz topical analgesic, blue and white packaging, flat end base — physiotherapy therapeutic product, studio lighting, no people", 213),
+    R("Myospaz gel tube product shot angled on white: white squeezable tube with cap, muscle relaxant label, clean background — physiotherapy topical gel product photography, no people", 215),
   ],
   ultrasoundgel: [
-    R("ultrasound gel bottle 250ml on white background: clear squeeze bottle with flip cap, blue label 'Ultrasound Gel', transparent aqua-coloured gel inside — physiotherapy UST coupling medium, studio product photography", 221),
-    R("close-up of 250ml ultrasound coupling gel bottle: clear plastic squeeze bottle with blue label — physiotherapy therapeutic ultrasound coupling medium, white background sharp focus", 222),
-    R("ultrasound gel bottle standing on white surface: 250ml clear bottle with flip cap, gel visible through translucent body — physiotherapy UST session consumable, studio lighting", 223),
-    F("physiotherapist applying clear ultrasound gel on patient shoulder before therapeutic ultrasound treatment, clinical physiotherapy session, realistic", 224),
-    R("ultrasound gel 250ml flat lay on white: clear squeeze bottle with label alongside ultrasound transducer head — physiotherapy coupling medium product photography", 225),
+    R("ultrasound gel bottle 250ml on pure white background: clear squeeze bottle with flip cap, blue label, transparent aqua gel visible inside — physiotherapy UST coupling medium, studio product photography, no people", 221),
+    R("close-up of ultrasound coupling gel bottle on white: clear plastic squeeze bottle with blue label, flip cap — physiotherapy therapeutic ultrasound coupling medium, sharp focus, no people", 222),
+    R("ultrasound gel 250ml bottle standing on white surface: clear bottle with flip cap, gel visible through translucent body — physiotherapy UST consumable, studio lighting, no people", 223),
+    R("ultrasound gel bottle flat lay on white: clear squeeze bottle with label — physiotherapy coupling medium, product photography, no people", 225),
   ],
   sanitizer: [
-    R("hand sanitizer sachets on white background: individual foil sachets in a pack of 10, silver packaging with sanitizer label, single-dose disposable — clinical hygiene product, studio product photography", 231),
-    R("close-up of hand sanitizer individual sachet packet on white: small foil single-dose sanitizer pouch, 70% alcohol, clinical hygiene — product photography sharp focus", 232),
-    R("sanitizer sachets pack spread on white surface: 10 individual foil sachets fanned out, clinical disposable hygiene products — studio product photography", 233),
-    F("healthcare student opening hand sanitizer sachet before clinical procedure, hygiene protocol, realistic clinical setting", 234),
-    R("hand sanitizer sachets 10 pack on white: sealed silver foil individual pouches stacked — disposable instant sanitizer clinical hygiene product photography", 235),
+    R("hand sanitizer sachets on pure white background: individual foil sachets in a pack of 10, silver packaging, sanitizer label, single-dose disposable — clinical hygiene product, studio product photography, no people", 231),
+    R("close-up of hand sanitizer sachet on white: small foil single-dose sanitizer pouch, 70 percent alcohol, clinical hygiene — product photography, sharp focus, no people", 232),
+    R("sanitizer sachets pack spread on white surface: 10 individual foil sachets fanned out, silver disposable clinical hygiene products — studio product photography, no people", 233),
+    R("hand sanitizer sachets 10 pack on white: sealed silver foil individual pouches stacked neatly — disposable instant sanitizer product photography, no people", 235),
   ],
   cotton: [
-    R("medical cotton wool pack on white background: white fluffy absorbent cotton, unsealed pack showing soft fibre texture — clinical grade physiotherapy consumable, studio product photography", 241),
-    R("close-up of medical grade cotton wool: white soft fluffy fibres, absorbent clinical cotton — dressing and physiotherapy procedure consumable, white background sharp focus", 242),
-    R("medical cotton roll and pack on white surface: white absorbent cotton wool, clinical grade packaging — physiotherapy dressing wound care product, studio lighting", 243),
-    F("physiotherapy student using medical cotton for electrode placement during TENS treatment on patient arm, clinical practical, realistic", 244),
-    R("medical cotton pack isolated on white: soft white clinical grade cotton wool for dressing and clinical procedures — physiotherapy consumable product photography", 245),
+    R("medical cotton wool pack on pure white background: white fluffy absorbent cotton, unsealed pack showing soft fibre texture — clinical grade physiotherapy consumable, studio product photography, no people", 241),
+    R("close-up of medical grade cotton wool on white: white soft fluffy fibres, absorbent clinical cotton — dressing and physiotherapy consumable, sharp focus, no people", 242),
+    R("medical cotton roll and pack on white surface: white absorbent cotton wool in clinical grade packaging — physiotherapy dressing product, studio lighting, no people", 243),
+    R("medical cotton pack isolated on white: soft white clinical grade cotton wool for dressing and clinical procedures — physiotherapy consumable product photography, no people", 245),
   ],
   medtape: [
-    R("micropore medical tape roll on white background: white paper adhesive tape on cardboard core, 2.5cm wide — hypoallergenic clinical strapping bandage tape, studio product photography", 251),
-    R("close-up of white micropore tape roll on white: paper medical tape showing adhesive side and non-woven surface — hypoallergenic wound dressing strapping tape, sharp focus", 252),
-    R("medical micropore tape two rolls on white surface: white hypoallergenic paper tape rolls — clinical wound dressing electrode fixation physiotherapy consumable, studio lighting", 253),
-    F("physiotherapist applying white micropore tape to secure electrode pad on patient forearm during electrotherapy, clinical physiotherapy session, realistic", 254),
-    R("micropore paper tape roll product shot on white: 5m x 2.5cm white hypoallergenic medical adhesive tape — clinical physiotherapy consumable photography", 255),
+    R("micropore medical tape roll on pure white background: white paper adhesive tape on cardboard core, 2.5cm wide — hypoallergenic clinical strapping tape, studio product photography, no people", 251),
+    R("close-up of white micropore tape roll on white: paper medical tape showing adhesive layer — hypoallergenic wound dressing tape, sharp focus, no people", 252),
+    R("medical micropore tape two rolls on white surface: white hypoallergenic paper tape rolls — clinical physiotherapy consumable, studio lighting, no people", 253),
+    R("micropore paper tape roll product shot on white: 5m x 2.5cm white hypoallergenic medical adhesive tape — clinical physiotherapy consumable photography, no people", 255),
   ],
   mask: [
-    R("pack of 10 disposable surgical face masks on white background: blue 3-ply surgical masks in opened box showing neat stack, with individual masks fanned out — medical PPE, studio product photography", 261),
-    R("close-up of single 3-ply surgical face mask on white: blue outer layer, white inner soft layer, metal nose wire at top, ear loops — disposable medical PPE, sharp focus product photo", 262),
-    R("surgical face mask product shot on white: blue and white 3-ply disposable mask fully displayed with ear loops spread — medical grade PPE, studio lighting", 263),
-    F("BPT student wearing surgical face mask in clinical ward during physiotherapy practical session, professional setting, realistic", 264),
-    R("10 disposable surgical face masks fanned out on white background: blue 3-ply medical grade masks — clinical PPE product photography", 265),
+    R("pack of 10 disposable surgical face masks on pure white background: blue 3-ply surgical masks in opened box, individual masks fanned out — medical PPE, studio product photography, no people", 261),
+    R("close-up of single 3-ply surgical face mask on white: blue outer layer, white inner soft layer, metal nose wire, ear loops — disposable medical PPE, sharp focus, no people", 262),
+    R("surgical face masks product shot on white: multiple blue and white 3-ply disposable masks fanned out — medical grade PPE, studio lighting, no people", 263),
+    R("10 disposable surgical face masks fanned out on white background: blue 3-ply medical grade masks in neat arrangement — clinical PPE product photography, no people", 265),
   ],
   gloves: [
-    R("pair of blue nitrile examination gloves on white background: powder-free latex-free medical grade examination gloves, textured fingertips, natural hand shape — clinical PPE, studio product photography", 271),
-    R("close-up of nitrile examination glove on white: blue textured surface showing detailed finger texture and flexible material — medical grade powder-free examination glove, sharp focus", 272),
-    R("pair of nitrile gloves product shot on white surface: blue medical examination gloves laid flat showing palm and back — clinical PPE physiotherapy practical tool, studio lighting", 273),
-    F("physiotherapy student wearing blue nitrile gloves during patient contact assessment in clinical setting, realistic", 274),
-    R("box of nitrile examination gloves on white background: blue powder-free gloves with a pair displayed — clinical grade PPE medical consumable product photography", 275),
+    R("pair of blue nitrile examination gloves on pure white background: powder-free latex-free medical grade examination gloves, textured fingertips — clinical PPE, studio product photography, no people", 271),
+    R("close-up of nitrile examination glove on white: blue textured surface showing detailed finger texture — medical grade powder-free examination glove, sharp focus, no people", 272),
+    R("pair of nitrile gloves flat lay on white surface: blue medical examination gloves showing palm and back — clinical PPE physiotherapy tool, studio lighting, no people", 273),
+    R("box of nitrile examination gloves on white background: blue powder-free gloves box with a pair displayed beside it — clinical grade PPE product photography, no people", 275),
   ],
   notes: [
-    R("BPT physiotherapy textbook stack on white background: anatomy and physiology books with colourful spines, one open showing detailed diagrams and text — first year medical student study material, studio product photography", 281),
-    R("open physiotherapy anatomy textbook on white surface showing detailed anatomical diagrams of musculoskeletal system with labels — BPT first year study material, realistic product photo", 282),
-    R("stack of BPT physio textbooks on white: anatomy physiology and physiotherapy clinical textbooks stacked — medical student education material, studio lighting", 283),
-    F("BPT student studying physio textbook notes at desk in hostel room, highlighted textbook open, realistic study scene", 284),
-    R("medical student notes and textbook on white: physio anatomy notes handwritten alongside printed textbook — BPT first year education material product photography", 285),
+    R("BPT physiotherapy textbook stack on pure white background: anatomy and physiology books with colourful spines, one open showing detailed diagrams — first year medical student study material, studio product photography, no people", 281),
+    R("open physiotherapy anatomy textbook on white surface: detailed anatomical diagrams of musculoskeletal system with labels — BPT first year study material, realistic product photo, no people", 282),
+    R("stack of BPT physio textbooks on white: anatomy physiology and physiotherapy clinical textbooks stacked — medical student education material, studio lighting, no people", 283),
+    R("medical physio textbook and clinical notes on white: printed textbook open beside handwritten notes pages — BPT first year education material product photography, no people", 285),
   ],
   notepad: [
-    R("A5 spiral notepad on white background: ruled lined pages, blue cover, spiral binding on left side, pen laying on top — medical student clinical note-taking notebook, studio product photography", 291),
-    R("open A5 spiral notepad on white showing clean ruled lines inside and spiral metal binding — medical student notebook, realistic sharp focus product photo", 292),
-    R("A5 spiral bound notepad product shot on white: blue cover with 80 ruled pages, wire binding — clinical note-taking student notebook, studio lighting", 293),
-    F("BPT student writing clinical case notes in A5 spiral notepad during physiotherapy practical session, realistic", 294),
-    R("A5 spiral notepad closed on white background: compact 14x21cm ruled student notebook with wire binding — clinical note taking stationery product photography", 295),
+    R("A5 spiral notepad on pure white background: ruled lined pages, blue cover, spiral binding on left side — medical student clinical note-taking notebook, studio product photography, no people", 291),
+    R("open A5 spiral notepad on white: clean ruled lines inside and spiral metal binding visible — medical student notebook, realistic sharp focus product photo, no people", 292),
+    R("A5 spiral bound notepad product shot on white: blue cover with 80 ruled pages, wire binding — clinical note-taking student notebook, studio lighting, no people", 293),
+    R("A5 spiral notepad closed on white background: compact ruled student notebook with wire binding and blue cover — clinical stationery product photography, no people", 295),
   ],
   penset: [
-    R("set of 5 ballpoint pens on white background: black blue red green purple ink pens fanned out, click-top mechanism, slim design — clinical writing student stationery, studio product photography", 301),
-    R("5 ballpoint pens arranged in fan shape on white: multi-colour ink set, slim design, click retractable mechanism — medical student clinical writing instruments, sharp focus", 302),
-    R("pen set five pieces product shot on white: ballpoint pens in different colours side by side — student stationery clinical documentation tools, studio lighting", 303),
-    F("BPT student writing clinical notes with ballpoint pen in notepad, desk study scene, realistic", 304),
-    R("multi-colour ballpoint pen set 5 pieces on white: click-top ballpoint pens black blue red green purple — student stationery product photography", 305),
+    R("set of 5 ballpoint pens on pure white background: black blue red green purple ink pens fanned out, click-top mechanism, slim design — student stationery, studio product photography, no people", 301),
+    R("5 ballpoint pens arranged in fan shape on white: multi-colour ink set, slim design, click retractable mechanism — medical student writing instruments, sharp focus, no people", 302),
+    R("pen set five pieces product shot on white: ballpoint pens in different colours arranged side by side — student stationery clinical documentation tools, studio lighting, no people", 303),
+    R("multi-colour ballpoint pen set 5 pieces flat lay on white: click-top pens black blue red green purple — student stationery product photography, no people", 305),
   ],
   markerset: [
-    R("set of 6 whiteboard markers on white background: colourful chisel-tip markers in red blue green black orange purple, caps on, neatly arranged — teaching hospital stationery, studio product photography", 311),
-    R("colourful whiteboard markers product shot on white: 6 markers fanned out showing different colours with chisel tips — teaching and presentation stationery, sharp focus", 312),
-    R("whiteboard marker set 6 colours on white: red blue green black orange purple markers lined up — clinical teaching hospital stationery product photography studio lighting", 313),
-    F("medical teacher using colourful whiteboard markers to draw anatomy diagram on whiteboard for BPT students, teaching scene, realistic", 314),
-    R("6 whiteboard markers arranged in arc on white background: multi-colour chisel-tip markers — hospital teaching stationery product shot", 315),
+    R("set of 6 whiteboard markers on pure white background: colourful chisel-tip markers in red blue green black orange purple, caps on, neatly arranged — teaching stationery, studio product photography, no people", 311),
+    R("colourful whiteboard markers product shot on white: 6 markers fanned out showing different colours with chisel tips — teaching and presentation stationery, sharp focus, no people", 312),
+    R("whiteboard marker set 6 colours on white: red blue green black orange purple markers lined up — clinical teaching stationery product photography, no people", 313),
+    R("6 whiteboard markers arranged in arc on white background: multi-colour chisel-tip markers, caps on — hospital teaching stationery product shot, no people", 315),
   ],
   usb: [
-    R("silver 16GB USB flash drive on white background: compact rectangular USB drive with metal cap, 16GB printed on body, USB-A connector visible — student data storage device, studio product photography", 321),
-    R("close-up of 16GB USB flash drive on white: compact metal silver USB stick with cap, storage capacity label — student study material storage device, sharp focus product shot", 322),
-    R("USB flash drive 16GB product shot on white: slim silver metal USB drive cap off showing USB connector — medical student study data storage, studio lighting", 323),
-    F("BPT student inserting USB drive into laptop to access lecture notes and study material, hostel study desk, realistic", 324),
-    R("16GB USB flash drive with cap and without cap on white background: compact silver USB stick — student study material storage device product photography", 325),
+    R("silver 16GB USB flash drive on pure white background: compact rectangular USB drive with metal cap, 16GB printed on body, USB-A connector visible — student data storage device, studio product photography, no people", 321),
+    R("close-up of 16GB USB flash drive on white: compact metal silver USB stick with cap, storage capacity label — student study material storage device, sharp focus, no people", 322),
+    R("USB flash drive 16GB product shot on white: slim silver metal USB drive with cap and without cap showing connector — medical student study data storage, studio lighting, no people", 323),
+    R("16GB USB flash drive with cap beside it on white background: compact silver USB stick — student study material storage device product photography, no people", 325),
   ],
   scrubs: [
-    R("navy blue medical scrubs set on white background: v-neck scrub top and drawstring pants, two front pockets on top, professional clinical uniform — physiotherapy student apparel, studio product photography", 331),
-    R("medical scrub top close-up on white: navy blue v-neck cotton-blend clinical top with two front pockets, neat finish — physiotherapy student uniform, sharp focus product shot", 332),
-    R("navy blue scrubs set folded neatly on white surface: v-neck scrub top and matching pants — professional clinical physiotherapy uniform, studio lighting", 333),
-    F("young BPT physiotherapy student wearing navy blue scrubs in clinical corridor at SRM hospital, professional look, realistic", 334),
-    R("ceil blue medical scrubs set on white: v-neck scrub top and pants, professional clinical uniform for physiotherapy student — product photography studio", 335),
+    R("navy blue medical scrubs set on pure white background: v-neck scrub top and drawstring pants on flat lay, two front pockets on top, professional clinical uniform — physiotherapy student apparel, studio product photography, no people", 331),
+    R("medical scrub top close-up on white: navy blue v-neck cotton-blend clinical top with two front pockets, neat finish — physiotherapy student uniform, sharp focus, no people", 332),
+    R("navy blue scrubs set folded neatly on white surface: v-neck scrub top and matching pants — professional clinical physiotherapy uniform, studio lighting, no people", 333),
+    R("ceil blue medical scrubs set flat lay on white: v-neck scrub top and pants — professional clinical uniform for physiotherapy student, product photography, no people", 335),
   ],
   apron: [
-    R("white full-length lab apron on white background displayed on hanger: two large front pockets, adjustable neck strap, waist tie strings, clean cotton-polyester blend — medical student laboratory protective garment, studio product photography", 341),
-    R("white lab apron front view on white: full length protective apron with two front pockets and neck strap visible — medical student physiotherapy lab garment, sharp focus product shot", 342),
-    R("white medical lab apron folded neatly on white surface: cotton-polyester blend full length apron with pockets — clinical laboratory protective garment, studio lighting", 343),
-    F("BPT student wearing white full-length lab apron in physiotherapy anatomy laboratory, professional clinical setting, realistic", 344),
-    R("white lab apron hanging on hook on white background: full-length clinical protective apron with front pockets — medical student laboratory uniform product photography", 345),
+    R("white full-length lab apron on white background displayed on hanger: two large front pockets, adjustable neck strap, waist tie strings, clean cotton-polyester blend — medical student laboratory garment, studio product photography, no people", 341),
+    R("white lab apron front view on white: full length protective apron with two front pockets and neck strap — medical student physiotherapy lab garment, sharp focus, no people", 342),
+    R("white medical lab apron folded neatly on white surface: cotton-polyester blend full length apron with pockets — clinical laboratory protective garment, studio lighting, no people", 343),
+    R("white lab apron hanging on hook on white background: full-length clinical protective apron with front pockets — medical student laboratory uniform product photography, no people", 345),
   ],
 };
 
@@ -500,67 +475,85 @@ function Navbar({ cartCount, onCart, onHome, searchQuery, onSearchChange }) {
 function HeroSection({ onShop }) {
   return (
     <div style={{
-      background: "linear-gradient(135deg, #FFFFFF 0%, #EEF2FF 50%, #DBEAFE 100%)",
-      padding: "100px 5% 64px", position: "relative", overflow: "hidden",
+      background: "linear-gradient(160deg, #0A1628 0%, #0D2D5A 55%, #0A1E3E 100%)",
+      padding: "108px 5% 72px", position: "relative", overflow: "hidden",
     }}>
-      {/* Decorative circles */}
-      <div style={{ position: "absolute", top: -80, right: "10%", width: 360, height: 360, borderRadius: "50%", background: "rgba(29,78,216,0.06)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -60, left: "5%", width: 220, height: 220, borderRadius: "50%", background: "rgba(29,78,216,0.04)", pointerEvents: "none" }} />
+      {/* Subtle grid overlay */}
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
+      {/* Glow blobs */}
+      <div style={{ position: "absolute", top: -100, right: "8%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,87,168,0.35) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: -80, left: "2%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,135,90,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
 
-      <div className="hero-row" style={{ maxWidth: 1200, margin: "0 auto", width: "100%" }}>
-        <div style={{ flex: "0 0 auto", maxWidth: 520, animation: "fadeUp 0.7s ease both" }}>
+      <div className="hero-row" style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative" }}>
+        <div style={{ flex: "0 0 auto", maxWidth: 540, animation: "fadeUp 0.7s ease both" }}>
+          {/* Pill */}
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
-            background: "#EFF6FF", border: `1px solid #BFDBFE`,
-            borderRadius: 100, padding: "5px 16px", marginBottom: 24,
+            background: "rgba(0,87,168,0.35)", border: "1px solid rgba(0,87,168,0.6)",
+            borderRadius: 100, padding: "6px 18px", marginBottom: 28,
           }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.primary, display: "block" }} />
-            <span style={{ fontSize: 11, color: C.primary, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase" }}>Physiotherapy Collection</span>
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4CAF90", display: "block", boxShadow: "0 0 6px #4CAF90" }} />
+            <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Delivery</span>
           </div>
 
           <h1 style={{
-            fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontWeight: 700,
-            fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05,
-            color: "#0D1B2A", marginBottom: 20, letterSpacing: "-0.5px",
+            fontWeight: 900, fontSize: "clamp(38px, 5.5vw, 68px)", lineHeight: 1.06,
+            color: "#FFFFFF", marginBottom: 22, letterSpacing: "-1px",
           }}>
-            Equip Every<br />
-            <span style={{ color: C.primary }}>BPT Student</span>
+            Everything a<br />
+            <span style={{
+              background: "linear-gradient(90deg, #60A5FA, #34D399)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            }}>BPT Student</span><br />
+            <span style={{ color: "rgba(255,255,255,0.85)" }}>Needs.</span>
           </h1>
 
-          <p style={{ fontSize: 16, color: C.textSub, fontWeight: 400, maxWidth: 440, lineHeight: 1.75, marginBottom: 36 }}>
-            Curated physiotherapy kits for SRM campus — every instrument, scrub, and study material you need, in one place.
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", fontWeight: 400, maxWidth: 460, lineHeight: 1.8, marginBottom: 40 }}>
+            Physiotherapy instruments, clinical kits, scrubs &amp; study supplies — curated for SRM students and delivered to your hostel in 48 hours.
           </p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginBottom: 40 }}>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 48 }}>
             <button onClick={onShop} style={{
-              background: C.primary, color: C.white, border: "none",
-              padding: "14px 32px", borderRadius: 8, cursor: "pointer",
-              fontWeight: 700, fontSize: 14, letterSpacing: 0.3,
-              transition: "all 0.2s", boxShadow: "0 4px 14px rgba(29,78,216,0.35)",
+              background: "linear-gradient(135deg, #0057A8, #0070D4)",
+              color: C.white, border: "none",
+              padding: "15px 36px", borderRadius: 10, cursor: "pointer",
+              fontWeight: 700, fontSize: 15, letterSpacing: 0.3,
+              transition: "all 0.22s", boxShadow: "0 6px 20px rgba(0,87,168,0.45)",
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = C.primaryHover; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = C.primary; e.currentTarget.style.transform = "none"; }}
-            >Shop Now &#8594;</button>
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,87,168,0.55)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,87,168,0.45)"; }}
+            >Browse Kits &#8594;</button>
+            <a href={`https://wa.me/918248613274?text=${encodeURIComponent("Hi MedVault, I'd like to place an order")}`} target="_blank" rel="noreferrer" style={{
+              display: "flex", alignItems: "center", gap: 8,
+              background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.18)",
+              color: "rgba(255,255,255,0.9)", padding: "14px 24px", borderRadius: 10,
+              textDecoration: "none", fontWeight: 600, fontSize: 14, transition: "all 0.2s",
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
+            >
+              <span style={{ fontSize: 16 }}>&#128172;</span> Order on WhatsApp
+            </a>
           </div>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 32 }}>
-            {[["4000+", "Students Served"], ["3", "Kit Types"], ["48h", "Delivery"]].map(([n, l]) => (
+          <div style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 28 }}>
+            {[["4,000+", "Students Served"], ["28+", "Products"], ["48 hrs", "Delivery"]].map(([n, l]) => (
               <div key={l}>
-                <div style={{ fontWeight: 800, fontSize: 22, color: C.primary }}>{n}</div>
-                <div style={{ fontSize: 12, color: C.muted, fontWeight: 500 }}>{l}</div>
+                <div style={{ fontWeight: 800, fontSize: 24, color: "#FFFFFF", letterSpacing: "-0.5px" }}>{n}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontWeight: 500, marginTop: 2 }}>{l}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="hero-img" style={{ animation: "fadeUp 0.9s ease 0.15s both" }}>
+        <div className="hero-img" style={{ animation: "fadeUp 0.9s ease 0.18s both" }}>
           <div style={{ position: "relative", animation: "float3d 5s ease-in-out infinite" }}>
-            <div style={{ position: "absolute", inset: -32, borderRadius: 32, background: "radial-gradient(ellipse at center, rgba(29,78,216,0.12) 0%, transparent 70%)", zIndex: 0 }} />
+            <div style={{ position: "absolute", inset: -24, borderRadius: 32, background: "radial-gradient(ellipse, rgba(0,87,168,0.3) 0%, transparent 70%)", zIndex: 0 }} />
             <img src="/kit.jpg" alt="MedVault Physio Kit" style={{
               position: "relative", zIndex: 1,
-              width: "clamp(240px, 30vw, 440px)",
-              borderRadius: 20, boxShadow: "0 24px 64px rgba(29,78,216,0.18)",
+              width: "clamp(240px, 28vw, 430px)",
+              borderRadius: 22, boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
             }} onError={e => e.target.style.display = "none"} />
           </div>
         </div>
@@ -572,16 +565,17 @@ function HeroSection({ onShop }) {
 // ── Trust Strip ───────────────────────────────────────────────
 function TrustStrip() {
   return (
-    <div style={{ background: C.strip, padding: "14px 5%" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "center", gap: "6%", flexWrap: "wrap" }}>
+    <div style={{ background: C.white, borderBottom: `1px solid ${C.border}`, padding: "16px 5%" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "center", gap: "5%", flexWrap: "wrap" }}>
         {[
-          ["&#128666;", "Free Campus Delivery"],
-          ["&#129516;", "Physio-Grade Quality"],
-          ["&#128230;", "Ready to Ship"],
-          ["&#128172;", "WhatsApp Orders"],
+          ["🚚", "Free delivery above ₹2000"],
+          ["✅", "Hospital-grade quality"],
+          ["⚡", "48hr campus delivery"],
+          ["💬", "WhatsApp ordering"],
+          ["🔒", "COD & UPI available"],
         ].map(([ic, lb]) => (
-          <div key={lb} style={{ display: "flex", alignItems: "center", gap: 8, color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 500 }}>
-            <span dangerouslySetInnerHTML={{ __html: ic }} />
+          <div key={lb} style={{ display: "flex", alignItems: "center", gap: 7, color: C.textSub, fontSize: 12.5, fontWeight: 500 }}>
+            <span style={{ fontSize: 14 }}>{ic}</span>
             <span>{lb}</span>
           </div>
         ))}
@@ -593,20 +587,25 @@ function TrustStrip() {
 // ── Tab Navigation ────────────────────────────────────────────
 function TabNav({ active, onChange }) {
   const tabs = [
-    { id: "kits", label: "Curated Kits" },
-    { id: "items", label: "Individual Items" },
-    { id: "apparel", label: "Scrubs & Aprons" },
+    { id: "kits", label: "🎁 Curated Kits", desc: "Best value bundles" },
+    { id: "items", label: "🔬 Individual Items", desc: "Buy what you need" },
+    { id: "apparel", label: "🥼 Scrubs & Aprons", desc: "Clinical uniform" },
   ];
   return (
-    <div style={{ display: "flex", gap: 6, marginBottom: 36, overflowX: "auto" }}>
+    <div style={{ display: "flex", gap: 10, marginBottom: 40, overflowX: "auto", paddingBottom: 2 }}>
       {tabs.map(t => (
         <button key={t.id} onClick={() => onChange(t.id)} style={{
-          padding: "9px 20px", borderRadius: 100, cursor: "pointer",
-          background: active === t.id ? C.primary : "#E5E7EB",
+          padding: "12px 22px", borderRadius: 12, cursor: "pointer",
+          background: active === t.id ? C.primary : C.white,
           color: active === t.id ? C.white : C.textSub,
-          border: "none", fontSize: 13, fontWeight: 600,
+          border: `1.5px solid ${active === t.id ? C.primary : C.border}`,
+          fontSize: 13, fontWeight: 700,
           transition: "all 0.18s", whiteSpace: "nowrap",
-        }}>
+          boxShadow: active === t.id ? `0 4px 14px rgba(0,87,168,0.25)` : C.shadow,
+        }}
+          onMouseEnter={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.color = C.primary; }}}
+          onMouseLeave={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textSub; }}}
+        >
           {t.label}
         </button>
       ))}
@@ -628,33 +627,35 @@ function KitCard({ kit, onView, onAddToCart }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         background: C.card,
-        border: `1px solid ${C.border}`,
-        borderRadius: 16, overflow: "hidden", cursor: "pointer",
+        border: `1.5px solid ${hovered ? C.primary : C.border}`,
+        borderRadius: 18, overflow: "hidden", cursor: "pointer",
         transition: "all 0.25s ease",
-        transform: hovered ? "translateY(-4px)" : "none",
+        transform: hovered ? "translateY(-5px)" : "none",
         boxShadow: hovered ? C.shadowHover : C.shadow,
         display: "flex", flexDirection: "column",
       }}
     >
       {/* Image */}
-      <div style={{ height: 200, overflow: "hidden", position: "relative" }}>
-        <img src={kit.images[0]} alt={kit.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease", transform: hovered ? "scale(1.04)" : "scale(1)" }} onError={e => e.target.style.display="none"} />
+      <div style={{ height: 220, overflow: "hidden", position: "relative", background: "#F7FAFC" }}>
+        <img src={kit.images[0]} alt={kit.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.45s ease", transform: hovered ? "scale(1.05)" : "scale(1)" }} onError={e => e.target.style.display="none"} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.28) 100%)" }} />
         {/* Discount badge */}
         <span style={{
-          position: "absolute", top: 12, right: 12,
+          position: "absolute", top: 14, right: 14,
           background: C.deal, color: C.white,
-          borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 800,
+          borderRadius: 8, padding: "5px 11px", fontSize: 12, fontWeight: 800,
+          boxShadow: "0 2px 8px rgba(229,62,62,0.35)",
         }}>-{pct}%</span>
       </div>
 
       {/* Body */}
-      <div style={{ padding: "20px 20px 0", flex: 1 }}>
+      <div style={{ padding: "20px 22px 0", flex: 1 }}>
         {/* Badge */}
         <span style={{
           display: "inline-block",
-          background: isGold ? C.goldBg : "#EFF6FF",
+          background: isGold ? C.goldBg : "#EBF5FF",
           color: isGold ? C.gold : C.primary,
-          border: `1px solid ${isGold ? "#FDE68A" : "#BFDBFE"}`,
+          border: `1px solid ${isGold ? "#FAD56E" : "#BDD9FF"}`,
           borderRadius: 100, padding: "3px 10px", fontSize: 10, fontWeight: 700,
           letterSpacing: 1.5, marginBottom: 10,
         }}>{kit.badge}</span>
@@ -663,52 +664,51 @@ function KitCard({ kit, onView, onAddToCart }) {
         <p style={{ fontSize: 13, color: C.muted, marginBottom: 14, lineHeight: 1.45 }}>{kit.tagline}</p>
 
         {/* Items inside */}
-        <p style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8, fontWeight: 600 }}>What's inside</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 12 }}>
+        <p style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8, fontWeight: 700 }}>What's inside</p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 10px", marginBottom: 14 }}>
           {kit.items.map((item, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.primary, flexShrink: 0 }} />
-                <span style={{ fontSize: 12, color: C.textSub }}>{item.name}</span>
-              </div>
-              <span style={{ fontSize: 11, color: C.muted }}>{fmt(item.retail)}</span>
-            </div>
+            <span key={i} style={{ fontSize: 11, color: C.textSub, display: "flex", alignItems: "center", gap: 4 }}>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: C.primary, display: "inline-block", flexShrink: 0 }} />
+              {item.name}
+            </span>
           ))}
         </div>
 
-        {/* Retail total */}
+        {/* Savings callout */}
         <div style={{
-          background: "#F9FAFB", border: `1px solid ${C.border}`, borderRadius: 8,
-          padding: "8px 12px", display: "flex", justifyContent: "space-between", marginBottom: 16,
+          background: "linear-gradient(135deg, #EBF5FF, #F0FFF4)",
+          border: `1px solid #BDD9FF`, borderRadius: 10,
+          padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16,
         }}>
-          <span style={{ fontSize: 12, color: C.muted }}>Retail total</span>
-          <span style={{ fontSize: 12, color: C.muted, textDecoration: "line-through" }}>{fmt(retailTotal)}</span>
+          <span style={{ fontSize: 12, color: C.textSub, fontWeight: 500 }}>You save</span>
+          <span style={{ fontSize: 14, color: C.accent, fontWeight: 800 }}>{fmt(saved)} ({pct}% off)</span>
         </div>
       </div>
 
       {/* Footer */}
-      <div style={{ padding: "0 20px 20px", borderTop: `1px solid ${C.border}`, paddingTop: 16, marginTop: "auto" }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 14 }}>
-          <span style={{ fontWeight: 800, fontSize: 26, color: C.primary }}>{fmt(kit.price)}</span>
-          <span style={{ fontSize: 13, color: C.muted, textDecoration: "line-through" }}>{fmt(kit.originalPrice)}</span>
-          <span style={{ fontSize: 12, color: C.accent, fontWeight: 600 }}>Save {fmt(saved)}</span>
+      <div style={{ padding: "0 22px 22px", borderTop: `1px solid ${C.border}`, paddingTop: 16, marginTop: "auto" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 14 }}>
+          <span style={{ fontWeight: 900, fontSize: 28, color: C.primary, letterSpacing: "-0.5px" }}>{fmt(kit.price)}</span>
+          <span style={{ fontSize: 14, color: C.muted, textDecoration: "line-through" }}>{fmt(kit.originalPrice)}</span>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
           <button onClick={() => onView(kit)} style={{
-            flex: 1, padding: "10px", borderRadius: 8, cursor: "pointer",
-            background: "none", border: `1px solid ${C.border}`,
+            flex: 1, padding: "11px", borderRadius: 10, cursor: "pointer",
+            background: "none", border: `1.5px solid ${C.border}`,
             color: C.textSub, fontSize: 13, fontWeight: 600, transition: "all 0.18s",
           }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.color = C.primary; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textSub; }}
-          >View Details</button>
+          >Details</button>
           <button onClick={(e) => { e.stopPropagation(); onAddToCart(kit); }} style={{
-            flex: 2, padding: "10px", borderRadius: 8, cursor: "pointer",
-            background: C.primary, border: "none", color: C.white,
+            flex: 2, padding: "11px", borderRadius: 10, cursor: "pointer",
+            background: `linear-gradient(135deg, ${C.primary}, ${C.primaryHover})`,
+            border: "none", color: C.white,
             fontSize: 13, fontWeight: 700, transition: "all 0.18s",
+            boxShadow: "0 4px 12px rgba(0,87,168,0.3)",
           }}
-            onMouseEnter={e => e.currentTarget.style.background = C.primaryHover}
-            onMouseLeave={e => e.currentTarget.style.background = C.primary}
+            onMouseEnter={e => e.currentTarget.style.opacity = "0.9"}
+            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
           >Add to Cart</button>
         </div>
         <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10 }}>
@@ -926,12 +926,29 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
       <TrustStrip />
 
       {/* Shop section */}
-      <div id="shop" style={{ maxWidth: 1280, margin: "0 auto", padding: "56px 5% 80px" }}>
-        <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, color: C.primary, letterSpacing: 3, textTransform: "uppercase", fontWeight: 700, marginBottom: 8 }}>Our Products</p>
-          <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,40px)", color: C.text, lineHeight: 1.1 }}>
-            Choose Your <span style={{ color: C.primary }}>Kit</span>
-          </h2>
+      <div id="shop" style={{ maxWidth: 1280, margin: "0 auto", padding: "60px 5% 90px" }}>
+        <div style={{ marginBottom: 36, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#EBF5FF", borderRadius: 100, padding: "4px 14px", marginBottom: 12 }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.primary, display: "block" }} />
+              <span style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Store</span>
+            </div>
+            <h2 style={{ fontWeight: 900, fontSize: "clamp(26px,4vw,42px)", color: C.text, lineHeight: 1.08, letterSpacing: "-0.5px" }}>
+              Shop <span style={{ color: C.primary }}>MedVault</span>
+            </h2>
+          </div>
+          <a href={`https://wa.me/918248613274?text=${encodeURIComponent("Hi, I want to place an order")}`} target="_blank" rel="noreferrer" style={{
+            display: "flex", alignItems: "center", gap: 7,
+            background: "#25D366", color: C.white,
+            padding: "11px 22px", borderRadius: 10, textDecoration: "none",
+            fontSize: 13, fontWeight: 700, boxShadow: "0 4px 12px rgba(37,211,102,0.35)",
+            transition: "opacity 0.2s",
+          }}
+            onMouseEnter={e => e.currentTarget.style.opacity = "0.88"}
+            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+          >
+            <span style={{ fontSize: 15 }}>💬</span> Order on WhatsApp
+          </a>
         </div>
 
         <TabNav active={tab} onChange={setTab} />
@@ -1034,16 +1051,25 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
         )}
       </div>
 
-      {/* Mission */}
-      <div style={{ background: C.header, padding: "60px 5%" }}>
-        <div className="mission-grid" style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div>
-            <p style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: 3, fontWeight: 700, marginBottom: 12, textTransform: "uppercase" }}>Our Mission</p>
-            <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.75)" }}>Support BPT students and physiotherapy professionals with thoughtfully curated medical essentials that improve learning, build confidence, and support strong clinical practice.</p>
+      {/* Mission / Footer */}
+      <div style={{ background: "linear-gradient(160deg, #0A1628 0%, #0D2D5A 100%)", padding: "64px 5% 56px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+          <div className="mission-grid" style={{ marginBottom: 48 }}>
+            <div>
+              <p style={{ fontSize: 10, color: "rgba(100,180,255,0.7)", letterSpacing: 3, fontWeight: 700, marginBottom: 14, textTransform: "uppercase" }}>Our Mission</p>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", maxWidth: 440 }}>Support BPT students and physiotherapy professionals with thoughtfully curated medical essentials that improve learning, build confidence, and support strong clinical practice.</p>
+            </div>
+            <div>
+              <p style={{ fontSize: 10, color: "rgba(100,180,255,0.7)", letterSpacing: 3, fontWeight: 700, marginBottom: 14, textTransform: "uppercase" }}>Our Vision</p>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", maxWidth: 440 }}>Be the most trusted on-campus medical store at SRM — known for premium quality, honest pricing, and understanding what a physio student truly needs.</p>
+            </div>
           </div>
-          <div>
-            <p style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: 3, fontWeight: 700, marginBottom: 12, textTransform: "uppercase" }}>Our Vision</p>
-            <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.75)" }}>Be the most trusted on-campus medical store at SRM — known for premium quality, honest pricing, and understanding what a physio student truly needs.</p>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>© 2025 MedVault · SRM Campus, Chennai</span>
+            <a href={`https://wa.me/918248613274`} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: "rgba(100,200,120,0.8)", textDecoration: "none", fontWeight: 600 }}>
+              💬 +91 82486 13274
+            </a>
           </div>
         </div>
       </div>
