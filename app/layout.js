@@ -10,10 +10,19 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL("https://medvault.store"),
   title: {
-    default: "MedVault — Medical Pouch & Kit for MBBS Students | SRM Campus",
+    default: "MedVault – Physio Kits for BPT Students, SRM Campus",
     template: "%s | MedVault",
   },
-  description: "MedVault sells premium medical pouches, diagnostic kits, and clinical instruments for MBBS & nursing students at SRM campus. Stethoscope, BP cuff, reflex hammer & more. Order on WhatsApp.",
+  description: "Premium physio kits for BPT students at SRM. Goniometer, stethoscope, knee hammer, scrubs & more. Starting ₹549. Free campus delivery in 48hrs. Order on WhatsApp.",
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logo.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/logo.png",
+  },
   keywords: [
     "medical pouch", "MBBS kit", "SRM medical store", "medical kit for students",
     "stethoscope pouch", "clinical kit", "diagnostic kit", "medical instruments",
