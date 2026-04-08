@@ -17,8 +17,10 @@ const QUICK_REPLIES = [
   { label: "📦 View Kits", msg: "What kits do you sell and what are the prices?" },
   { label: "🎓 I'm a 1st year BPT", msg: "I'm a first year BPT student. What should I buy?" },
   { label: "📋 Exam Prep Kit", msg: "Tell me about the Practical Exam Kit" },
+  { label: "🦴 Teach me Anatomy", msg: "Explain the muscles of the rotator cuff and their actions" },
+  { label: "📐 How to use Goniometer", msg: "How do I use a goniometer to measure joint range of motion?" },
+  { label: "🩺 MMT Grades", msg: "Explain Manual Muscle Testing grades 0 to 5" },
   { label: "🚚 Delivery Info", msg: "How does delivery work? How long does it take?" },
-  { label: "💰 Payment Options", msg: "What are the payment options?" },
 ];
 
 export default function ChatWidget() {
@@ -26,7 +28,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! 👋 I'm the MedVault Assistant.\n\nI can help you choose the right kit, check prices, and place your order. What are you looking for?",
+      content: "Hi! 👋 I'm the MedVault Assistant.\n\nI can help you:\n🛒 Choose products, check prices & place orders\n🎓 Learn anatomy, physiology & clinical techniques\n\nWhat do you need today?",
     },
   ]);
   const [input, setInput] = useState("");
