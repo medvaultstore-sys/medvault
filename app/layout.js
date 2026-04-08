@@ -1,6 +1,7 @@
 import "./globals.css";
 import Script from "next/script";
 import ChatWidget from "./components/ChatWidget";
+import BackButtonGuard from "./components/BackButtonGuard";
 
 export const viewport = {
   width: "device-width",
@@ -153,6 +154,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <BackButtonGuard />
         {children}
         <ChatWidget />
         {/* Google Analytics */}
