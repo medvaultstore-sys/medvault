@@ -56,6 +56,7 @@ const globalStyles = `
     .checkout-grid{grid-template-columns:1fr;}
     .detail-grid{grid-template-columns:1fr;}
     .mission-grid{grid-template-columns:1fr;}
+    .location-grid{grid-template-columns:1fr;}
     .hero-row{flex-direction:column;text-align:center;}
     .hero-img{order:-1;width:100%;}
     .hero-img img{width:clamp(200px,65vw,320px)!important;}
@@ -1049,6 +1050,95 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Find Us */}
+      <div style={{ background: C.white, borderTop: `1px solid ${C.border}`, padding: "64px 5%" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ marginBottom: 36 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#EBF5FF", borderRadius: 100, padding: "4px 14px", marginBottom: 12 }}>
+              <span style={{ fontSize: 13 }}>📍</span>
+              <span style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>Find Us</span>
+            </div>
+            <h2 style={{ fontWeight: 900, fontSize: "clamp(22px,3.5vw,36px)", color: C.text, letterSpacing: "-0.5px" }}>Visit Our Store</h2>
+          </div>
+
+          <div className="location-grid" style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 40, alignItems: "start" }}>
+            {/* Map */}
+            <div style={{ borderRadius: 18, overflow: "hidden", border: `1.5px solid ${C.border}`, boxShadow: C.shadow, minHeight: 360 }}>
+              <iframe
+                title="MedVault Store Location"
+                src="https://maps.google.com/maps?q=12.8510693,80.0681062&z=16&output=embed"
+                width="100%"
+                height="380"
+                style={{ border: 0, display: "block" }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+
+            {/* Info panel */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {/* Address card */}
+              <div style={{ background: C.bg, borderRadius: 14, padding: "22px 24px", border: `1.5px solid ${C.border}` }}>
+                <p style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>Address</p>
+                <p style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 4 }}>Medvault Enterprises</p>
+                <p style={{ fontSize: 14, color: C.textSub, lineHeight: 1.65 }}>
+                  Mahalakshmi Nagar Main Road<br />
+                  Chennai, Tamil Nadu<br />
+                  India
+                </p>
+              </div>
+
+              {/* Contact card */}
+              <div style={{ background: C.bg, borderRadius: 14, padding: "22px 24px", border: `1.5px solid ${C.border}` }}>
+                <p style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>Contact</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <a href="https://wa.me/918248613274" target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+                    <span style={{ width: 36, height: 36, borderRadius: 10, background: "#25D36615", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>💬</span>
+                    <div>
+                      <p style={{ fontSize: 12, color: C.muted, marginBottom: 1 }}>WhatsApp Orders</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "#25D366" }}>+91 82486 13274</p>
+                    </div>
+                  </a>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ width: 36, height: 36, borderRadius: 10, background: "#EBF5FF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🕐</span>
+                    <div>
+                      <p style={{ fontSize: 12, color: C.muted, marginBottom: 1 }}>Delivery Hours</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: C.text }}>Mon – Sat, 9am – 7pm</p>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ width: 36, height: 36, borderRadius: 10, background: "#F0FFF4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🚚</span>
+                    <div>
+                      <p style={{ fontSize: 12, color: C.muted, marginBottom: 1 }}>Delivery</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: C.text }}>SRM Campus · 48 hours</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Directions CTA */}
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=12.8510693,80.0681062"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  background: `linear-gradient(135deg, ${C.primary}, ${C.primaryHover})`,
+                  color: C.white, padding: "14px", borderRadius: 12,
+                  textDecoration: "none", fontWeight: 700, fontSize: 14,
+                  boxShadow: "0 4px 14px rgba(0,87,168,0.3)", transition: "opacity 0.2s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = "0.88"}
+                onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+              >
+                <span style={{ fontSize: 16 }}>📍</span> Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Mission / Footer */}
