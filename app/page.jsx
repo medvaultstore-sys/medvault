@@ -669,7 +669,7 @@ function HeroSection({ onShop }) {
 
           {/* Stats */}
           <div style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 28 }}>
-            {[["4,000+", "Students Served"], ["28+", "Products"], ["48 hrs", "Delivery"]].map(([n, l]) => (
+            {[["4,000+", "Students Served"], ["28+", "Products"], ["1 hr", "Delivery"]].map(([n, l]) => (
               <div key={l}>
                 <div style={{ fontWeight: 800, fontSize: 24, color: "#FFFFFF", letterSpacing: "-0.5px" }}>{n}</div>
                 <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontWeight: 500, marginTop: 2 }}>{l}</div>
