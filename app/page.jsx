@@ -1,5 +1,13 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import {
+  ShoppingCart,
+  Search,
+  Package,
+  Info,
+  Sparkles,
+  ChevronRight,
+} from "lucide-react";
 
 const C = {
   bg: "#F0F4F8",
@@ -104,7 +112,7 @@ function ImageGallery({ images, name, height = 420 }) {
         <div style={{ display: "flex", gap: 8, marginTop: 10, overflowX: "auto", paddingBottom: 4 }}>
           {images.map((img, i) => (
             <div key={i} onClick={() => setActive(i)} style={{ width: 60, height: 60, flexShrink: 0, borderRadius: 10, overflow: "hidden", cursor: "pointer", border: `2px solid ${i === active ? C.primary : C.border}`, transition: "border 0.2s", background: "#F8FAFC" }}>
-              <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} />
+              <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} />
             </div>
           ))}
         </div>
@@ -421,55 +429,55 @@ const KITS = [
 // ── Individual Items ───────────────────────────────────────────
 const ITEMS = [
   // CAT001 — Core Physio Instruments
-  { id:"i-1",  type:"item", name:"Goniometer Set (3-in-1)",     tagline:"Joint ROM measurement",          price:450, originalPrice:650,  badge:"PHYSIO TOOL",     images:IMG.goniometer,    desc:"A complete 3-piece goniometer set used for measuring joint range of motion (ROM) in physiotherapy assessments. The set includes a large goniometer for major joints like the hip, knee, and shoulder; a standard goniometer for elbow and ankle; and a finger goniometer for small joint measurements. Made from durable plastic with clearly printed degree markings. An absolute must-have for every BPT practical, especially in musculoskeletal physiotherapy sessions.", stock:80 },
-  { id:"i-2",  type:"item", name:"Reflex Hammer",                tagline:"Deep tendon reflex testing",      price:150, originalPrice:220,  badge:"NEURO TOOL",      images:IMG.hammer,        desc:"The Taylor percussion hammer is the standard tool for testing deep tendon reflexes in neurological and physiotherapy assessments. Features a triangular rubber head for reliable tendon strike and a stainless steel handle with comfortable grip. Used to test patellar (knee-jerk), Achilles, biceps, triceps, and brachioradialis reflexes. Lightweight and pocket-friendly — essential for neurology practical exams.", stock:95 },
-  { id:"i-3",  type:"item", name:"Tuning Fork (128 Hz)",         tagline:"Vibration & hearing tests",       price:220, originalPrice:320,  badge:"NEURO TOOL",      images:IMG.tuningfork,    desc:"A 128 Hz aluminium alloy tuning fork used for assessing vibration sense and conducting Rinne and Weber tests. The 128 Hz frequency is optimal for vibration perception testing on bony prominences such as the medial malleolus, tibial crest, and finger joints. Frequency is stamped on the handle for quick identification. Durable, corrosion-resistant, and required for both neurological and ENT practical assessments in BPT.", stock:60 },
-  { id:"i-4",  type:"item", name:"Measuring Tape (150cm)",       tagline:"Body & limb measurement",         price:80,  originalPrice:120,  badge:"MEASUREMENT",     images:IMG.tape,          desc:"A flexible 150cm measuring tape used extensively in physiotherapy for limb girth measurements, postural assessment, anthropometric measurements, and wound sizing. Dual-sided with centimeter markings on one side and inch markings on the other. Made from a soft, non-stretch material that conforms to body contours. Lightweight, rollable, and fits easily in a pocket or pouch — used in nearly every physio practical session.", stock:150 },
-  { id:"i-6",  type:"item", name:"Stethoscope",                  tagline:"Dual-head auscultation",          price:799, originalPrice:1299, badge:"MONITORING",      images:IMG.stethoscope,   desc:"A dual-head acoustic stethoscope with a diaphragm for high-frequency sounds (breath, bowel, and normal heart sounds) and a bell for low-frequency sounds (murmurs, S3/S4 heart sounds). Features high acoustic sensitivity, soft-seal ear tips for a comfortable fit, and latex-free tubing. Suitable for cardiac, pulmonary, and abdominal auscultation. A fundamental clinical tool for all BPT students — from first-year anatomy labs to third-year clinical postings.", stock:55 },
+  { id: "i-1", type: "item", name: "Goniometer Set (3-in-1)", tagline: "Joint ROM measurement", price: 450, originalPrice: 650, badge: "PHYSIO TOOL", images: IMG.goniometer, desc: "A complete 3-piece goniometer set used for measuring joint range of motion (ROM) in physiotherapy assessments. The set includes a large goniometer for major joints like the hip, knee, and shoulder; a standard goniometer for elbow and ankle; and a finger goniometer for small joint measurements. Made from durable plastic with clearly printed degree markings. An absolute must-have for every BPT practical, especially in musculoskeletal physiotherapy sessions.", stock: 80 },
+  { id: "i-2", type: "item", name: "Reflex Hammer", tagline: "Deep tendon reflex testing", price: 150, originalPrice: 220, badge: "NEURO TOOL", images: IMG.hammer, desc: "The Taylor percussion hammer is the standard tool for testing deep tendon reflexes in neurological and physiotherapy assessments. Features a triangular rubber head for reliable tendon strike and a stainless steel handle with comfortable grip. Used to test patellar (knee-jerk), Achilles, biceps, triceps, and brachioradialis reflexes. Lightweight and pocket-friendly — essential for neurology practical exams.", stock: 95 },
+  { id: "i-3", type: "item", name: "Tuning Fork (128 Hz)", tagline: "Vibration & hearing tests", price: 220, originalPrice: 320, badge: "NEURO TOOL", images: IMG.tuningfork, desc: "A 128 Hz aluminium alloy tuning fork used for assessing vibration sense and conducting Rinne and Weber tests. The 128 Hz frequency is optimal for vibration perception testing on bony prominences such as the medial malleolus, tibial crest, and finger joints. Frequency is stamped on the handle for quick identification. Durable, corrosion-resistant, and required for both neurological and ENT practical assessments in BPT.", stock: 60 },
+  { id: "i-4", type: "item", name: "Measuring Tape (150cm)", tagline: "Body & limb measurement", price: 80, originalPrice: 120, badge: "MEASUREMENT", images: IMG.tape, desc: "A flexible 150cm measuring tape used extensively in physiotherapy for limb girth measurements, postural assessment, anthropometric measurements, and wound sizing. Dual-sided with centimeter markings on one side and inch markings on the other. Made from a soft, non-stretch material that conforms to body contours. Lightweight, rollable, and fits easily in a pocket or pouch — used in nearly every physio practical session.", stock: 150 },
+  { id: "i-6", type: "item", name: "Stethoscope", tagline: "Dual-head auscultation", price: 799, originalPrice: 1299, badge: "MONITORING", images: IMG.stethoscope, desc: "A dual-head acoustic stethoscope with a diaphragm for high-frequency sounds (breath, bowel, and normal heart sounds) and a bell for low-frequency sounds (murmurs, S3/S4 heart sounds). Features high acoustic sensitivity, soft-seal ear tips for a comfortable fit, and latex-free tubing. Suitable for cardiac, pulmonary, and abdominal auscultation. A fundamental clinical tool for all BPT students — from first-year anatomy labs to third-year clinical postings.", stock: 55 },
   // CAT002 — Practical Exam Kit Items
-  { id:"i-17", type:"item", name:"Mask Pack (10 pcs)",           tagline:"3-ply disposable masks",          price:100, originalPrice:149,  badge:"PPE",             images:IMG.mask,          desc:"A pack of 10 three-ply disposable surgical face masks providing protection against respiratory droplets and aerosols during clinical contact. The three-layer construction includes a fluid-resistant outer layer, a filtration middle layer, and a soft inner layer for comfort. Adjustable nose wire ensures a secure fit. Mandatory PPE for ward postings, patient assessments, and practical labs involving close patient contact. Individually stacked and hygienically packed.", stock:300 },
-  { id:"i-18", type:"item", name:"Nitrile Gloves (Box)",         tagline:"Powder-free examination gloves",  price:299, originalPrice:399,  badge:"PPE",             images:IMG.gloves,        desc:"A box of powder-free, latex-free nitrile examination gloves providing a secure barrier during patient examination, wound dressing, and clinical procedures. Nitrile material is more puncture-resistant than latex and safe for those with latex allergies. Textured fingertips enhance grip when handling instruments. Available in standard sizes suitable for most students. Required PPE for ward rounds, practical assessments, and any procedure involving physical patient contact.", stock:150 },
-  { id:"i-24", type:"item", name:"Assessment Sheet Pad",         tagline:"Clinical documentation forms",    price:199, originalPrice:299,  badge:"STUDY TOOL",      images:IMG.assessmentpad, desc:"A clinical assessment sheet pad with pre-printed forms for recording patient history, ROM measurements, muscle testing grades, postural analysis, and outcome measures — aligned to BPT curriculum practical assessment formats. Perforated sheets for easy removal and submission during practicals. An essential documentation tool for musculoskeletal, neurological, and cardiopulmonary physiotherapy labs.", stock:120 },
-  { id:"i-22", type:"item", name:"Marker Pens Set",              tagline:"Whiteboard markers + pens",       price:149, originalPrice:199,  badge:"STATIONERY",      images:IMG.markerset,     desc:"A set of colourful whiteboard markers in multiple colours for study sessions, group learning, whiteboard teaching presentations, and annotating anatomy charts. Chisel-tip design allows both broad strokes for headings and fine lines for detail. Ink is easily wipeable from whiteboards and glass surfaces. Used in physio lab teaching demonstrations, anatomy revision sessions, and group case discussions.", stock:100 },
+  { id: "i-17", type: "item", name: "Mask Pack (10 pcs)", tagline: "3-ply disposable masks", price: 100, originalPrice: 149, badge: "PPE", images: IMG.mask, desc: "A pack of 10 three-ply disposable surgical face masks providing protection against respiratory droplets and aerosols during clinical contact. The three-layer construction includes a fluid-resistant outer layer, a filtration middle layer, and a soft inner layer for comfort. Adjustable nose wire ensures a secure fit. Mandatory PPE for ward postings, patient assessments, and practical labs involving close patient contact. Individually stacked and hygienically packed.", stock: 300 },
+  { id: "i-18", type: "item", name: "Nitrile Gloves (Box)", tagline: "Powder-free examination gloves", price: 299, originalPrice: 399, badge: "PPE", images: IMG.gloves, desc: "A box of powder-free, latex-free nitrile examination gloves providing a secure barrier during patient examination, wound dressing, and clinical procedures. Nitrile material is more puncture-resistant than latex and safe for those with latex allergies. Textured fingertips enhance grip when handling instruments. Available in standard sizes suitable for most students. Required PPE for ward rounds, practical assessments, and any procedure involving physical patient contact.", stock: 150 },
+  { id: "i-24", type: "item", name: "Assessment Sheet Pad", tagline: "Clinical documentation forms", price: 199, originalPrice: 299, badge: "STUDY TOOL", images: IMG.assessmentpad, desc: "A clinical assessment sheet pad with pre-printed forms for recording patient history, ROM measurements, muscle testing grades, postural analysis, and outcome measures — aligned to BPT curriculum practical assessment formats. Perforated sheets for easy removal and submission during practicals. An essential documentation tool for musculoskeletal, neurological, and cardiopulmonary physiotherapy labs.", stock: 120 },
+  { id: "i-22", type: "item", name: "Marker Pens Set", tagline: "Whiteboard markers + pens", price: 149, originalPrice: 199, badge: "STATIONERY", images: IMG.markerset, desc: "A set of colourful whiteboard markers in multiple colours for study sessions, group learning, whiteboard teaching presentations, and annotating anatomy charts. Chisel-tip design allows both broad strokes for headings and fine lines for detail. Ink is easily wipeable from whiteboards and glass surfaces. Used in physio lab teaching demonstrations, anatomy revision sessions, and group case discussions.", stock: 100 },
   // CAT003 — Smart Study Kit Items
-  { id:"i-25", type:"item", name:"Anatomy Charts",               tagline:"Full-colour body system charts",  price:349, originalPrice:499,  badge:"STUDY TOOL",      images:IMG.anatomycharts, desc:"A set of full-colour laminated anatomy charts covering the major body systems — musculoskeletal, neurological, and cardiopulmonary. Includes charts for key anatomical landmarks, muscle origins and insertions, nerve distributions, and joint anatomy. Essential visual reference for BPT anatomy labs, revision sessions, and clinical correlations throughout your degree.", stock:80 },
-  { id:"i-26", type:"item", name:"Flashcards",                   tagline:"BPT rapid revision cards",        price:299, originalPrice:399,  badge:"REVISION AID",    images:IMG.flashcards,    desc:"A deck of BPT revision flashcards covering key physiotherapy concepts, anatomy landmarks, clinical assessment techniques, and treatment protocols. Double-sided cards with term on front and definition or diagram on reverse. Compact, portable, and ideal for quick revision before practicals, internals, or clinical postings. Structured to match the SRM BPT syllabus across all semesters.", stock:100 },
-  { id:"i-20", type:"item", name:"Notebook Set",                 tagline:"Clinical note-taking",            price:100, originalPrice:149,  badge:"STATIONERY",      images:IMG.notepad,       desc:"A spiral-bound ruled notebook set ideal for clinical note-taking, case history recording, practical observations, and everyday class notes. Compact enough to carry in a scrubs pocket or pouch but large enough for detailed case write-ups. Smooth paper surface works well with ballpoint pens, gel pens, and markers. A practical companion for ward rounds, physio labs, and study sessions throughout your BPT degree.", stock:150 },
-  { id:"i-21", type:"item", name:"Pen Set (5 pcs)",              tagline:"Everyday writing set",            price:49,  originalPrice:79,   badge:"STATIONERY",      images:IMG.penset,        desc:"A set of 5 smooth-writing ballpoint pens in a mix of ink colours — ideal for clinical documentation, case record writing, annotating study notes, and everyday classroom use. The medium-point tip provides consistent ink flow without smudging. Lightweight barrel with comfortable grip for extended writing sessions during classes and practicals. Pens run out faster than you think during a semester — keep a spare set from day one.", stock:200 },
-  { id:"i-23", type:"item", name:"USB Drive (16GB)",             tagline:"Study material storage",          price:299, originalPrice:499,  badge:"UTILITY",         images:IMG.usb,           desc:"A compact 16GB USB flash drive for storing and transferring study material, lecture slides, anatomy videos, and clinical reference documents. Plug-and-play compatible with Windows, Mac, and most smart TVs and projectors. Fast read/write speeds for quick file transfer between devices. The 16GB capacity comfortably holds an entire semester's worth of lecture notes, practical manuals, and recorded lectures.", stock:80 },
+  { id: "i-25", type: "item", name: "Anatomy Charts", tagline: "Full-colour body system charts", price: 349, originalPrice: 499, badge: "STUDY TOOL", images: IMG.anatomycharts, desc: "A set of full-colour laminated anatomy charts covering the major body systems — musculoskeletal, neurological, and cardiopulmonary. Includes charts for key anatomical landmarks, muscle origins and insertions, nerve distributions, and joint anatomy. Essential visual reference for BPT anatomy labs, revision sessions, and clinical correlations throughout your degree.", stock: 80 },
+  { id: "i-26", type: "item", name: "Flashcards", tagline: "BPT rapid revision cards", price: 299, originalPrice: 399, badge: "REVISION AID", images: IMG.flashcards, desc: "A deck of BPT revision flashcards covering key physiotherapy concepts, anatomy landmarks, clinical assessment techniques, and treatment protocols. Double-sided cards with term on front and definition or diagram on reverse. Compact, portable, and ideal for quick revision before practicals, internals, or clinical postings. Structured to match the SRM BPT syllabus across all semesters.", stock: 100 },
+  { id: "i-20", type: "item", name: "Notebook Set", tagline: "Clinical note-taking", price: 100, originalPrice: 149, badge: "STATIONERY", images: IMG.notepad, desc: "A spiral-bound ruled notebook set ideal for clinical note-taking, case history recording, practical observations, and everyday class notes. Compact enough to carry in a scrubs pocket or pouch but large enough for detailed case write-ups. Smooth paper surface works well with ballpoint pens, gel pens, and markers. A practical companion for ward rounds, physio labs, and study sessions throughout your BPT degree.", stock: 150 },
+  { id: "i-21", type: "item", name: "Pen Set (5 pcs)", tagline: "Everyday writing set", price: 49, originalPrice: 79, badge: "STATIONERY", images: IMG.penset, desc: "A set of 5 smooth-writing ballpoint pens in a mix of ink colours — ideal for clinical documentation, case record writing, annotating study notes, and everyday classroom use. The medium-point tip provides consistent ink flow without smudging. Lightweight barrel with comfortable grip for extended writing sessions during classes and practicals. Pens run out faster than you think during a semester — keep a spare set from day one.", stock: 200 },
+  { id: "i-23", type: "item", name: "USB Drive (16GB)", tagline: "Study material storage", price: 299, originalPrice: 499, badge: "UTILITY", images: IMG.usb, desc: "A compact 16GB USB flash drive for storing and transferring study material, lecture slides, anatomy videos, and clinical reference documents. Plug-and-play compatible with Windows, Mac, and most smart TVs and projectors. Fast read/write speeds for quick file transfer between devices. The 16GB capacity comfortably holds an entire semester's worth of lecture notes, practical manuals, and recorded lectures.", stock: 80 },
   // CAT004 — Rehab & Therapy Tools
-  { id:"i-9",  type:"item", name:"Resistance Bands Set",         tagline:"Progressive resistance training", price:299, originalPrice:449,  badge:"REHAB",           images:IMG.band,          desc:"A set of latex-free resistance exercise bands in multiple resistance levels — used for progressive resistance training and rehabilitation exercises in physiotherapy. Suitable for upper and lower limb strengthening — shoulder exercises, knee extension, hip abduction, and wrist flexion/extension. Resistance bands are used across all BPT semesters for exercises like terminal knee extension, clamshell, and theraband shoulder routines. Lightweight, portable, and durable.", stock:120 },
-  { id:"i-27", type:"item", name:"Therapy Ball",                 tagline:"Balance & core rehabilitation",   price:549, originalPrice:799,  badge:"REHAB",           images:IMG.therapyball,   desc:"A medium-density anti-burst therapy ball used for balance training, core strengthening, proprioceptive exercises, and rehabilitation in physiotherapy practice. Used in BPT labs for Swiss ball exercises including bridging, prone extensions, seated balance work, and core activation routines. Durable PVC construction with anti-burst technology. Suitable for both clinical use and patient home exercise programs.", stock:40 },
-  { id:"i-28", type:"item", name:"Hand Grip Strengthener",       tagline:"Upper limb rehab & strength",     price:299, originalPrice:449,  badge:"STRENGTH TOOL",   images:IMG.handgrip,      desc:"An adjustable spring-resistance hand grip strengthener for progressive upper limb rehabilitation and grip strength training. Adjustable resistance settings to match patient ability and progression. Used in physiotherapy for post-fracture rehab, neurological hand rehabilitation, rheumatoid arthritis management, and musculoskeletal strengthening programs. Compact, portable, and suitable for both clinic and home exercise prescription.", stock:60 },
-  { id:"i-11", type:"item", name:"Foam Roller",                  tagline:"Myofascial release & recovery",   price:249, originalPrice:399,  badge:"RECOVERY",        images:IMG.foamroller,    desc:"A high-density EVA foam roller used for myofascial release, self-massage, and muscle recovery in physiotherapy practice. Rolling over tight muscles and trigger points helps improve flexibility, reduce delayed-onset muscle soreness (DOMS), and promote circulation. Used in BPT labs for thoracic spine mobility, IT band rolling, calf and hamstring release, and core activation. Durable, lightweight, and suitable for both clinical use and home exercise programs.", stock:50 },
-  { id:"i-29", type:"item", name:"TENS Electrodes",              tagline:"Electrotherapy electrode pads",   price:349, originalPrice:499,  badge:"ELECTROTHERAPY",  images:IMG.tenselectrodes,desc:"A set of reusable self-adhesive TENS/EMS electrode pads compatible with standard ITO-style snap connectors used in most TENS and interferential therapy (IFT) machines. Hypoallergenic adhesive, re-placeable carbon film surface, and washable for multiple clinical sessions. Used extensively in electrotherapy practicals for TENS and IFT application — a consumable every BPT student from second year onwards will need regularly.", stock:80 },
+  { id: "i-9", type: "item", name: "Resistance Bands Set", tagline: "Progressive resistance training", price: 299, originalPrice: 449, badge: "REHAB", images: IMG.band, desc: "A set of latex-free resistance exercise bands in multiple resistance levels — used for progressive resistance training and rehabilitation exercises in physiotherapy. Suitable for upper and lower limb strengthening — shoulder exercises, knee extension, hip abduction, and wrist flexion/extension. Resistance bands are used across all BPT semesters for exercises like terminal knee extension, clamshell, and theraband shoulder routines. Lightweight, portable, and durable.", stock: 120 },
+  { id: "i-27", type: "item", name: "Therapy Ball", tagline: "Balance & core rehabilitation", price: 549, originalPrice: 799, badge: "REHAB", images: IMG.therapyball, desc: "A medium-density anti-burst therapy ball used for balance training, core strengthening, proprioceptive exercises, and rehabilitation in physiotherapy practice. Used in BPT labs for Swiss ball exercises including bridging, prone extensions, seated balance work, and core activation routines. Durable PVC construction with anti-burst technology. Suitable for both clinical use and patient home exercise programs.", stock: 40 },
+  { id: "i-28", type: "item", name: "Hand Grip Strengthener", tagline: "Upper limb rehab & strength", price: 299, originalPrice: 449, badge: "STRENGTH TOOL", images: IMG.handgrip, desc: "An adjustable spring-resistance hand grip strengthener for progressive upper limb rehabilitation and grip strength training. Adjustable resistance settings to match patient ability and progression. Used in physiotherapy for post-fracture rehab, neurological hand rehabilitation, rheumatoid arthritis management, and musculoskeletal strengthening programs. Compact, portable, and suitable for both clinic and home exercise prescription.", stock: 60 },
+  { id: "i-11", type: "item", name: "Foam Roller", tagline: "Myofascial release & recovery", price: 249, originalPrice: 399, badge: "RECOVERY", images: IMG.foamroller, desc: "A high-density EVA foam roller used for myofascial release, self-massage, and muscle recovery in physiotherapy practice. Rolling over tight muscles and trigger points helps improve flexibility, reduce delayed-onset muscle soreness (DOMS), and promote circulation. Used in BPT labs for thoracic spine mobility, IT band rolling, calf and hamstring release, and core activation. Durable, lightweight, and suitable for both clinical use and home exercise programs.", stock: 50 },
+  { id: "i-29", type: "item", name: "TENS Electrodes", tagline: "Electrotherapy electrode pads", price: 349, originalPrice: 499, badge: "ELECTROTHERAPY", images: IMG.tenselectrodes, desc: "A set of reusable self-adhesive TENS/EMS electrode pads compatible with standard ITO-style snap connectors used in most TENS and interferential therapy (IFT) machines. Hypoallergenic adhesive, re-placeable carbon film surface, and washable for multiple clinical sessions. Used extensively in electrotherapy practicals for TENS and IFT application — a consumable every BPT student from second year onwards will need regularly.", stock: 80 },
   // CAT005 — Consumables & Refill Kit
-  { id:"i-13", type:"item", name:"Ultrasound Gel (250ml)",       tagline:"UST coupling medium",             price:150, originalPrice:220,  badge:"CONSUMABLE",      images:IMG.ultrasoundgel, desc:"A clear, water-based ultrasound coupling gel used as a medium between the ultrasound transducer head and the patient's skin during therapeutic ultrasound (UST) sessions. Ensures optimal acoustic transmission by eliminating air gaps. Non-staining, hypoallergenic, and easy to wipe off. The 250ml bottle is standard for clinical labs and lasts through multiple practical sessions. Required for electrotherapy and UST practicals in BPT second year onwards.", stock:150 },
-  { id:"i-15", type:"item", name:"Cotton Roll",                  tagline:"Medical grade cotton wool",       price:79,  originalPrice:119,  badge:"CONSUMABLE",      images:IMG.cotton,        desc:"A roll of medical-grade cotton wool used for wound dressing, surface cleaning, electrode placement padding, and general clinical procedures. Soft, highly absorbent, and lint-free. Used in physiotherapy labs for cleaning skin before electrode application, padding bony prominences during splinting, and general clinical hygiene tasks. Comes sealed to maintain sterility and cleanliness. A basic consumable every BPT student needs in their kit.", stock:180 },
-  { id:"i-14", type:"item", name:"Sanitizer Bottle",             tagline:"70% alcohol hand sanitizer",      price:120, originalPrice:179,  badge:"HYGIENE",         images:IMG.sanitizer,     desc:"A pump-dispenser bottle of 70% isopropyl alcohol hand sanitizer for on-the-go hand hygiene during ward rounds, between patient assessments, after handling equipment, or whenever hand washing isn't possible. Compact bottle suitable for carrying in a scrubs pocket or pouch. An essential hygiene item for all clinical and campus practical sessions throughout your BPT degree.", stock:200 },
-  { id:"i-16", type:"item", name:"Adhesive Tape",                tagline:"Clinical strapping tape",         price:90,  originalPrice:129,  badge:"CONSUMABLE",      images:IMG.medtape,       desc:"A hypoallergenic paper adhesive tape used for securing wound dressings, fixing electrodes during electrotherapy, bandage strapping, and general clinical taping applications. Gentle on skin, breathable, and easy to tear by hand without scissors. The adhesive holds securely without leaving residue on skin. A standard consumable in all physiotherapy labs — used for TENS/IFT electrode fixation, wound covering, and strapping practice in musculoskeletal practicals.", stock:200 },
-  { id:"i-30", type:"item", name:"Lubrication Gel",              tagline:"Massage & manual therapy gel",    price:299, originalPrice:399,  badge:"THERAPEUTIC",     images:IMG.lubgel,        desc:"A water-based lubricating gel used in physiotherapy for manual therapy, therapeutic massage, ultrasound coupling, and electrode fixation. Hypoallergenic, non-staining, and easy to wipe off. Provides the right consistency for myofascial techniques, joint mobilization, and soft tissue massage during physiotherapy practice sessions. Compatible with most ultrasound transducers and TENS/IFT machines.", stock:90 },
+  { id: "i-13", type: "item", name: "Ultrasound Gel (250ml)", tagline: "UST coupling medium", price: 150, originalPrice: 220, badge: "CONSUMABLE", images: IMG.ultrasoundgel, desc: "A clear, water-based ultrasound coupling gel used as a medium between the ultrasound transducer head and the patient's skin during therapeutic ultrasound (UST) sessions. Ensures optimal acoustic transmission by eliminating air gaps. Non-staining, hypoallergenic, and easy to wipe off. The 250ml bottle is standard for clinical labs and lasts through multiple practical sessions. Required for electrotherapy and UST practicals in BPT second year onwards.", stock: 150 },
+  { id: "i-15", type: "item", name: "Cotton Roll", tagline: "Medical grade cotton wool", price: 79, originalPrice: 119, badge: "CONSUMABLE", images: IMG.cotton, desc: "A roll of medical-grade cotton wool used for wound dressing, surface cleaning, electrode placement padding, and general clinical procedures. Soft, highly absorbent, and lint-free. Used in physiotherapy labs for cleaning skin before electrode application, padding bony prominences during splinting, and general clinical hygiene tasks. Comes sealed to maintain sterility and cleanliness. A basic consumable every BPT student needs in their kit.", stock: 180 },
+  { id: "i-14", type: "item", name: "Sanitizer Bottle", tagline: "70% alcohol hand sanitizer", price: 120, originalPrice: 179, badge: "HYGIENE", images: IMG.sanitizer, desc: "A pump-dispenser bottle of 70% isopropyl alcohol hand sanitizer for on-the-go hand hygiene during ward rounds, between patient assessments, after handling equipment, or whenever hand washing isn't possible. Compact bottle suitable for carrying in a scrubs pocket or pouch. An essential hygiene item for all clinical and campus practical sessions throughout your BPT degree.", stock: 200 },
+  { id: "i-16", type: "item", name: "Adhesive Tape", tagline: "Clinical strapping tape", price: 90, originalPrice: 129, badge: "CONSUMABLE", images: IMG.medtape, desc: "A hypoallergenic paper adhesive tape used for securing wound dressings, fixing electrodes during electrotherapy, bandage strapping, and general clinical taping applications. Gentle on skin, breathable, and easy to tear by hand without scissors. The adhesive holds securely without leaving residue on skin. A standard consumable in all physiotherapy labs — used for TENS/IFT electrode fixation, wound covering, and strapping practice in musculoskeletal practicals.", stock: 200 },
+  { id: "i-30", type: "item", name: "Lubrication Gel", tagline: "Massage & manual therapy gel", price: 299, originalPrice: 399, badge: "THERAPEUTIC", images: IMG.lubgel, desc: "A water-based lubricating gel used in physiotherapy for manual therapy, therapeutic massage, ultrasound coupling, and electrode fixation. Hypoallergenic, non-staining, and easy to wipe off. Provides the right consistency for myofascial techniques, joint mobilization, and soft tissue massage during physiotherapy practice sessions. Compatible with most ultrasound transducers and TENS/IFT machines.", stock: 90 },
 ];
 
 // ── Apparel ────────────────────────────────────────────────────
 const APPAREL = [
   {
-    id:"ap-1", type:"apparel",
-    name:"MedVault Scrubs Set", tagline:"Top & bottom — clinical-grade",
-    price:899, originalPrice:1299, badge:"APPAREL",
+    id: "ap-1", type: "apparel",
+    name: "MedVault Scrubs Set", tagline: "Top & bottom — clinical-grade",
+    price: 899, originalPrice: 1299, badge: "APPAREL",
     images: IMG.scrubs,
-    desc:"MedVault Scrubs are designed specifically for BPT students who spend long hours in practical labs, physiotherapy wards, and clinical postings. Made from a premium cotton-blend fabric that is breathable, sweat-wicking, and durable through repeated machine washes. The relaxed clinical fit allows full freedom of movement for floor exercises, patient transfers, and hands-on practical work. The top features two front pockets for carrying pens, a pen torch, and small instruments. Drawstring bottoms ensure a comfortable, adjustable fit. Available in Navy Blue and Ceil Blue. MedVault branding adds a professional identity on campus.",
-    sizes:["XS","S","M","L","XL","XXL"], sizeNote:"True to size. Relaxed clinical fit.", stock:60, colors:["Navy Blue","Ceil Blue"],
-    features:["Cotton-blend fabric","MedVault branding","Two-pocket top","Drawstring bottoms","Easy-care wash"],
+    desc: "MedVault Scrubs are designed specifically for BPT students who spend long hours in practical labs, physiotherapy wards, and clinical postings. Made from a premium cotton-blend fabric that is breathable, sweat-wicking, and durable through repeated machine washes. The relaxed clinical fit allows full freedom of movement for floor exercises, patient transfers, and hands-on practical work. The top features two front pockets for carrying pens, a pen torch, and small instruments. Drawstring bottoms ensure a comfortable, adjustable fit. Available in Navy Blue and Ceil Blue. MedVault branding adds a professional identity on campus.",
+    sizes: ["XS", "S", "M", "L", "XL", "XXL"], sizeNote: "True to size. Relaxed clinical fit.", stock: 60, colors: ["Navy Blue", "Ceil Blue"],
+    features: ["Cotton-blend fabric", "MedVault branding", "Two-pocket top", "Drawstring bottoms", "Easy-care wash"],
   },
   {
-    id:"ap-2", type:"apparel",
-    name:"Lab Apron", tagline:"Full-length protective apron",
-    price:349, originalPrice:499, badge:"APPAREL",
+    id: "ap-2", type: "apparel",
+    name: "Lab Apron", tagline: "Full-length protective apron",
+    price: 349, originalPrice: 499, badge: "APPAREL",
     images: IMG.apron,
-    desc:"A white full-length lab apron made from a polyester-cotton blend fabric that is easy to clean, resistant to light chemical splashes, and durable for semester-long lab use. Features two spacious front pockets for storing pens, notepads, and small instruments during lab sessions. The adjustable neck strap and back tie ensure a secure, comfortable fit across different body types. Meets SRM's practical lab dress code requirements for anatomy, physiology, and physiotherapy labs. Easy to wash and quick to dry — an essential item for every lab session.",
-    sizes:["S","M","L","XL"], sizeNote:"Select based on height. M fits 5'4\"–5'8\".", stock:80, colors:["White"],
-    features:["Polyester-cotton blend","Two front pockets","Adjustable neck strap","Easy to clean","SRM compliant"],
+    desc: "A white full-length lab apron made from a polyester-cotton blend fabric that is easy to clean, resistant to light chemical splashes, and durable for semester-long lab use. Features two spacious front pockets for storing pens, notepads, and small instruments during lab sessions. The adjustable neck strap and back tie ensure a secure, comfortable fit across different body types. Meets SRM's practical lab dress code requirements for anatomy, physiology, and physiotherapy labs. Easy to wash and quick to dry — an essential item for every lab session.",
+    sizes: ["S", "M", "L", "XL"], sizeNote: "Select based on height. M fits 5'4\"–5'8\".", stock: 80, colors: ["White"],
+    features: ["Polyester-cotton blend", "Two front pockets", "Adjustable neck strap", "Easy to clean", "SRM compliant"],
   },
 ];
 
@@ -485,305 +493,1292 @@ const BK = (title, seed) => R(`${title} medical textbook cover, professional aca
 
 const BOOK_ITEMS = [
   // 1st Year
-  { id:"b-1",  type:"book", year:"1st Year", subject:"Anatomy",
-    name:"Anatomy & Physiology in Health and Illness", tagline:"Ross & Wilson · Elsevier",
-    price:799, originalPrice:949, badge:"1ST YEAR", stock:20,
-    desc:"The classic Ross & Wilson text covering human anatomy and physiology with clear diagrams and clinical applications. Widely used in BPT first year for understanding the structural and functional basis of the human body. Elsevier edition with full-colour illustrations, case studies, and self-test questions aligned to BPT curriculum.",
-    images:[AMZ("0323834604"), OL("9780702078491"), GB("8sCOWgEACAAJ"), BK("Ross Wilson Anatomy Physiology Health Illness Elsevier textbook",401)] },
+  {
+    id: "b-1", type: "book", year: "1st Year", subject: "Anatomy",
+    name: "Anatomy & Physiology in Health and Illness", tagline: "Ross & Wilson · Elsevier",
+    price: 799, originalPrice: 949, badge: "1ST YEAR", stock: 20,
+    desc: "The classic Ross & Wilson text covering human anatomy and physiology with clear diagrams and clinical applications. Widely used in BPT first year for understanding the structural and functional basis of the human body. Elsevier edition with full-colour illustrations, case studies, and self-test questions aligned to BPT curriculum.",
+    images: [AMZ("0323834604"), OL("9780702078491"), GB("8sCOWgEACAAJ"), BK("Ross Wilson Anatomy Physiology Health Illness Elsevier textbook", 401)]
+  },
 
-  { id:"b-2",  type:"book", year:"1st Year", subject:"Anatomy",
-    name:"Gray's Anatomy", tagline:"Gray H. · Churchill Livingstone",
-    price:1249, originalPrice:1499, badge:"1ST YEAR", stock:15,
-    desc:"The definitive anatomical reference, Gray's Anatomy is the gold standard for medical and physiotherapy students. The Churchill Livingstone edition provides comprehensive coverage of gross anatomy with detailed illustrations, clinical boxes, and dissection guides. Essential for BPT first-year anatomy lab preparation and long-term clinical reference.",
-    images:[AMZ("0443069522"), OL("9780702052309"), GB("CxVqAAAAMAAJ"), BK("Grays Anatomy Churchill Livingstone textbook cover classic medical reference",411)] },
+  {
+    id: "b-2", type: "book", year: "1st Year", subject: "Anatomy",
+    name: "Gray's Anatomy", tagline: "Gray H. · Churchill Livingstone",
+    price: 1249, originalPrice: 1499, badge: "1ST YEAR", stock: 15,
+    desc: "The definitive anatomical reference, Gray's Anatomy is the gold standard for medical and physiotherapy students. The Churchill Livingstone edition provides comprehensive coverage of gross anatomy with detailed illustrations, clinical boxes, and dissection guides. Essential for BPT first-year anatomy lab preparation and long-term clinical reference.",
+    images: [AMZ("0443069522"), OL("9780702052309"), GB("CxVqAAAAMAAJ"), BK("Grays Anatomy Churchill Livingstone textbook cover classic medical reference", 411)]
+  },
 
-  { id:"b-3",  type:"book", year:"1st Year", subject:"Physiology",
-    name:"Textbook of Medical Physiology", tagline:"Guyton A.C. & Hall J.E. · Elsevier",
-    price:849, originalPrice:1099, badge:"1ST YEAR", stock:18,
-    desc:"Guyton and Hall's Textbook of Medical Physiology is the most widely used physiology textbook in medical and physiotherapy education. Covers all major organ systems with clinical correlations, updated research, and clear mechanistic explanations. The Elsevier edition includes full-colour illustrations and a comprehensive index — essential for BPT first and second year physiology.",
-    images:[AMZ("0323597122"), OL("9780323597128"), GB("wqkVAAAAYAAJ"), BK("Guyton Hall Textbook Medical Physiology Elsevier textbook cover",421)] },
+  {
+    id: "b-3", type: "book", year: "1st Year", subject: "Physiology",
+    name: "Textbook of Medical Physiology", tagline: "Guyton A.C. & Hall J.E. · Elsevier",
+    price: 849, originalPrice: 1099, badge: "1ST YEAR", stock: 18,
+    desc: "Guyton and Hall's Textbook of Medical Physiology is the most widely used physiology textbook in medical and physiotherapy education. Covers all major organ systems with clinical correlations, updated research, and clear mechanistic explanations. The Elsevier edition includes full-colour illustrations and a comprehensive index — essential for BPT first and second year physiology.",
+    images: [AMZ("0323597122"), OL("9780323597128"), GB("wqkVAAAAYAAJ"), BK("Guyton Hall Textbook Medical Physiology Elsevier textbook cover", 421)]
+  },
 
-  { id:"b-4",  type:"book", year:"1st Year", subject:"Physiology",
-    name:"Essentials of Medical Physiology", tagline:"Sembulingam K. · Jaypee",
-    price:449, originalPrice:549, badge:"1ST YEAR", stock:22,
-    desc:"Sembulingam's Essentials of Medical Physiology is a concise, India-focused physiology text popular among BPT students for its straightforward explanations and exam-oriented approach. The Jaypee edition covers all major physiological systems with relevant clinical applications, making it an ideal companion to Guyton or as a standalone revision resource.",
-    images:[AMZ("9352706927"), OL("9789386150950"), GB("YYBhDwAAQBAJ"), BK("Sembulingam Essentials Medical Physiology Jaypee textbook cover",431)] },
+  {
+    id: "b-4", type: "book", year: "1st Year", subject: "Physiology",
+    name: "Essentials of Medical Physiology", tagline: "Sembulingam K. · Jaypee",
+    price: 449, originalPrice: 549, badge: "1ST YEAR", stock: 22,
+    desc: "Sembulingam's Essentials of Medical Physiology is a concise, India-focused physiology text popular among BPT students for its straightforward explanations and exam-oriented approach. The Jaypee edition covers all major physiological systems with relevant clinical applications, making it an ideal companion to Guyton or as a standalone revision resource.",
+    images: [AMZ("9352706927"), OL("9789386150950"), GB("YYBhDwAAQBAJ"), BK("Sembulingam Essentials Medical Physiology Jaypee textbook cover", 431)]
+  },
 
-  { id:"b-5",  type:"book", year:"1st Year", subject:"Psychology",
-    name:"General Psychology", tagline:"Mangal S.K.",
-    price:279, originalPrice:349, badge:"1ST YEAR", stock:25,
-    desc:"Mangal's General Psychology is the prescribed psychology text for BPT first year, covering fundamental psychological concepts including behaviour, perception, learning, memory, motivation, emotion, and personality. Written in simple language with Indian examples, it helps physiotherapy students understand the psychosocial dimensions of patient care and therapeutic relationships.",
-    images:[AMZ("9386245760"), OL("9788121909310"), BK("General Psychology Mangal textbook cover Indian education publisher",441)] },
+  {
+    id: "b-5", type: "book", year: "1st Year", subject: "Psychology",
+    name: "General Psychology", tagline: "Mangal S.K.",
+    price: 279, originalPrice: 349, badge: "1ST YEAR", stock: 25,
+    desc: "Mangal's General Psychology is the prescribed psychology text for BPT first year, covering fundamental psychological concepts including behaviour, perception, learning, memory, motivation, emotion, and personality. Written in simple language with Indian examples, it helps physiotherapy students understand the psychosocial dimensions of patient care and therapeutic relationships.",
+    images: [AMZ("9386245760"), OL("9788121909310"), BK("General Psychology Mangal textbook cover Indian education publisher", 441)]
+  },
 
-  { id:"b-6",  type:"book", year:"1st Year", subject:"Sociology",
-    name:"An Introduction to Sociology", tagline:"Sachdeva D.R. & Bhushan V.",
-    price:229, originalPrice:299, badge:"1ST YEAR", stock:25,
-    desc:"Sachdeva and Bhushan's Introduction to Sociology covers the core sociological concepts required in the BPT first-year curriculum: social structure, culture, family, community health, and social determinants of disease. Helps physiotherapy students understand patients in their social context and develop community-oriented clinical practice.",
-    images:["https://www.kitabmahalpublishers.com/uploads/product_image/product_9788122507324_1.jpg", OL("9788131512340"), BK("Introduction Sociology textbook Sachdeva Bhushan Indian publisher",451)] },
+  {
+    id: "b-6", type: "book", year: "1st Year", subject: "Sociology",
+    name: "An Introduction to Sociology", tagline: "Sachdeva D.R. & Bhushan V.",
+    price: 229, originalPrice: 299, badge: "1ST YEAR", stock: 25,
+    desc: "Sachdeva and Bhushan's Introduction to Sociology covers the core sociological concepts required in the BPT first-year curriculum: social structure, culture, family, community health, and social determinants of disease. Helps physiotherapy students understand patients in their social context and develop community-oriented clinical practice.",
+    images: ["https://www.kitabmahalpublishers.com/uploads/product_image/product_9788122507324_1.jpg", OL("9788131512340"), BK("Introduction Sociology textbook Sachdeva Bhushan Indian publisher", 451)]
+  },
 
   // 2nd Year
-  { id:"b-7",  type:"book", year:"2nd Year", subject:"Pathology & Microbiology",
-    name:"Textbook of Pathology", tagline:"Mohan H. · Jaypee",
-    price:649, originalPrice:799, badge:"2ND YEAR", stock:18,
-    desc:"Mohan's Textbook of Pathology is the standard pathology reference for BPT second year, providing a comprehensive understanding of disease processes, cellular pathology, inflammation, neoplasia, and organ-specific diseases. The Jaypee edition is widely available in India and includes full-colour histopathology images, relevant clinical correlations, and exam-oriented summaries.",
-    images:[AMZ("8180613682"), OL("9789386150394"), GB("F-nRsgEACAAJ"), BK("Mohan Textbook Pathology Jaypee medical textbook cover",461)] },
+  {
+    id: "b-7", type: "book", year: "2nd Year", subject: "Pathology & Microbiology",
+    name: "Textbook of Pathology", tagline: "Mohan H. · Jaypee",
+    price: 649, originalPrice: 799, badge: "2ND YEAR", stock: 18,
+    desc: "Mohan's Textbook of Pathology is the standard pathology reference for BPT second year, providing a comprehensive understanding of disease processes, cellular pathology, inflammation, neoplasia, and organ-specific diseases. The Jaypee edition is widely available in India and includes full-colour histopathology images, relevant clinical correlations, and exam-oriented summaries.",
+    images: [AMZ("8180613682"), OL("9789386150394"), GB("F-nRsgEACAAJ"), BK("Mohan Textbook Pathology Jaypee medical textbook cover", 461)]
+  },
 
-  { id:"b-8",  type:"book", year:"2nd Year", subject:"Exercise Therapy",
-    name:"Principles of Exercise Therapy", tagline:"Gardiner D. · CBS Publishers",
-    price:449, originalPrice:549, badge:"2ND YEAR", stock:20,
-    desc:"Gardiner's Principles of Exercise Therapy is the core exercise therapy textbook for BPT second year, covering the theoretical and practical foundations of therapeutic exercise including active, passive, resisted, and stretching exercises. Includes principles of strengthening, endurance training, and functional movement — directly applicable to BPT practical lab work.",
-    images:[AMZ("8123908938"), OL("9788123910765"), BK("Principles Exercise Therapy Gardiner CBS Publishers textbook cover",471)] },
+  {
+    id: "b-8", type: "book", year: "2nd Year", subject: "Exercise Therapy",
+    name: "Principles of Exercise Therapy", tagline: "Gardiner D. · CBS Publishers",
+    price: 449, originalPrice: 549, badge: "2ND YEAR", stock: 20,
+    desc: "Gardiner's Principles of Exercise Therapy is the core exercise therapy textbook for BPT second year, covering the theoretical and practical foundations of therapeutic exercise including active, passive, resisted, and stretching exercises. Includes principles of strengthening, endurance training, and functional movement — directly applicable to BPT practical lab work.",
+    images: [AMZ("8123908938"), OL("9788123910765"), BK("Principles Exercise Therapy Gardiner CBS Publishers textbook cover", 471)]
+  },
 
-  { id:"b-9",  type:"book", year:"2nd Year", subject:"Biomechanics",
-    name:"Joint Structure and Function", tagline:"Norkin C.C. & Levangie P.K. · F.A. Davis",
-    price:749, originalPrice:899, badge:"2ND YEAR", stock:15,
-    desc:"Norkin and Levangie's Joint Structure and Function is the definitive biomechanics reference for physiotherapy students, covering articular structure, kinematics, and kinetics of all major joints. Published by F.A. Davis, it bridges anatomy and clinical physiotherapy practice, making it essential for understanding normal and pathological movement in BPT second year.",
-    images:[AMZ("0803607105"), OL("9780803623620"), GB("ym7HPQAACAAJ"), BK("Joint Structure Function Norkin Levangie FA Davis textbook cover",481)] },
+  {
+    id: "b-9", type: "book", year: "2nd Year", subject: "Biomechanics",
+    name: "Joint Structure and Function", tagline: "Norkin C.C. & Levangie P.K. · F.A. Davis",
+    price: 749, originalPrice: 899, badge: "2ND YEAR", stock: 15,
+    desc: "Norkin and Levangie's Joint Structure and Function is the definitive biomechanics reference for physiotherapy students, covering articular structure, kinematics, and kinetics of all major joints. Published by F.A. Davis, it bridges anatomy and clinical physiotherapy practice, making it essential for understanding normal and pathological movement in BPT second year.",
+    images: [AMZ("0803607105"), OL("9780803623620"), GB("ym7HPQAACAAJ"), BK("Joint Structure Function Norkin Levangie FA Davis textbook cover", 481)]
+  },
 
-  { id:"b-10", type:"book", year:"2nd Year", subject:"Pharmacology",
-    name:"Essentials of Medical Pharmacology", tagline:"Tripathi K.D. · Jaypee",
-    price:549, originalPrice:699, badge:"2ND YEAR", stock:20,
-    desc:"Tripathi's Essentials of Medical Pharmacology is the standard pharmacology text used across Indian medical and allied health curricula. Covers all major drug classes with mechanisms of action, indications, contraindications, and clinical uses relevant to physiotherapy practice — including NSAIDs, muscle relaxants, analgesics, and drugs used in neurological and cardiovascular conditions.",
-    images:[AMZ("9356964327"), OL("9789389587166"), GB("2gP1DwAAQBAJ"), BK("Tripathi Essentials Medical Pharmacology Jaypee textbook cover",491)] },
+  {
+    id: "b-10", type: "book", year: "2nd Year", subject: "Pharmacology",
+    name: "Essentials of Medical Pharmacology", tagline: "Tripathi K.D. · Jaypee",
+    price: 549, originalPrice: 699, badge: "2ND YEAR", stock: 20,
+    desc: "Tripathi's Essentials of Medical Pharmacology is the standard pharmacology text used across Indian medical and allied health curricula. Covers all major drug classes with mechanisms of action, indications, contraindications, and clinical uses relevant to physiotherapy practice — including NSAIDs, muscle relaxants, analgesics, and drugs used in neurological and cardiovascular conditions.",
+    images: [AMZ("9356964327"), OL("9789389587166"), GB("2gP1DwAAQBAJ"), BK("Tripathi Essentials Medical Pharmacology Jaypee textbook cover", 491)]
+  },
 
   // 3rd Year
-  { id:"b-11", type:"book", year:"3rd Year", subject:"Electrotherapy",
-    name:"Electrotherapy Explained: Principles and Practice", tagline:"Robertson V. · Elsevier",
-    price:649, originalPrice:799, badge:"3RD YEAR", stock:15,
-    desc:"Robertson's Electrotherapy Explained is the comprehensive reference for electrotherapy in BPT third year, covering TENS, ultrasound, IFT, shortwave diathermy, LASER, and neuromuscular electrical stimulation. The Elsevier edition includes physiological rationale, evidence-based clinical applications, dosage guidelines, contraindications, and safety protocols — aligned directly to the BPT electrotherapy curriculum.",
-    images:[AMZ("0750688432"), OL("9780750688147"), GB("3RcuI8nfJFEC"), BK("Electrotherapy Explained Robertson Elsevier textbook cover",501)] },
+  {
+    id: "b-11", type: "book", year: "3rd Year", subject: "Electrotherapy",
+    name: "Electrotherapy Explained: Principles and Practice", tagline: "Robertson V. · Elsevier",
+    price: 649, originalPrice: 799, badge: "3RD YEAR", stock: 15,
+    desc: "Robertson's Electrotherapy Explained is the comprehensive reference for electrotherapy in BPT third year, covering TENS, ultrasound, IFT, shortwave diathermy, LASER, and neuromuscular electrical stimulation. The Elsevier edition includes physiological rationale, evidence-based clinical applications, dosage guidelines, contraindications, and safety protocols — aligned directly to the BPT electrotherapy curriculum.",
+    images: [AMZ("0750688432"), OL("9780750688147"), GB("3RcuI8nfJFEC"), BK("Electrotherapy Explained Robertson Elsevier textbook cover", 501)]
+  },
 
-  { id:"b-12", type:"book", year:"3rd Year", subject:"General Medicine & Surgery",
-    name:"Principles and Practice of Medicine", tagline:"Davidson's · Elsevier",
-    price:999, originalPrice:1299, badge:"3RD YEAR", stock:12,
-    desc:"Davidson's Principles and Practice of Medicine is the gold-standard internal medicine reference, widely used by physiotherapy students in their third year clinical postings. Covers major medical conditions, their pathophysiology, diagnosis, and management — providing physiotherapy students the medical background needed for evidence-based clinical reasoning in all specialty areas.",
-    images:[AMZ("0702083488"), OL("9780702070273"), GB("9x5FEAAAQBAJ"), BK("Davidsons Principles Practice Medicine Elsevier textbook cover",511)] },
+  {
+    id: "b-12", type: "book", year: "3rd Year", subject: "General Medicine & Surgery",
+    name: "Principles and Practice of Medicine", tagline: "Davidson's · Elsevier",
+    price: 999, originalPrice: 1299, badge: "3RD YEAR", stock: 12,
+    desc: "Davidson's Principles and Practice of Medicine is the gold-standard internal medicine reference, widely used by physiotherapy students in their third year clinical postings. Covers major medical conditions, their pathophysiology, diagnosis, and management — providing physiotherapy students the medical background needed for evidence-based clinical reasoning in all specialty areas.",
+    images: [AMZ("0702083488"), OL("9780702070273"), GB("9x5FEAAAQBAJ"), BK("Davidsons Principles Practice Medicine Elsevier textbook cover", 511)]
+  },
 
-  { id:"b-13", type:"book", year:"3rd Year", subject:"Orthopaedics",
-    name:"Essential Orthopaedics", tagline:"Maheshwari J. · Jaypee",
-    price:549, originalPrice:699, badge:"3RD YEAR", stock:18,
-    desc:"Maheshwari's Essential Orthopaedics is the primary orthopaedics reference for BPT third year, covering fractures, dislocations, joint diseases, spinal conditions, and orthopaedic procedures from a clinical perspective. The Jaypee edition is India-specific, with conditions and clinical cases relevant to the Indian population and hospital setting, making it ideal for ward postings.",
-    images:[AMZ("9372026654"), OL("9789354651403"), GB("rOtFDwAAQBAJ"), BK("Maheshwari Essential Orthopaedics Jaypee textbook cover India",521)] },
+  {
+    id: "b-13", type: "book", year: "3rd Year", subject: "Orthopaedics",
+    name: "Essential Orthopaedics", tagline: "Maheshwari J. · Jaypee",
+    price: 549, originalPrice: 699, badge: "3RD YEAR", stock: 18,
+    desc: "Maheshwari's Essential Orthopaedics is the primary orthopaedics reference for BPT third year, covering fractures, dislocations, joint diseases, spinal conditions, and orthopaedic procedures from a clinical perspective. The Jaypee edition is India-specific, with conditions and clinical cases relevant to the Indian population and hospital setting, making it ideal for ward postings.",
+    images: [AMZ("9372026654"), OL("9789354651403"), GB("rOtFDwAAQBAJ"), BK("Maheshwari Essential Orthopaedics Jaypee textbook cover India", 521)]
+  },
 
-  { id:"b-14", type:"book", year:"3rd Year", subject:"Neurology",
-    name:"Neurological Examination in Clinical Practice", tagline:"Bickerstaff E.R.",
-    price:449, originalPrice:549, badge:"3RD YEAR", stock:15,
-    desc:"Bickerstaff's Neurological Examination in Clinical Practice is the clinical neurology examination guide used by BPT students in their third-year neurology postings. Covers systematic neurological assessment — cranial nerves, motor system, sensory system, reflexes, coordination, and cerebellar function — with practical guidance for examination technique and clinical interpretation.",
-    images:[AMZ("086542909X"), OL("9780632013173"), GB("9jtqAAAAMAAJ"), BK("Bickerstaff Neurological Examination Clinical Practice textbook cover",531)] },
+  {
+    id: "b-14", type: "book", year: "3rd Year", subject: "Neurology",
+    name: "Neurological Examination in Clinical Practice", tagline: "Bickerstaff E.R.",
+    price: 449, originalPrice: 549, badge: "3RD YEAR", stock: 15,
+    desc: "Bickerstaff's Neurological Examination in Clinical Practice is the clinical neurology examination guide used by BPT students in their third-year neurology postings. Covers systematic neurological assessment — cranial nerves, motor system, sensory system, reflexes, coordination, and cerebellar function — with practical guidance for examination technique and clinical interpretation.",
+    images: [AMZ("086542909X"), OL("9780632013173"), GB("9jtqAAAAMAAJ"), BK("Bickerstaff Neurological Examination Clinical Practice textbook cover", 531)]
+  },
 
   // Final Year
-  { id:"b-15", type:"book", year:"Final Year", subject:"Physiotherapy in Orthopaedics",
-    name:"Clinical Orthopaedic Rehabilitation", tagline:"Brotzman S.B. · Elsevier",
-    price:799, originalPrice:999, badge:"FINAL YEAR", stock:12,
-    desc:"Brotzman's Clinical Orthopaedic Rehabilitation is the definitive rehabilitation protocols reference for final-year BPT students and clinical physiotherapists. Provides evidence-based, protocol-driven rehabilitation programs for all major orthopaedic conditions — ACL reconstruction, rotator cuff repair, hip and knee arthroplasty, and sports injuries — aligned to current clinical practice standards.",
-    images:[AMZ("0323393705"), OL("9780323393706"), GB("bkXfBQAAQBAJ"), BK("Brotzman Clinical Orthopaedic Rehabilitation Elsevier textbook cover",541)] },
+  {
+    id: "b-15", type: "book", year: "Final Year", subject: "Physiotherapy in Orthopaedics",
+    name: "Clinical Orthopaedic Rehabilitation", tagline: "Brotzman S.B. · Elsevier",
+    price: 799, originalPrice: 999, badge: "FINAL YEAR", stock: 12,
+    desc: "Brotzman's Clinical Orthopaedic Rehabilitation is the definitive rehabilitation protocols reference for final-year BPT students and clinical physiotherapists. Provides evidence-based, protocol-driven rehabilitation programs for all major orthopaedic conditions — ACL reconstruction, rotator cuff repair, hip and knee arthroplasty, and sports injuries — aligned to current clinical practice standards.",
+    images: [AMZ("0323393705"), OL("9780323393706"), GB("bkXfBQAAQBAJ"), BK("Brotzman Clinical Orthopaedic Rehabilitation Elsevier textbook cover", 541)]
+  },
 
-  { id:"b-16", type:"book", year:"Final Year", subject:"Physiotherapy in Neurology",
-    name:"Neurological Rehabilitation", tagline:"Umphred D.A. · Mosby",
-    price:849, originalPrice:1049, badge:"FINAL YEAR", stock:10,
-    desc:"Umphred's Neurological Rehabilitation is the comprehensive neurorehabilitation reference for final-year BPT students, covering neuroplasticity, motor control theories, and rehabilitation approaches for stroke, traumatic brain injury, spinal cord injury, Parkinson's disease, multiple sclerosis, and cerebral palsy. The Mosby edition is internationally recognised and includes evidence-based intervention frameworks.",
-    images:[AMZ("032307586X"), OL("9780323172271"), GB("tvMJAAAAQBAJ"), BK("Umphred Neurological Rehabilitation Mosby textbook cover physiotherapy",551)] },
+  {
+    id: "b-16", type: "book", year: "Final Year", subject: "Physiotherapy in Neurology",
+    name: "Neurological Rehabilitation", tagline: "Umphred D.A. · Mosby",
+    price: 849, originalPrice: 1049, badge: "FINAL YEAR", stock: 10,
+    desc: "Umphred's Neurological Rehabilitation is the comprehensive neurorehabilitation reference for final-year BPT students, covering neuroplasticity, motor control theories, and rehabilitation approaches for stroke, traumatic brain injury, spinal cord injury, Parkinson's disease, multiple sclerosis, and cerebral palsy. The Mosby edition is internationally recognised and includes evidence-based intervention frameworks.",
+    images: [AMZ("032307586X"), OL("9780323172271"), GB("tvMJAAAAQBAJ"), BK("Umphred Neurological Rehabilitation Mosby textbook cover physiotherapy", 551)]
+  },
 
-  { id:"b-17", type:"book", year:"Final Year", subject:"Cardio-Respiratory Physiotherapy",
-    name:"Physiotherapy for Respiratory and Cardiac Problems", tagline:"Pryor J.A. & Prasad S.A.",
-    price:699, originalPrice:849, badge:"FINAL YEAR", stock:12,
-    desc:"Pryor and Prasad's Physiotherapy for Respiratory and Cardiac Problems is the key cardiopulmonary physiotherapy reference for BPT final year, covering lung volumes, airway clearance techniques, breathing exercises, cardiac rehabilitation, and physiotherapy management of COPD, asthma, pneumonia, and post-cardiac surgery conditions. Includes evidence-based clinical reasoning frameworks.",
-    images:[AMZ("813123634X"), OL("9780443073144"), GB("KBYDAAAACAAJ"), BK("Pryor Prasad Physiotherapy Respiratory Cardiac Problems textbook cover",561)] },
+  {
+    id: "b-17", type: "book", year: "Final Year", subject: "Cardio-Respiratory Physiotherapy",
+    name: "Physiotherapy for Respiratory and Cardiac Problems", tagline: "Pryor J.A. & Prasad S.A.",
+    price: 699, originalPrice: 849, badge: "FINAL YEAR", stock: 12,
+    desc: "Pryor and Prasad's Physiotherapy for Respiratory and Cardiac Problems is the key cardiopulmonary physiotherapy reference for BPT final year, covering lung volumes, airway clearance techniques, breathing exercises, cardiac rehabilitation, and physiotherapy management of COPD, asthma, pneumonia, and post-cardiac surgery conditions. Includes evidence-based clinical reasoning frameworks.",
+    images: [AMZ("813123634X"), OL("9780443073144"), GB("KBYDAAAACAAJ"), BK("Pryor Prasad Physiotherapy Respiratory Cardiac Problems textbook cover", 561)]
+  },
 
-  { id:"b-18", type:"book", year:"Final Year", subject:"Therapeutic Exercise",
-    name:"Therapeutic Exercise: Foundations and Techniques", tagline:"Kisner C. & Colby L. · F.A. Davis",
-    price:799, originalPrice:999, badge:"FINAL YEAR", stock:10,
-    desc:"Kisner and Colby's Therapeutic Exercise is the most comprehensive and widely used therapeutic exercise textbook in physiotherapy education. The F.A. Davis edition covers exercise principles, stretching, strengthening, aerobic conditioning, and condition-specific exercise programs for orthopaedic, neurological, and cardiopulmonary conditions — a cornerstone reference for final-year BPT students and practising physiotherapists.",
-    images:[AMZ("080362574X"), OL("9780803658509"), GB("9GxHAAAAYAAJ"), BK("Kisner Colby Therapeutic Exercise Foundations Techniques FA Davis textbook",571)] },
+  {
+    id: "b-18", type: "book", year: "Final Year", subject: "Therapeutic Exercise",
+    name: "Therapeutic Exercise: Foundations and Techniques", tagline: "Kisner C. & Colby L. · F.A. Davis",
+    price: 799, originalPrice: 999, badge: "FINAL YEAR", stock: 10,
+    desc: "Kisner and Colby's Therapeutic Exercise is the most comprehensive and widely used therapeutic exercise textbook in physiotherapy education. The F.A. Davis edition covers exercise principles, stretching, strengthening, aerobic conditioning, and condition-specific exercise programs for orthopaedic, neurological, and cardiopulmonary conditions — a cornerstone reference for final-year BPT students and practising physiotherapists.",
+    images: [AMZ("080362574X"), OL("9780803658509"), GB("9GxHAAAAYAAJ"), BK("Kisner Colby Therapeutic Exercise Foundations Techniques FA Davis textbook", 571)]
+  },
 
-  { id:"b-19", type:"book", year:"Final Year", subject:"Rehabilitation & Community Medicine",
-    name:"Preventive and Social Medicine", tagline:"Park K.",
-    price:449, originalPrice:549, badge:"FINAL YEAR", stock:20,
-    desc:"Park's Preventive and Social Medicine is the standard PSM and community medicine reference for BPT final year, covering epidemiology, public health, nutrition, environmental health, health statistics, and community-based rehabilitation. Provides physiotherapy students with the public health framework needed for community outreach, disability management, and preventive physiotherapy programs.",
-    images:["https://prithvibooks.com/wp-content/uploads/2025/01/Parks_Textbook_of_Preventive_and_Social_Medicine_28th_Edition_2025.png", OL("9789389863741"), GB("4D_CzgEACAAJ"), BK("Park Preventive Social Medicine textbook cover India public health",581)] },
+  {
+    id: "b-19", type: "book", year: "Final Year", subject: "Rehabilitation & Community Medicine",
+    name: "Preventive and Social Medicine", tagline: "Park K.",
+    price: 449, originalPrice: 549, badge: "FINAL YEAR", stock: 20,
+    desc: "Park's Preventive and Social Medicine is the standard PSM and community medicine reference for BPT final year, covering epidemiology, public health, nutrition, environmental health, health statistics, and community-based rehabilitation. Provides physiotherapy students with the public health framework needed for community outreach, disability management, and preventive physiotherapy programs.",
+    images: ["https://prithvibooks.com/wp-content/uploads/2025/01/Parks_Textbook_of_Preventive_and_Social_Medicine_28th_Edition_2025.png", OL("9789389863741"), GB("4D_CzgEACAAJ"), BK("Park Preventive Social Medicine textbook cover India public health", 581)]
+  },
 ];
 
 const ALL_PRODUCTS = [...KITS, ...ITEMS, ...APPAREL, ...BOOK_ITEMS];
 
-// ── Navbar ────────────────────────────────────────────────────
-function Navbar({ cartCount, onCart, onHome, searchQuery, onSearchChange }) {
+// // ── Navbar ────────────────────────────────────────────────────
+// function Navbar({ cartCount, onCart, onHome, searchQuery, onSearchChange }) {
+//   return (
+//     <nav style={{
+//       position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
+//       background: C.header,
+//       borderBottom: `1px solid ${C.headerBorder}`,
+//       padding: "0 5%",
+//     }}>
+//       <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 24 }}>
+//         {/* Logo */}
+//         <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", flexShrink: 0 }}>
+//           <img src="/logo.png" alt="MedVault" style={{ height: 40, width: "auto", display: "block", mixBlendMode: "screen" }} />
+//         </button>
+
+//         {/* Search bar */}
+//         <div style={{ flex: 1, maxWidth: 480, position: "relative" }}>
+//           <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.4)", fontSize: 14 }}>&#128269;</span>
+//           <input
+//             type="text"
+//             placeholder="Search products..."
+//             value={searchQuery}
+//             onChange={e => onSearchChange(e.target.value)}
+//             style={{
+//               width: "100%", padding: "9px 14px 9px 36px",
+//               background: "rgba(255,255,255,0.08)",
+//               border: `1px solid rgba(255,255,255,0.12)`,
+//               borderRadius: 8, color: "#FFFFFF", fontSize: 13,
+//               outline: "none",
+//             }}
+//             onFocus={e => e.target.style.borderColor = "rgba(255,255,255,0.3)"}
+//             onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.12)"}
+//           />
+//         </div>
+
+//         {/* Right nav */}
+//         <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
+//           <button onClick={onHome} style={{
+//             background: "none", border: "none", cursor: "pointer",
+//             color: "rgba(255,255,255,0.7)", fontSize: 13, fontWeight: 500,
+//             padding: "8px 14px", letterSpacing: 0.3,
+//           }}>Shop</button>
+//           <button onClick={onCart} style={{
+//             position: "relative",
+//             background: "transparent",
+//             border: `1px solid rgba(255,255,255,0.25)`,
+//             borderRadius: 8, padding: "8px 18px", cursor: "pointer", color: C.white,
+//             display: "flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 600,
+//             transition: "all 0.2s",
+//           }}
+//             onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.5)"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
+//             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)"; e.currentTarget.style.background = "transparent"; }}
+//           >
+//             <span style={{ fontSize: 15 }}>&#128722;</span>
+//             <span>Cart</span>
+//             {cartCount > 0 && (
+//               <span style={{
+//                 background: C.deal, color: C.white, borderRadius: "50%",
+//                 width: 19, height: 19, display: "flex", alignItems: "center", justifyContent: "center",
+//                 fontSize: 10, fontWeight: 800, animation: "cartBounce 0.3s ease",
+//               }}>{cartCount}</span>
+//             )}
+//           </button>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// }
+
+
+// ─────────────────────────────────────────────────────────────
+// NAVBAR
+// PART 1
+// Paste Part 2 where mentioned below.
+// ─────────────────────────────────────────────────────────────
+
+
+const NAV_ITEMS = [
+  {
+    title: "Assessment Kit",
+    icon: <Package size={16} />,
+  },
+  {
+    title: "Products",
+    icon: <Search size={16} />,
+  },
+  {
+    title: "About",
+    icon: <Info size={16} />,
+  },
+];
+
+function Navbar({
+  cartCount,
+  onCart,
+  onHome,
+  searchQuery,
+  onSearchChange,
+}) {
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
-      background: C.header,
-      borderBottom: `1px solid ${C.headerBorder}`,
-      padding: "0 5%",
-    }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 24 }}>
-        {/* Logo */}
-        <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", flexShrink: 0 }}>
-          <img src="/logo.png" alt="MedVault" style={{ height: 40, width: "auto", display: "block", mixBlendMode: "screen" }} />
-        </button>
+    <>
+      {/* ================================================= */}
+      {/* Announcement Bar */}
+      {/* ================================================= */}
 
-        {/* Search bar */}
-        <div style={{ flex: 1, maxWidth: 480, position: "relative" }}>
-          <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.4)", fontSize: 14 }}>&#128269;</span>
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={e => onSearchChange(e.target.value)}
-            style={{
-              width: "100%", padding: "9px 14px 9px 36px",
-              background: "rgba(255,255,255,0.08)",
-              border: `1px solid rgba(255,255,255,0.12)`,
-              borderRadius: 8, color: "#FFFFFF", fontSize: 13,
-              outline: "none",
-            }}
-            onFocus={e => e.target.style.borderColor = "rgba(255,255,255,0.3)"}
-            onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.12)"}
-          />
-        </div>
-
-        {/* Right nav */}
-        <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
-          <button onClick={onHome} style={{
-            background: "none", border: "none", cursor: "pointer",
-            color: "rgba(255,255,255,0.7)", fontSize: 13, fontWeight: 500,
-            padding: "8px 14px", letterSpacing: 0.3,
-          }}>Shop</button>
-          <button onClick={onCart} style={{
-            position: "relative",
-            background: "transparent",
-            border: `1px solid rgba(255,255,255,0.25)`,
-            borderRadius: 8, padding: "8px 18px", cursor: "pointer", color: C.white,
-            display: "flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 600,
-            transition: "all 0.2s",
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 34,
+          background:
+            "linear-gradient(90deg,#16A34A,#15803D,#16A34A)",
+          color: "#fff",
+          overflow: "hidden",
+          zIndex: 1200,
+          display: "flex",
+          alignItems: "center",
+          borderBottom: "1px solid rgba(255,255,255,.08)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            whiteSpace: "nowrap",
+            animation: "marquee 22s linear infinite",
+            fontWeight: 600,
+            fontSize: 13,
+            letterSpacing: ".3px",
           }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.5)"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)"; e.currentTarget.style.background = "transparent"; }}
-          >
-            <span style={{ fontSize: 15 }}>&#128722;</span>
-            <span>Cart</span>
-            {cartCount > 0 && (
-              <span style={{
-                background: C.deal, color: C.white, borderRadius: "50%",
-                width: 19, height: 19, display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 10, fontWeight: 800, animation: "cartBounce 0.3s ease",
-              }}>{cartCount}</span>
-            )}
-          </button>
+        >
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                marginRight: 60,
+              }}
+            >
+              <Sparkles size={14} />
+
+              FREE Name & RA Number Printing
+
+              <ChevronRight size={14} />
+
+              First 50 Orders
+
+              <ChevronRight size={14} />
+
+              Campus Delivery Available
+            </span>
+          ))}
         </div>
       </div>
-    </nav>
+
+      {/* ================================================= */}
+      {/* NAVBAR */}
+      {/* ================================================= */}
+
+      <nav
+        style={{
+          position: "fixed",
+          top: 34,
+          left: 0,
+          right: 0,
+          zIndex: 1100,
+
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+
+          background: "rgba(7,22,43,.78)",
+
+          borderBottom:
+            "1px solid rgba(255,255,255,.08)",
+
+          boxShadow:
+            "0 8px 30px rgba(0,0,0,.12)",
+
+          padding: "0 5%",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1320,
+            margin: "0 auto",
+            height: 72,
+
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+
+            gap: 28,
+          }}
+        >
+          {/* ========================================= */}
+          {/* Logo */}
+          {/* ========================================= */}
+
+          <button
+            onClick={onHome}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+
+              background: "none",
+              border: "none",
+
+              cursor: "pointer",
+
+              flexShrink: 0,
+            }}
+          >
+            <img
+              src="/logo.png"
+              alt="MedVault"
+              style={{
+                width: 48,
+                height: 48,
+                objectFit: "contain",
+              }}
+            />
+
+            <div
+              style={{
+                textAlign: "left",
+              }}
+            >
+              <div
+                style={{
+                  color: "#fff",
+                  fontSize: 20,
+                  fontWeight: 800,
+                  letterSpacing: ".3px",
+                }}
+              >
+                MedVault
+              </div>
+
+              <div
+                style={{
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: 11,
+                  marginTop: 2,
+                }}
+              >
+                Physiotherapy Essentials
+              </div>
+            </div>
+          </button>
+          {/* ========================================= */}
+          {/* Navigation */}
+          {/* ========================================= */}
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item.title}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+
+                  background: "transparent",
+
+                  border: "none",
+
+                  color: "rgba(255,255,255,.75)",
+
+                  padding: "10px 16px",
+
+                  borderRadius: 12,
+
+                  cursor: "pointer",
+
+                  transition: ".25s",
+
+                  fontWeight: 600,
+
+                  fontSize: 14,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background =
+                    "rgba(255,255,255,.08)";
+                  e.currentTarget.style.color = "#FFFFFF";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color =
+                    "rgba(255,255,255,.75)";
+                }}
+              >
+                {item.icon}
+                {item.title}
+              </button>
+            ))}
+          </div>
+
+          {/* ========================================= */}
+          {/* Search */}
+          {/* ========================================= */}
+
+          <div
+            style={{
+              flex: 1,
+              maxWidth: 360,
+              position: "relative",
+            }}
+          >
+            <Search
+              size={18}
+              style={{
+                position: "absolute",
+                left: 16,
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "rgba(255,255,255,.45)",
+              }}
+            />
+
+            <input
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Search products..."
+              style={{
+                width: "100%",
+
+                background: "rgba(255,255,255,.06)",
+
+                border:
+                  "1px solid rgba(255,255,255,.10)",
+
+                borderRadius: 14,
+
+                color: "#fff",
+
+                outline: "none",
+
+                padding: "13px 18px 13px 46px",
+
+                fontSize: 14,
+
+                transition: ".25s",
+              }}
+              onFocus={(e) => {
+                e.target.style.border =
+                  "1px solid rgba(96,165,250,.45)";
+              }}
+              onBlur={(e) => {
+                e.target.style.border =
+                  "1px solid rgba(255,255,255,.10)";
+              }}
+            />
+          </div>
+
+          {/* ========================================= */}
+          {/* Cart */}
+          {/* ========================================= */}
+
+          <button
+            onClick={onCart}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+
+              background:
+                "linear-gradient(135deg,#0057A8,#1E88E5)",
+
+              color: "#FFFFFF",
+
+              border: "none",
+
+              borderRadius: 14,
+
+              padding: "12px 22px",
+
+              cursor: "pointer",
+
+              fontWeight: 700,
+
+              boxShadow:
+                "0 12px 30px rgba(0,87,168,.28)",
+
+              transition: ".25s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform =
+                "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform =
+                "translateY(0px)";
+            }}
+          >
+            <ShoppingCart size={19} />
+
+            Cart
+
+            {cartCount > 0 && (
+              <div
+                style={{
+                  width: 22,
+                  height: 22,
+
+                  borderRadius: "50%",
+
+                  background: "#22C55E",
+
+                  color: "#fff",
+
+                  display: "flex",
+
+                  justifyContent: "center",
+
+                  alignItems: "center",
+
+                  fontSize: 11,
+
+                  fontWeight: 800,
+                }}
+              >
+                {cartCount}
+              </div>
+            )}
+          </button>
+
+        </div>
+      </nav>
+
+      {/* ========================================= */}
+      {/* Announcement Animation */}
+      {/* ========================================= */}
+
+      <style>{`
+        @keyframes marquee{
+          0%{
+            transform:translateX(0%);
+          }
+
+          100%{
+            transform:translateX(-50%);
+          }
+        }
+
+        @media (max-width:1024px){
+
+          nav input{
+            display:none;
+          }
+
+        }
+
+        @media (max-width:900px){
+
+          nav{
+
+            padding:0 18px !important;
+
+          }
+
+        }
+
+        @media (max-width:768px){
+
+          nav{
+
+            top:34px;
+
+          }
+
+        }
+
+      `}</style>
+
+    </>
   );
 }
 
-// ── Hero ──────────────────────────────────────────────────────
+
+// // ── Hero ──────────────────────────────────────────────────────
+// function HeroSection({ onShop }) {
+//   return (
+//     <div style={{
+//       background: "linear-gradient(160deg, #0A1628 0%, #0D2D5A 55%, #0A1E3E 100%)",
+//       padding: "108px 5% 72px", position: "relative", overflow: "hidden",
+//     }}>
+//       {/* Subtle grid overlay */}
+//       <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
+//       {/* Glow blobs */}
+//       <div style={{ position: "absolute", top: -100, right: "8%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,87,168,0.35) 0%, transparent 70%)", pointerEvents: "none" }} />
+//       <div style={{ position: "absolute", bottom: -80, left: "2%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,135,90,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
+
+//       <div className="hero-row" style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative" }}>
+//         <div style={{ flex: "0 0 auto", maxWidth: 540, animation: "fadeUp 0.7s ease both" }}>
+//           {/* Pill */}
+//           <div style={{
+//             display: "inline-flex", alignItems: "center", gap: 8,
+//             background: "rgba(0,87,168,0.35)", border: "1px solid rgba(0,87,168,0.6)",
+//             borderRadius: 100, padding: "6px 18px", marginBottom: 28,
+//           }}>
+//             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4CAF90", display: "block", boxShadow: "0 0 6px #4CAF90" }} />
+//             <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Delivery</span>
+//           </div>
+
+//           <h1 style={{
+//             fontWeight: 900, fontSize: "clamp(38px, 5.5vw, 68px)", lineHeight: 1.06,
+//             color: "#FFFFFF", marginBottom: 22, letterSpacing: "-1px",
+//           }}>
+//             Everything a<br />
+//             <span style={{
+//               background: "linear-gradient(90deg, #60A5FA, #34D399)",
+//               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+//             }}>BPT Student</span><br />
+//             <span style={{ color: "rgba(255,255,255,0.85)" }}>Needs.</span>
+//           </h1>
+
+//           <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", fontWeight: 400, maxWidth: 460, lineHeight: 1.8, marginBottom: 40 }}>
+//             Physiotherapy instruments, clinical kits, scrubs &amp; study supplies — curated for SRM students and delivered to your hostel in 48 hours.
+//           </p>
+
+//           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 48 }}>
+//             <button onClick={onShop} style={{
+//               background: "linear-gradient(135deg, #0057A8, #0070D4)",
+//               color: C.white, border: "none",
+//               padding: "15px 36px", borderRadius: 10, cursor: "pointer",
+//               fontWeight: 700, fontSize: 15, letterSpacing: 0.3,
+//               transition: "all 0.22s", boxShadow: "0 6px 20px rgba(0,87,168,0.45)",
+//             }}
+//               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,87,168,0.55)"; }}
+//               onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,87,168,0.45)"; }}
+//             >Browse Kits &#8594;</button>
+//             <a href={`https://wa.me/918248613274?text=${encodeURIComponent("Hi MedVault, I'd like to place an order")}`} target="_blank" rel="noreferrer" style={{
+//               display: "flex", alignItems: "center", gap: 8,
+//               background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.18)",
+//               color: "rgba(255,255,255,0.9)", padding: "14px 24px", borderRadius: 10,
+//               textDecoration: "none", fontWeight: 600, fontSize: 14, transition: "all 0.2s",
+//             }}
+//               onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+//               onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
+//             >
+//               <span style={{ fontSize: 16 }}>&#128172;</span> Order on WhatsApp
+//             </a>
+//           </div>
+
+//           {/* Stats */}
+//           <div style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 28 }}>
+//             {[["4,000+", "Students Served"], ["28+", "Products"], ["1 hr", "Delivery"]].map(([n, l]) => (
+//               <div key={l}>
+//                 <div style={{ fontWeight: 800, fontSize: 24, color: "#FFFFFF", letterSpacing: "-0.5px" }}>{n}</div>
+//                 <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontWeight: 500, marginTop: 2 }}>{l}</div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+
+//         <div className="hero-img" style={{ animation: "fadeUp 0.9s ease 0.18s both" }}>
+//           <div style={{ position: "relative", animation: "float3d 5s ease-in-out infinite" }}>
+//             <div style={{ position: "absolute", inset: -24, borderRadius: 32, background: "radial-gradient(ellipse, rgba(0,87,168,0.3) 0%, transparent 70%)", zIndex: 0 }} />
+//             <img src="/kit.jpg" alt="MedVault Physio Kit" style={{
+//               position: "relative", zIndex: 1,
+//               width: "clamp(240px, 28vw, 430px)",
+//               borderRadius: 22, boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
+//             }} onError={e => e.target.style.display = "none"} />
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+// ─────────────────────────────────────────────────────────────
+// HERO SECTION - PART 1
+// Paste PART 2 inside the LEFT CONTENT div.
+// Paste PART 3 inside the RIGHT CONTENT div.
+// Paste PART 4 after the Hero Container.
+// ─────────────────────────────────────────────────────────────
+
 function HeroSection({ onShop }) {
   return (
-    <div style={{
-      background: "linear-gradient(160deg, #0A1628 0%, #0D2D5A 55%, #0A1E3E 100%)",
-      padding: "108px 5% 72px", position: "relative", overflow: "hidden",
-    }}>
-      {/* Subtle grid overlay */}
-      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
-      {/* Glow blobs */}
-      <div style={{ position: "absolute", top: -100, right: "8%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,87,168,0.35) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -80, left: "2%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,135,90,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
+    <section
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        background:
+          "linear-gradient(135deg,#071827 0%,#0B2342 45%,#123B69 100%)",
+        minHeight: "90vh",
+        padding: "120px 5% 60px",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      {/* Background Grid */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px)",
+          backgroundSize: "34px 34px",
+          opacity: .5,
+          pointerEvents: "none",
+        }}
+      />
 
-      <div className="hero-row" style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative" }}>
-        <div style={{ flex: "0 0 auto", maxWidth: 540, animation: "fadeUp 0.7s ease both" }}>
-          {/* Pill */}
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: "rgba(0,87,168,0.35)", border: "1px solid rgba(0,87,168,0.6)",
-            borderRadius: 100, padding: "6px 18px", marginBottom: 28,
-          }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4CAF90", display: "block", boxShadow: "0 0 6px #4CAF90" }} />
-            <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Delivery</span>
+      {/* Blue Glow */}
+      <div
+        style={{
+          position: "absolute",
+          top: -220,
+          right: -180,
+          width: 700,
+          height: 700,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle,rgba(59,130,246,.20),transparent 72%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Green Glow */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: -180,
+          left: -120,
+          width: 420,
+          height: 420,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle,rgba(34,197,94,.15),transparent 72%)",
+          filter: "blur(50px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Hero Container */}
+      <div
+        className="hero-row"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: 1320,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "46% 54%",
+          gap: 40,
+          alignItems: "center",
+        }}
+      >
+        <div style={{ maxWidth: 560 }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "10px 18px",
+              borderRadius: 999,
+              background: "rgba(34,197,94,.12)",
+              border: "1px solid rgba(34,197,94,.18)",
+              color: "#86EFAC",
+              fontWeight: 700,
+              fontSize: 13,
+              marginBottom: 22,
+            }}
+          >
+            ✨ India's Trusted Physiotherapy Student Store
           </div>
 
-          <h1 style={{
-            fontWeight: 900, fontSize: "clamp(38px, 5.5vw, 68px)", lineHeight: 1.06,
-            color: "#FFFFFF", marginBottom: 22, letterSpacing: "-1px",
-          }}>
-            Everything a<br />
-            <span style={{
-              background: "linear-gradient(90deg, #60A5FA, #34D399)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            }}>BPT Student</span><br />
-            <span style={{ color: "rgba(255,255,255,0.85)" }}>Needs.</span>
+          <h1
+            style={{
+              fontSize: "clamp(48px,5vw,74px)",
+              lineHeight: 1.02,
+              fontWeight: 900,
+              letterSpacing: "-2px",
+              color: "#FFFFFF",
+              marginBottom: 20,
+            }}
+          >
+            Everything You Need
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(90deg,#60A5FA,#34D399)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              For Your BPT
+            </span>
+            <br />
+            Journey.
           </h1>
 
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", fontWeight: 400, maxWidth: 460, lineHeight: 1.8, marginBottom: 40 }}>
-            Physiotherapy instruments, clinical kits, scrubs &amp; study supplies — curated for SRM students and delivered to your hostel in 48 hours.
+          <p
+            style={{
+              color: "rgba(255,255,255,.72)",
+              fontSize: 17,
+              lineHeight: 1.75,
+              maxWidth: 520,
+              marginBottom: 30,
+            }}
+          >
+            Premium physiotherapy assessment kits, trusted BPL stethoscopes,
+            personalized clinical accessories and everything required for
+            practicals, postings and patient assessments.
           </p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 48 }}>
-            <button onClick={onShop} style={{
-              background: "linear-gradient(135deg, #0057A8, #0070D4)",
-              color: C.white, border: "none",
-              padding: "15px 36px", borderRadius: 10, cursor: "pointer",
-              fontWeight: 700, fontSize: 15, letterSpacing: 0.3,
-              transition: "all 0.22s", boxShadow: "0 6px 20px rgba(0,87,168,0.45)",
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,minmax(0,1fr))",
+              gap: 14,
+              marginBottom: 32,
             }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,87,168,0.55)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,87,168,0.45)"; }}
-            >Browse Kits &#8594;</button>
-            <a href={`https://wa.me/918248613274?text=${encodeURIComponent("Hi MedVault, I'd like to place an order")}`} target="_blank" rel="noreferrer" style={{
-              display: "flex", alignItems: "center", gap: 8,
-              background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.18)",
-              color: "rgba(255,255,255,0.9)", padding: "14px 24px", borderRadius: 10,
-              textDecoration: "none", fontWeight: 600, fontSize: 14, transition: "all 0.2s",
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-            >
-              <span style={{ fontSize: 16 }}>&#128172;</span> Order on WhatsApp
-            </a>
-          </div>
-
-          {/* Stats */}
-          <div style={{ display: "flex", gap: 36, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 28 }}>
-            {[["4,000+", "Students Served"], ["28+", "Products"], ["1 hr", "Delivery"]].map(([n, l]) => (
-              <div key={l}>
-                <div style={{ fontWeight: 800, fontSize: 24, color: "#FFFFFF", letterSpacing: "-0.5px" }}>{n}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontWeight: 500, marginTop: 2 }}>{l}</div>
+          >
+            {[
+              "BPL Dual Head Stethoscope",
+              "Clinical Goniometer Set",
+              "FREE Personalized Pouch",
+              "Assessment Sheets Included",
+            ].map((item) => (
+              <div
+                key={item}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  color: "#E5E7EB",
+                  fontWeight: 600,
+                  fontSize: 15,
+                }}
+              >
+                <div
+                  style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: "50%",
+                    background: "#22C55E",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#FFFFFF",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
+                  ✓
+                </div>
+                {item}
               </div>
             ))}
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 24,
+              flexWrap: "wrap",
+              marginBottom: 34,
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: 13,
+                  marginBottom: 4,
+                }}
+              >
+                Complete MVP Kit
+              </div>
+              <div
+                style={{
+                  fontSize: 58,
+                  fontWeight: 900,
+                  color: "#FFFFFF",
+                  lineHeight: 1,
+                }}
+              >
+                ₹1,799
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: "14px 18px",
+                borderRadius: 14,
+                background: "rgba(34,197,94,.10)",
+                border: "1px solid rgba(34,197,94,.18)",
+              }}
+            >
+              <div
+                style={{
+                  color: "#4ADE80",
+                  fontWeight: 800,
+                  fontSize: 18,
+                }}
+              >
+                Save ₹500
+              </div>
+              <div
+                style={{
+                  color: "rgba(255,255,255,.45)",
+                  textDecoration: "line-through",
+                  marginTop: 4,
+                  fontSize: 14,
+                }}
+              >
+                ₹2,299
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 16,
+              flexWrap: "wrap",
+            }}
+          >
+            <button
+              onClick={onShop}
+              style={{
+                background: "linear-gradient(135deg,#0066CC,#0B84FF)",
+                border: "none",
+                color: "#FFFFFF",
+                borderRadius: 14,
+                padding: "17px 34px",
+                fontWeight: 700,
+                fontSize: 15,
+                cursor: "pointer",
+                boxShadow: "0 16px 40px rgba(0,102,204,.35)",
+              }}
+            >
+              Order MVP Kit →
+            </button>
+            <a
+              href="https://wa.me/918248613274"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                textDecoration: "none",
+                padding: "17px 28px",
+                borderRadius: 14,
+                background: "rgba(255,255,255,.05)",
+                border: "1px solid rgba(255,255,255,.12)",
+                color: "#FFFFFF",
+                fontWeight: 600,
+              }}
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
         </div>
 
-        <div className="hero-img" style={{ animation: "fadeUp 0.9s ease 0.18s both" }}>
-          <div style={{ position: "relative", animation: "float3d 5s ease-in-out infinite" }}>
-            <div style={{ position: "absolute", inset: -24, borderRadius: 32, background: "radial-gradient(ellipse, rgba(0,87,168,0.3) 0%, transparent 70%)", zIndex: 0 }} />
-            <img src="/kit.jpg" alt="MedVault Physio Kit" style={{
-              position: "relative", zIndex: 1,
-              width: "clamp(240px, 28vw, 430px)",
-              borderRadius: 22, boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
-            }} onError={e => e.target.style.display = "none"} />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            minHeight: 620,
+            width: "100%",
+          }}
+        >
+          {/* Blue Glow */}
+          <div
+            style={{
+              position: "absolute",
+              width: 560,
+              height: 560,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(37,99,235,.22), transparent 72%)",
+              filter: "blur(40px)",
+              zIndex: 0,
+            }}
+          />
+
+          {/* Product Image */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              animation: "floatHero 6s ease-in-out infinite",
+            }}
+          >
+            <img
+              src="/kit.jpg"
+              alt="MedVault MVP Kit"
+              style={{
+                width: "100%",
+                maxWidth: 560,
+                objectFit: "contain",
+                filter: "drop-shadow(0 35px 70px rgba(0,0,0,.45))",
+              }}
+            />
+
+            {/* Genuine Product */}
+            <div
+              style={{
+                position: "absolute",
+                top: 40,
+                left: -50,
+                background: "#FFFFFF",
+                borderRadius: 16,
+                padding: "14px 18px",
+                boxShadow: "0 16px 35px rgba(0,0,0,.18)",
+                minWidth: 210,
+              }}
+            >
+              <div
+                style={{
+                  color: "#16A34A",
+                  fontWeight: 800,
+                  fontSize: 13,
+                }}
+              >
+                ✓ Genuine Product
+              </div>
+              <div
+                style={{
+                  color: "#111827",
+                  fontWeight: 700,
+                  marginTop: 4,
+                  fontSize: 15,
+                }}
+              >
+                BPL Dual Head Stethoscope
+              </div>
+            </div>
+
+            {/* Personalization */}
+            <div
+              style={{
+                position: "absolute",
+                top: 130,
+                right: -45,
+                background: "#FFFFFF",
+                borderRadius: 16,
+                padding: "14px 18px",
+                boxShadow: "0 16px 35px rgba(0,0,0,.18)",
+                minWidth: 210,
+              }}
+            >
+              <div
+                style={{
+                  color: "#2563EB",
+                  fontWeight: 800,
+                  fontSize: 13,
+                }}
+              >
+                FREE Launch Offer
+              </div>
+              <div
+                style={{
+                  color: "#111827",
+                  fontWeight: 700,
+                  marginTop: 4,
+                  fontSize: 15,
+                }}
+              >
+                Name + RA Printing
+              </div>
+            </div>
+
+            {/* Rating */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 130,
+                left: -35,
+                background: "#FFFFFF",
+                borderRadius: 18,
+                padding: "15px 20px",
+                boxShadow: "0 16px 35px rgba(0,0,0,.18)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 24,
+                  fontWeight: 900,
+                  color: "#111827",
+                }}
+              >
+                ⭐ 4.9
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: "#6B7280",
+                }}
+              >
+                Student Rating
+              </div>
+            </div>
+
+            {/* Students */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 35,
+                right: -30,
+                background: "#FFFFFF",
+                borderRadius: 18,
+                padding: "15px 22px",
+                boxShadow: "0 16px 35px rgba(0,0,0,.18)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 26,
+                  fontWeight: 900,
+                  color: "#111827",
+                }}
+              >
+                4000+
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: "#6B7280",
+                }}
+              >
+                Students Served
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-// ── Trust Strip ───────────────────────────────────────────────
-function TrustStrip() {
-  return (
-    <div style={{ background: C.white, borderBottom: `1px solid ${C.border}`, padding: "16px 5%" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "center", gap: "5%", flexWrap: "wrap" }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 18,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          maxWidth: 1200,
+          display: "flex",
+          justifyContent: "center",
+          gap: 28,
+          flexWrap: "wrap",
+          color: "rgba(255,255,255,.72)",
+          fontSize: 14,
+          fontWeight: 600,
+        }}
+      >
         {[
-          ["🚚", "Free delivery above ₹2000"],
-          ["✅", "Hospital-grade quality"],
-          ["⚡", "48hr campus delivery"],
-          ["💬", "WhatsApp ordering"],
-          ["🔒", "COD & UPI available"],
-        ].map(([ic, lb]) => (
-          <div key={lb} style={{ display: "flex", alignItems: "center", gap: 7, color: C.textSub, fontSize: 12.5, fontWeight: 500 }}>
-            <span style={{ fontSize: 14 }}>{ic}</span>
-            <span>{lb}</span>
+          "✓ Genuine BPL Products",
+          "✓ Fast Campus Delivery",
+          "✓ Student Pricing",
+          "✓ GST Invoice Available",
+        ].map((item) => (
+          <div key={item}>
+            {item}
           </div>
         ))}
       </div>
-    </div>
+
+      <style>{`
+@keyframes floatHero{
+  0%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-12px);
+  }
+  100%{
+    transform:translateY(0px);
+  }
+}
+@media (max-width:1100px){
+.hero-row{
+grid-template-columns:1fr !important;
+gap:70px !important;
+text-align:center;
+}
+.hero-row > div:first-child{
+max-width:100% !important;
+}
+.hero-row > div:last-child{
+justify-content:center !important;
+}
+}
+@media (max-width:768px){
+section{
+padding-top:130px !important;
+padding-bottom:60px !important;
+}
+.hero-row{
+gap:45px !important;
+}
+.hero-row h1{
+font-size:44px !important;
+line-height:1.08 !important;
+}
+.hero-row p{
+font-size:15px !important;
+}
+.hero-row img{
+max-width:340px !important;
+}
+}
+@media (max-width:768px){
+.hero-row img + div,
+.hero-row img ~ div{
+display:none;
+}
+}
+`}</style>
+
+    </section>
   );
 }
 
@@ -897,8 +1892,8 @@ function TabNav({ active, onChange }) {
           transition: "all 0.18s", whiteSpace: "nowrap",
           boxShadow: active === t.id ? `0 4px 14px rgba(0,87,168,0.25)` : C.shadow,
         }}
-          onMouseEnter={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.color = C.primary; }}}
-          onMouseLeave={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textSub; }}}
+          onMouseEnter={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.color = C.primary; } }}
+          onMouseLeave={e => { if (active !== t.id) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textSub; } }}
         >
           {t.label}
         </button>
@@ -931,7 +1926,7 @@ function KitCard({ kit, onView, onAddToCart }) {
     >
       {/* Image */}
       <div style={{ height: 220, overflow: "hidden", position: "relative", background: "#F7FAFC" }}>
-        <img src={kit.images[0]} alt={kit.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.45s ease", transform: hovered ? "scale(1.05)" : "scale(1)" }} onError={e => e.target.style.display="none"} />
+        <img src={kit.images[0]} alt={kit.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.45s ease", transform: hovered ? "scale(1.05)" : "scale(1)" }} onError={e => e.target.style.display = "none"} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.28) 100%)" }} />
         {/* Discount badge */}
         <span style={{
@@ -1033,7 +2028,7 @@ function ItemCard({ item, onView, onAddToCart }) {
       }}
     >
       <div style={{ height: 160, position: "relative", overflow: "hidden", background: "#F8FAFC" }}>
-        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.35s ease", transform: hovered ? "scale(1.05)" : "scale(1)" }} onError={e => e.target.style.display="none"} />
+        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.35s ease", transform: hovered ? "scale(1.05)" : "scale(1)" }} onError={e => e.target.style.display = "none"} />
         <span style={{
           position: "absolute", top: 8, right: 8,
           background: C.deal, color: C.white,
@@ -1089,7 +2084,7 @@ function ApparelCard({ item, onView, onAddToCart }) {
       }}
     >
       <div style={{ height: 200, position: "relative", overflow: "hidden", background: "#F8FAFC" }}>
-        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.35s ease", transform: hovered ? "scale(1.04)" : "scale(1)" }} onError={e => e.target.style.display="none"} />
+        <img src={item.images[0]} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.35s ease", transform: hovered ? "scale(1.04)" : "scale(1)" }} onError={e => e.target.style.display = "none"} />
         <span style={{
           position: "absolute", top: 12, left: 12,
           background: C.goldBg, color: C.gold, border: `1px solid #FDE68A`,
@@ -1176,11 +2171,11 @@ function SizeGuide({ onClose }) {
           <tbody>
             {[
               ["XS", "78–82", "60–64", "84–88", "155–160"],
-              ["S",  "84–88", "66–70", "90–94", "160–165"],
-              ["M",  "90–94", "72–76", "96–100","165–170"],
-              ["L",  "96–100","78–82", "102–106","170–175"],
-              ["XL", "102–106","84–88","108–112","175–180"],
-              ["XXL","108–114","90–94","114–120","180+"],
+              ["S", "84–88", "66–70", "90–94", "160–165"],
+              ["M", "90–94", "72–76", "96–100", "165–170"],
+              ["L", "96–100", "78–82", "102–106", "170–175"],
+              ["XL", "102–106", "84–88", "108–112", "175–180"],
+              ["XXL", "108–114", "90–94", "114–120", "180+"],
             ].map(([s, ...vals], ri) => (
               <tr key={s} style={{ background: ri % 2 === 0 ? C.white : "#F9FAFB", borderBottom: `1px solid ${C.border}` }}>
                 <td style={{ padding: "10px 12px", fontWeight: 700, color: C.primary }}>{s}</td>
@@ -1200,74 +2195,108 @@ const BOOKS_DATA = [
   {
     year: "1st Year", icon: "🩺", color: "#0057A8", bg: "#EBF5FF",
     subjects: [
-      { name: "Anatomy", books: [
-        { num: 1, authors: "Ross & Wilson", title: "Anatomy and Physiology in Health and Illness", publisher: "Elsevier" },
-        { num: 2, authors: "Gray H.", title: "Gray's Anatomy", publisher: "Churchill Livingstone" },
-      ]},
-      { name: "Physiology", books: [
-        { num: 3, authors: "Guyton A.C. & Hall J.E.", title: "Textbook of Medical Physiology", publisher: "Elsevier" },
-        { num: 4, authors: "Sembulingam K.", title: "Essentials of Medical Physiology", publisher: "Jaypee" },
-      ]},
-      { name: "Psychology", books: [
-        { num: 5, authors: "Mangal S.K.", title: "General Psychology", publisher: "" },
-      ]},
-      { name: "Sociology", books: [
-        { num: 6, authors: "Sachdeva D.R. & Bhushan V.", title: "An Introduction to Sociology", publisher: "" },
-      ]},
+      {
+        name: "Anatomy", books: [
+          { num: 1, authors: "Ross & Wilson", title: "Anatomy and Physiology in Health and Illness", publisher: "Elsevier" },
+          { num: 2, authors: "Gray H.", title: "Gray's Anatomy", publisher: "Churchill Livingstone" },
+        ]
+      },
+      {
+        name: "Physiology", books: [
+          { num: 3, authors: "Guyton A.C. & Hall J.E.", title: "Textbook of Medical Physiology", publisher: "Elsevier" },
+          { num: 4, authors: "Sembulingam K.", title: "Essentials of Medical Physiology", publisher: "Jaypee" },
+        ]
+      },
+      {
+        name: "Psychology", books: [
+          { num: 5, authors: "Mangal S.K.", title: "General Psychology", publisher: "" },
+        ]
+      },
+      {
+        name: "Sociology", books: [
+          { num: 6, authors: "Sachdeva D.R. & Bhushan V.", title: "An Introduction to Sociology", publisher: "" },
+        ]
+      },
     ],
   },
   {
     year: "2nd Year", icon: "⚙️", color: "#00875A", bg: "#F0FFF4",
     subjects: [
-      { name: "Pathology & Microbiology", books: [
-        { num: 7, authors: "Mohan H.", title: "Textbook of Pathology", publisher: "Jaypee" },
-      ]},
-      { name: "Exercise Therapy", books: [
-        { num: 8, authors: "Gardiner D.", title: "Principles of Exercise Therapy", publisher: "CBS Publishers" },
-      ]},
-      { name: "Biomechanics", books: [
-        { num: 9, authors: "Norkin C.C. & Levangie P.K.", title: "Joint Structure and Function", publisher: "F.A. Davis" },
-      ]},
-      { name: "Pharmacology & Biochemistry", books: [
-        { num: 10, authors: "Tripathi K.D.", title: "Essentials of Medical Pharmacology", publisher: "Jaypee" },
-      ]},
+      {
+        name: "Pathology & Microbiology", books: [
+          { num: 7, authors: "Mohan H.", title: "Textbook of Pathology", publisher: "Jaypee" },
+        ]
+      },
+      {
+        name: "Exercise Therapy", books: [
+          { num: 8, authors: "Gardiner D.", title: "Principles of Exercise Therapy", publisher: "CBS Publishers" },
+        ]
+      },
+      {
+        name: "Biomechanics", books: [
+          { num: 9, authors: "Norkin C.C. & Levangie P.K.", title: "Joint Structure and Function", publisher: "F.A. Davis" },
+        ]
+      },
+      {
+        name: "Pharmacology & Biochemistry", books: [
+          { num: 10, authors: "Tripathi K.D.", title: "Essentials of Medical Pharmacology", publisher: "Jaypee" },
+        ]
+      },
     ],
   },
   {
     year: "3rd Year", icon: "⚡", color: "#B7791F", bg: "#FFFFF0",
     subjects: [
-      { name: "Electrotherapy", books: [
-        { num: 11, authors: "Robertson V.", title: "Electrotherapy Explained: Principles and Practice", publisher: "Elsevier" },
-      ]},
-      { name: "General Medicine & Surgery", books: [
-        { num: 12, authors: "Davidson's", title: "Principles and Practice of Medicine", publisher: "Elsevier" },
-      ]},
-      { name: "Orthopaedics", books: [
-        { num: 13, authors: "Maheshwari J.", title: "Essential Orthopaedics", publisher: "Jaypee" },
-      ]},
-      { name: "Neurology", books: [
-        { num: 14, authors: "Bickerstaff E.R.", title: "Neurological Examination in Clinical Practice", publisher: "" },
-      ]},
+      {
+        name: "Electrotherapy", books: [
+          { num: 11, authors: "Robertson V.", title: "Electrotherapy Explained: Principles and Practice", publisher: "Elsevier" },
+        ]
+      },
+      {
+        name: "General Medicine & Surgery", books: [
+          { num: 12, authors: "Davidson's", title: "Principles and Practice of Medicine", publisher: "Elsevier" },
+        ]
+      },
+      {
+        name: "Orthopaedics", books: [
+          { num: 13, authors: "Maheshwari J.", title: "Essential Orthopaedics", publisher: "Jaypee" },
+        ]
+      },
+      {
+        name: "Neurology", books: [
+          { num: 14, authors: "Bickerstaff E.R.", title: "Neurological Examination in Clinical Practice", publisher: "" },
+        ]
+      },
     ],
   },
   {
     year: "Final Year", icon: "🧠", color: "#6B21A8", bg: "#FAF5FF",
     subjects: [
-      { name: "Physiotherapy in Orthopaedics", books: [
-        { num: 15, authors: "Brotzman S.B.", title: "Clinical Orthopaedic Rehabilitation", publisher: "Elsevier" },
-      ]},
-      { name: "Physiotherapy in Neurology", books: [
-        { num: 16, authors: "Umphred D.A.", title: "Neurological Rehabilitation", publisher: "Mosby" },
-      ]},
-      { name: "Cardio-Respiratory Physiotherapy", books: [
-        { num: 17, authors: "Pryor J.A. & Prasad S.A.", title: "Physiotherapy for Respiratory and Cardiac Problems", publisher: "" },
-      ]},
-      { name: "Therapeutic Exercise", books: [
-        { num: 18, authors: "Kisner C. & Colby L.", title: "Therapeutic Exercise: Foundations and Techniques", publisher: "F.A. Davis" },
-      ]},
-      { name: "Rehabilitation & Community Medicine", books: [
-        { num: 19, authors: "Park K.", title: "Preventive and Social Medicine", publisher: "" },
-      ]},
+      {
+        name: "Physiotherapy in Orthopaedics", books: [
+          { num: 15, authors: "Brotzman S.B.", title: "Clinical Orthopaedic Rehabilitation", publisher: "Elsevier" },
+        ]
+      },
+      {
+        name: "Physiotherapy in Neurology", books: [
+          { num: 16, authors: "Umphred D.A.", title: "Neurological Rehabilitation", publisher: "Mosby" },
+        ]
+      },
+      {
+        name: "Cardio-Respiratory Physiotherapy", books: [
+          { num: 17, authors: "Pryor J.A. & Prasad S.A.", title: "Physiotherapy for Respiratory and Cardiac Problems", publisher: "" },
+        ]
+      },
+      {
+        name: "Therapeutic Exercise", books: [
+          { num: 18, authors: "Kisner C. & Colby L.", title: "Therapeutic Exercise: Foundations and Techniques", publisher: "F.A. Davis" },
+        ]
+      },
+      {
+        name: "Rehabilitation & Community Medicine", books: [
+          { num: 19, authors: "Park K.", title: "Preventive and Social Medicine", publisher: "" },
+        ]
+      },
     ],
   },
 ];
@@ -1385,7 +2414,6 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
   return (
     <div>
       <HeroSection onShop={scrollToShop} />
-      <TrustStrip />
 
       {/* Shop section */}
       <div id="shop" style={{ maxWidth: 1280, margin: "0 auto", padding: "60px 5% 90px" }}>
@@ -1463,7 +2491,7 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 12, flex: 1 }}>
                     <div style={{ width: 42, height: 42, borderRadius: 8, overflow: "hidden", flexShrink: 0, background: "#F3F4F6" }}>
-                      <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} />
+                      <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} />
                     </div>
                     <div>
                       <p style={{ fontSize: 13, fontWeight: 600, color: C.text }}>{item.name}</p>
@@ -1801,7 +2829,7 @@ function CartPage({ cart, onRemove, onQty, onCheckout, onBack }) {
             {cart.map(item => (
               <div key={`${item.id}-${item.selectedSize || ""}`} style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, display: "flex", gap: 16, alignItems: "center", boxShadow: C.shadow }}>
                 <div style={{ width: 64, height: 64, borderRadius: 10, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
-                  {isUrl(item.img) ? <img src={item.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : (item.images ? <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} /> : <span style={{ fontSize: 26 }}>&#128230;</span>)}
+                  {isUrl(item.img) ? <img src={item.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : (item.images ? <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} /> : <span style={{ fontSize: 26 }}>&#128230;</span>)}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 11, color: C.primary, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 2 }}>{item.tagline}</div>
@@ -1878,7 +2906,7 @@ function FormField({ label, field, type = "text", placeholder, half, errors, for
   );
 }
 
-const STATES = ["Tamil Nadu","Karnataka","Maharashtra","Delhi","Telangana","Andhra Pradesh","Kerala","Gujarat","Rajasthan","Uttar Pradesh"];
+const STATES = ["Tamil Nadu", "Karnataka", "Maharashtra", "Delhi", "Telangana", "Andhra Pradesh", "Kerala", "Gujarat", "Rajasthan", "Uttar Pradesh"];
 
 function CheckoutPage({ cart, onPlaceOrder, onBack }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", city: "", state: "Tamil Nadu", pincode: "" });
@@ -1970,7 +2998,7 @@ function CheckoutPage({ cart, onPlaceOrder, onBack }) {
               {cart.map(item => (
                 <div key={`${item.id}-${item.selectedSize || ""}`} style={{ display: "flex", gap: 10, alignItems: "center" }}>
                   <div style={{ width: 36, height: 36, borderRadius: 6, overflow: "hidden", flexShrink: 0, background: "#F3F4F6" }}>
-                    {item.images ? <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display="none"} /> : <span style={{ fontSize: 18 }}>&#128230;</span>}
+                    {item.images ? <img src={item.images[0]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} /> : <span style={{ fontSize: 18 }}>&#128230;</span>}
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: C.text, lineHeight: 1.2 }}>{item.name}</div>
