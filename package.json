@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "lucide-react": "^1.21.0",
     "mongodb": "^7.1.1",
     "mongoose": "^9.3.3",
     "next": "16.2.2",
