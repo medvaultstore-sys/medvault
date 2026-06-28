@@ -38,6 +38,7 @@ const globalStyles = `
   @keyframes cartBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
   @keyframes float3d{0%,100%{transform:translateY(0px) rotate(-1deg);}50%{transform:translateY(-14px) rotate(-1deg);}}
   @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+  @keyframes accFadeIn{from{opacity:0;transform:scale(0.96);}to{opacity:1;transform:scale(1);}}
 
   .hero-row{display:flex;align-items:center;justify-content:space-between;gap:56px;}
   .hero-img{flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
@@ -337,118 +338,193 @@ const IMG = {
     R("white medical lab apron folded neatly on white surface: cotton-polyester blend full length apron with pockets — clinical laboratory protective garment, studio lighting, no people", 343),
     R("white lab apron hanging on hook on white background: full-length clinical protective apron with front pockets — medical student laboratory uniform product photography, no people", 345),
   ],
+  // Accessory images (local generated + Pollinations fallbacks)
+  accStethoscope: [
+    "/accessories/stethoscope.png",
+    R("BPL dual head acoustic stethoscope on white background: black tubing, stainless steel chest piece — medical instrument studio photography, no people", 501),
+  ],
+  accPouch: [
+    "/accessories/pouch.png",
+    R("premium waterproof dark navy blue medical clinical instrument pouch with zip, MedVault branding — studio product photography, no people", 502),
+  ],
+  accSheets: [
+    "/accessories/sheets.png",
+    R("professional physiotherapy patient assessment form sheet pad on clipboard, clinical documentation — studio product photography, no people", 503),
+  ],
+  accMarker: [
+    "/accessories/marker.png",
+    R("surgical skin marker pen on white, fine precision tip, blue and white medical marker — studio product photography, no people", 504),
+  ],
+  accYogaMat: [
+    "/accessories/yogamat.png",
+    R("premium non-slip teal yoga mat rolled up with strap on white background — physiotherapy rehabilitation exercise mat, studio lighting, no people", 505),
+  ],
+  accBands: [
+    "/accessories/bands.png",
+    R("set of colorful latex-free resistance exercise bands in red blue green on white background — physiotherapy rehab equipment, studio product photography, no people", 506),
+  ],
+  accBP: [
+    R("aneroid sphygmomanometer manual BP apparatus on white: gauge dial, arm cuff, rubber bulb pump — clinical blood pressure instrument, studio product photography, no people", 507),
+    R("professional manual blood pressure monitor with round gauge and black cuff on white — clinical cardiovascular assessment instrument, studio lighting, no people", 508),
+  ],
 };
 
 // ── Kits ──────────────────────────────────────────────────────
 const KITS = [
   {
     id: "kit-1", type: "kit",
-    name: "Physio Curated Kit",
+    name: "MedVault MVP Physiotherapy Assessment Kit",
     tagline: "The complete BPT starter bundle",
-    price: 2500, originalPrice: 3500,
+    price: 1799, originalPrice: 2358,
     badge: "BESTSELLER",
-    desc: "The MedVault Physio Curated Kit is the definitive starter bundle for BPT students at SRM. Carefully assembled by physiotherapy professionals, this kit contains every instrument required for your practical labs, ward assessments, and clinical skill-building sessions — from core physio instruments to rehab tools and study essentials. Each item is individually quality-checked before packing. Instead of sourcing 10+ items from multiple vendors, get everything in one order delivered straight to your campus hostel.",
+    desc: "Why pay more when you can get everything you need in one complete kit? Premium-quality products, trusted BPL stethoscope, complete curriculum-based assessment kit, ready for clinical postings, and better value than buying products individually. Save more. Learn better. Choose MedVault.",
     items: [
-      { name: "Goniometer Set", qty: 1, retail: 450 },
-      { name: "Reflex Hammer", qty: 1, retail: 150 },
-      { name: "Tuning Fork (128 Hz)", qty: 1, retail: 220 },
-      { name: "Measuring Tape", qty: 1, retail: 80 },
-      { name: "Stethoscope", qty: 1, retail: 799 },
-      { name: "Resistance Bands Set", qty: 1, retail: 299 },
-      { name: "Anatomy Charts", qty: 1, retail: 349 },
-      { name: "USB Drive (16GB)", qty: 1, retail: 299 },
-      { name: "Ultrasound Gel", qty: 1, retail: 150 },
-      { name: "Assessment Sheet Pad", qty: 1, retail: 199 },
+      { name: "BPL Dual-Sided Chestpiece Stethoscope", qty: 1, retail: 950 },
+      { name: "Universal Goniometer",                  qty: 1, retail: 293 },
+      { name: "Half-Range Goniometer",                 qty: 1, retail: 267 },
+      { name: "Finger Goniometer",                     qty: 1, retail: 267 },
+      { name: "128 Hz Tuning Fork",                    qty: 1, retail: 102 },
+      { name: "Knee Hammer",                           qty: 1, retail: 78  },
+      { name: "Measuring Tape",                        qty: 1, retail: 100 },
+      { name: "Assessment Notepad",                    qty: 1, retail: 150 },
+      { name: "Skin Marker",                           qty: 1, retail: 151 },
     ],
     stock: 48, images: IMG.kit1,
-    features: ["Hospital-grade instruments", "Curated for BPT curriculum", "Delivered to SRM campus", "Quality-checked by MedVault"],
+    features: ["Premium-quality products", "Trusted BPL stethoscope", "Curriculum-based", "Ready for clinicals"],
   },
   {
     id: "kit-2", type: "kit",
-    name: "Practical Exam Kit",
-    tagline: "Core instruments + PPE for practicals",
-    price: 1500, originalPrice: 2100,
-    badge: "EXAM READY",
-    desc: "The Practical Exam Kit covers the core instruments and consumables required for BPT practical examinations. Designed for students who need a compact, exam-ready bundle — clinical assessment tools, PPE essentials, and documentation supplies in one pack. All instruments are clinical-grade, lightweight, and ready for your exam hall.",
+    name: "MedVault Clinical Goniometer Set",
+    tagline: "Musculoskeletal & neurological assessment",
+    price: 849, originalPrice: 1358,
+    badge: "ESSENTIAL",
+    desc: "Everything required for musculoskeletal and neurological assessment in one complete kit. Ideal for practical examinations and daily clinical practice.",
     items: [
-      { name: "Goniometer Set", qty: 1, retail: 450 },
-      { name: "Reflex Hammer", qty: 1, retail: 150 },
-      { name: "Tuning Fork (128 Hz)", qty: 1, retail: 220 },
-      { name: "Measuring Tape", qty: 1, retail: 80 },
-      { name: "Nitrile Gloves (Box)", qty: 1, retail: 150 },
-      { name: "Mask Pack", qty: 1, retail: 100 },
-      { name: "Assessment Sheet Pad", qty: 1, retail: 199 },
-      { name: "Cotton Roll", qty: 1, retail: 79 },
+      { name: "Universal Goniometer",             qty: 1, retail: 293 },
+      { name: "Half Range Goniometer",            qty: 1, retail: 267 },
+      { name: "Finger Goniometer",               qty: 1, retail: 267 },
+      { name: "Reflex (Knee) Hammer",            qty: 1, retail: 78  },
+      { name: "128 Hz Tuning Fork",              qty: 1, retail: 102 },
+      { name: "Measuring Tape",                  qty: 1, retail: 100 },
+      { name: "Clinical Assessment Sheet (FREE)", qty: 1, retail: 100 },
+      { name: "Skin Marker (FREE)",              qty: 1, retail: 151 },
     ],
     stock: 72, images: IMG.kit2,
-    features: ["Core exam instruments", "PPE included", "Documentation essentials", "Quick delivery"],
+    features: ["Musculoskeletal assessment", "Neurological assessment", "Ideal for practical exams", "Includes free additions"],
   },
   {
     id: "kit-3", type: "kit",
-    name: "Smart Study Kit",
-    tagline: "Study essentials bundle",
-    price: 800, originalPrice: 1100,
-    badge: "STUDY SMART",
-    desc: "The Smart Study Kit bundles all the study and hygiene essentials a BPT student needs for a productive semester. Full-colour anatomy charts for visual learning, flashcards for rapid revision, a notebook set for clinical notes, marker pens for study sessions, and disposable masks for ward visits. Everything packed together at a price that makes sense — no need to shop multiple places before the semester starts.",
+    name: "CNS Assessment Kit",
+    tagline: "Complete neurological examination kit",
+    price: 748, originalPrice: 904,
+    badge: "NEURO",
+    desc: "Complete neurological examination kit designed for physiotherapy students and clinicians. Ideal for neurological assessment and practical examinations.",
     items: [
-      { name: "Anatomy Charts", qty: 1, retail: 349 },
-      { name: "Flashcards", qty: 1, retail: 299 },
-      { name: "Notebook Set", qty: 1, retail: 100 },
-      { name: "Marker Pens Set", qty: 1, retail: 149 },
-      { name: "Mask Pack", qty: 1, retail: 100 },
+      { name: "Reflex Hammer",             qty: 1, retail: 78  },
+      { name: "128 Hz Tuning Fork",        qty: 1, retail: 102 },
+      { name: "Neurological Pin Wheel",    qty: 1, retail: 200 },
+      { name: "Cotton Swab",               qty: 1, retail: 50  },
+      { name: "Safety Pin",                qty: 1, retail: 50  },
+      { name: "Measuring Tape",            qty: 1, retail: 100 },
+      { name: "Pen Torch",                 qty: 1, retail: 124 },
+      { name: "Clinical Assessment Sheet", qty: 1, retail: 100 },
+      { name: "Premium Carry Pouch",       qty: 1, retail: 100 },
     ],
     stock: 100, images: IMG.kit3,
-    features: ["Visual learning tools", "Rapid revision aids", "Hygiene essentials included", "Great value bundle"],
-  },
-  {
-    id: "kit-4", type: "kit",
-    name: "Refill Kit",
-    tagline: "Consumables & rehab restocking pack",
-    price: 500, originalPrice: 700,
-    badge: "REFILL",
-    desc: "The MedVault Refill Kit is a curated pack of everyday consumables that need regular restocking throughout your semester. Ultrasound gel, cotton roll, sanitizer, and adhesive tape — all the supplies you'll go through in labs and clinical sessions. Order once, stay stocked. Ideal for students already equipped with instruments who just need their consumables topped up.",
-    items: [
-      { name: "Ultrasound Gel (250ml)", qty: 1, retail: 150 },
-      { name: "Cotton Roll", qty: 1, retail: 79 },
-      { name: "Sanitizer Bottle", qty: 1, retail: 120 },
-      { name: "Adhesive Tape", qty: 1, retail: 90 },
-    ],
-    stock: 80, images: IMG.kit4,
-    features: ["Everyday consumables", "Refill when you run out", "Compact & practical", "Best-value restocking"],
+    features: ["Complete neuro kit", "Premium carry pouch", "Student and clinician ready", "Ideal for practical exams"],
   },
 ];
 
 // ── Individual Items ───────────────────────────────────────────
 const ITEMS = [
-  // CAT001 — Core Physio Instruments
-  { id:"i-1",  type:"item", name:"Goniometer Set (3-in-1)",     tagline:"Joint ROM measurement",          price:450, originalPrice:650,  badge:"PHYSIO TOOL",     images:IMG.goniometer,    desc:"A complete 3-piece goniometer set used for measuring joint range of motion (ROM) in physiotherapy assessments. The set includes a large goniometer for major joints like the hip, knee, and shoulder; a standard goniometer for elbow and ankle; and a finger goniometer for small joint measurements. Made from durable plastic with clearly printed degree markings. An absolute must-have for every BPT practical, especially in musculoskeletal physiotherapy sessions.", stock:80 },
-  { id:"i-2",  type:"item", name:"Reflex Hammer",                tagline:"Deep tendon reflex testing",      price:150, originalPrice:220,  badge:"NEURO TOOL",      images:IMG.hammer,        desc:"The Taylor percussion hammer is the standard tool for testing deep tendon reflexes in neurological and physiotherapy assessments. Features a triangular rubber head for reliable tendon strike and a stainless steel handle with comfortable grip. Used to test patellar (knee-jerk), Achilles, biceps, triceps, and brachioradialis reflexes. Lightweight and pocket-friendly — essential for neurology practical exams.", stock:95 },
-  { id:"i-3",  type:"item", name:"Tuning Fork (128 Hz)",         tagline:"Vibration & hearing tests",       price:220, originalPrice:320,  badge:"NEURO TOOL",      images:IMG.tuningfork,    desc:"A 128 Hz aluminium alloy tuning fork used for assessing vibration sense and conducting Rinne and Weber tests. The 128 Hz frequency is optimal for vibration perception testing on bony prominences such as the medial malleolus, tibial crest, and finger joints. Frequency is stamped on the handle for quick identification. Durable, corrosion-resistant, and required for both neurological and ENT practical assessments in BPT.", stock:60 },
-  { id:"i-4",  type:"item", name:"Measuring Tape (150cm)",       tagline:"Body & limb measurement",         price:80,  originalPrice:120,  badge:"MEASUREMENT",     images:IMG.tape,          desc:"A flexible 150cm measuring tape used extensively in physiotherapy for limb girth measurements, postural assessment, anthropometric measurements, and wound sizing. Dual-sided with centimeter markings on one side and inch markings on the other. Made from a soft, non-stretch material that conforms to body contours. Lightweight, rollable, and fits easily in a pocket or pouch — used in nearly every physio practical session.", stock:150 },
-  { id:"i-6",  type:"item", name:"Stethoscope",                  tagline:"Dual-head auscultation",          price:799, originalPrice:1299, badge:"MONITORING",      images:IMG.stethoscope,   desc:"A dual-head acoustic stethoscope with a diaphragm for high-frequency sounds (breath, bowel, and normal heart sounds) and a bell for low-frequency sounds (murmurs, S3/S4 heart sounds). Features high acoustic sensitivity, soft-seal ear tips for a comfortable fit, and latex-free tubing. Suitable for cardiac, pulmonary, and abdominal auscultation. A fundamental clinical tool for all BPT students — from first-year anatomy labs to third-year clinical postings.", stock:55 },
-  // CAT002 — Practical Exam Kit Items
-  { id:"i-17", type:"item", name:"Mask Pack (10 pcs)",           tagline:"3-ply disposable masks",          price:100, originalPrice:149,  badge:"PPE",             images:IMG.mask,          desc:"A pack of 10 three-ply disposable surgical face masks providing protection against respiratory droplets and aerosols during clinical contact. The three-layer construction includes a fluid-resistant outer layer, a filtration middle layer, and a soft inner layer for comfort. Adjustable nose wire ensures a secure fit. Mandatory PPE for ward postings, patient assessments, and practical labs involving close patient contact. Individually stacked and hygienically packed.", stock:300 },
-  { id:"i-18", type:"item", name:"Nitrile Gloves (Box)",         tagline:"Powder-free examination gloves",  price:299, originalPrice:399,  badge:"PPE",             images:IMG.gloves,        desc:"A box of powder-free, latex-free nitrile examination gloves providing a secure barrier during patient examination, wound dressing, and clinical procedures. Nitrile material is more puncture-resistant than latex and safe for those with latex allergies. Textured fingertips enhance grip when handling instruments. Available in standard sizes suitable for most students. Required PPE for ward rounds, practical assessments, and any procedure involving physical patient contact.", stock:150 },
-  { id:"i-24", type:"item", name:"Assessment Sheet Pad",         tagline:"Clinical documentation forms",    price:199, originalPrice:299,  badge:"STUDY TOOL",      images:IMG.assessmentpad, desc:"A clinical assessment sheet pad with pre-printed forms for recording patient history, ROM measurements, muscle testing grades, postural analysis, and outcome measures — aligned to BPT curriculum practical assessment formats. Perforated sheets for easy removal and submission during practicals. An essential documentation tool for musculoskeletal, neurological, and cardiopulmonary physiotherapy labs.", stock:120 },
-  { id:"i-22", type:"item", name:"Marker Pens Set",              tagline:"Whiteboard markers + pens",       price:149, originalPrice:199,  badge:"STATIONERY",      images:IMG.markerset,     desc:"A set of colourful whiteboard markers in multiple colours for study sessions, group learning, whiteboard teaching presentations, and annotating anatomy charts. Chisel-tip design allows both broad strokes for headings and fine lines for detail. Ink is easily wipeable from whiteboards and glass surfaces. Used in physio lab teaching demonstrations, anatomy revision sessions, and group case discussions.", stock:100 },
-  // CAT003 — Smart Study Kit Items
-  { id:"i-25", type:"item", name:"Anatomy Charts",               tagline:"Full-colour body system charts",  price:349, originalPrice:499,  badge:"STUDY TOOL",      images:IMG.anatomycharts, desc:"A set of full-colour laminated anatomy charts covering the major body systems — musculoskeletal, neurological, and cardiopulmonary. Includes charts for key anatomical landmarks, muscle origins and insertions, nerve distributions, and joint anatomy. Essential visual reference for BPT anatomy labs, revision sessions, and clinical correlations throughout your degree.", stock:80 },
-  { id:"i-26", type:"item", name:"Flashcards",                   tagline:"BPT rapid revision cards",        price:299, originalPrice:399,  badge:"REVISION AID",    images:IMG.flashcards,    desc:"A deck of BPT revision flashcards covering key physiotherapy concepts, anatomy landmarks, clinical assessment techniques, and treatment protocols. Double-sided cards with term on front and definition or diagram on reverse. Compact, portable, and ideal for quick revision before practicals, internals, or clinical postings. Structured to match the SRM BPT syllabus across all semesters.", stock:100 },
-  { id:"i-20", type:"item", name:"Notebook Set",                 tagline:"Clinical note-taking",            price:100, originalPrice:149,  badge:"STATIONERY",      images:IMG.notepad,       desc:"A spiral-bound ruled notebook set ideal for clinical note-taking, case history recording, practical observations, and everyday class notes. Compact enough to carry in a scrubs pocket or pouch but large enough for detailed case write-ups. Smooth paper surface works well with ballpoint pens, gel pens, and markers. A practical companion for ward rounds, physio labs, and study sessions throughout your BPT degree.", stock:150 },
-  { id:"i-21", type:"item", name:"Pen Set (5 pcs)",              tagline:"Everyday writing set",            price:49,  originalPrice:79,   badge:"STATIONERY",      images:IMG.penset,        desc:"A set of 5 smooth-writing ballpoint pens in a mix of ink colours — ideal for clinical documentation, case record writing, annotating study notes, and everyday classroom use. The medium-point tip provides consistent ink flow without smudging. Lightweight barrel with comfortable grip for extended writing sessions during classes and practicals. Pens run out faster than you think during a semester — keep a spare set from day one.", stock:200 },
-  { id:"i-23", type:"item", name:"USB Drive (16GB)",             tagline:"Study material storage",          price:299, originalPrice:499,  badge:"UTILITY",         images:IMG.usb,           desc:"A compact 16GB USB flash drive for storing and transferring study material, lecture slides, anatomy videos, and clinical reference documents. Plug-and-play compatible with Windows, Mac, and most smart TVs and projectors. Fast read/write speeds for quick file transfer between devices. The 16GB capacity comfortably holds an entire semester's worth of lecture notes, practical manuals, and recorded lectures.", stock:80 },
-  // CAT004 — Rehab & Therapy Tools
-  { id:"i-9",  type:"item", name:"Resistance Bands Set",         tagline:"Progressive resistance training", price:299, originalPrice:449,  badge:"REHAB",           images:IMG.band,          desc:"A set of latex-free resistance exercise bands in multiple resistance levels — used for progressive resistance training and rehabilitation exercises in physiotherapy. Suitable for upper and lower limb strengthening — shoulder exercises, knee extension, hip abduction, and wrist flexion/extension. Resistance bands are used across all BPT semesters for exercises like terminal knee extension, clamshell, and theraband shoulder routines. Lightweight, portable, and durable.", stock:120 },
-  { id:"i-27", type:"item", name:"Therapy Ball",                 tagline:"Balance & core rehabilitation",   price:549, originalPrice:799,  badge:"REHAB",           images:IMG.therapyball,   desc:"A medium-density anti-burst therapy ball used for balance training, core strengthening, proprioceptive exercises, and rehabilitation in physiotherapy practice. Used in BPT labs for Swiss ball exercises including bridging, prone extensions, seated balance work, and core activation routines. Durable PVC construction with anti-burst technology. Suitable for both clinical use and patient home exercise programs.", stock:40 },
-  { id:"i-28", type:"item", name:"Hand Grip Strengthener",       tagline:"Upper limb rehab & strength",     price:299, originalPrice:449,  badge:"STRENGTH TOOL",   images:IMG.handgrip,      desc:"An adjustable spring-resistance hand grip strengthener for progressive upper limb rehabilitation and grip strength training. Adjustable resistance settings to match patient ability and progression. Used in physiotherapy for post-fracture rehab, neurological hand rehabilitation, rheumatoid arthritis management, and musculoskeletal strengthening programs. Compact, portable, and suitable for both clinic and home exercise prescription.", stock:60 },
-  { id:"i-11", type:"item", name:"Foam Roller",                  tagline:"Myofascial release & recovery",   price:249, originalPrice:399,  badge:"RECOVERY",        images:IMG.foamroller,    desc:"A high-density EVA foam roller used for myofascial release, self-massage, and muscle recovery in physiotherapy practice. Rolling over tight muscles and trigger points helps improve flexibility, reduce delayed-onset muscle soreness (DOMS), and promote circulation. Used in BPT labs for thoracic spine mobility, IT band rolling, calf and hamstring release, and core activation. Durable, lightweight, and suitable for both clinical use and home exercise programs.", stock:50 },
-  { id:"i-29", type:"item", name:"TENS Electrodes",              tagline:"Electrotherapy electrode pads",   price:349, originalPrice:499,  badge:"ELECTROTHERAPY",  images:IMG.tenselectrodes,desc:"A set of reusable self-adhesive TENS/EMS electrode pads compatible with standard ITO-style snap connectors used in most TENS and interferential therapy (IFT) machines. Hypoallergenic adhesive, re-placeable carbon film surface, and washable for multiple clinical sessions. Used extensively in electrotherapy practicals for TENS and IFT application — a consumable every BPT student from second year onwards will need regularly.", stock:80 },
-  // CAT005 — Consumables & Refill Kit
-  { id:"i-13", type:"item", name:"Ultrasound Gel (250ml)",       tagline:"UST coupling medium",             price:150, originalPrice:220,  badge:"CONSUMABLE",      images:IMG.ultrasoundgel, desc:"A clear, water-based ultrasound coupling gel used as a medium between the ultrasound transducer head and the patient's skin during therapeutic ultrasound (UST) sessions. Ensures optimal acoustic transmission by eliminating air gaps. Non-staining, hypoallergenic, and easy to wipe off. The 250ml bottle is standard for clinical labs and lasts through multiple practical sessions. Required for electrotherapy and UST practicals in BPT second year onwards.", stock:150 },
-  { id:"i-15", type:"item", name:"Cotton Roll",                  tagline:"Medical grade cotton wool",       price:79,  originalPrice:119,  badge:"CONSUMABLE",      images:IMG.cotton,        desc:"A roll of medical-grade cotton wool used for wound dressing, surface cleaning, electrode placement padding, and general clinical procedures. Soft, highly absorbent, and lint-free. Used in physiotherapy labs for cleaning skin before electrode application, padding bony prominences during splinting, and general clinical hygiene tasks. Comes sealed to maintain sterility and cleanliness. A basic consumable every BPT student needs in their kit.", stock:180 },
-  { id:"i-14", type:"item", name:"Sanitizer Bottle",             tagline:"70% alcohol hand sanitizer",      price:120, originalPrice:179,  badge:"HYGIENE",         images:IMG.sanitizer,     desc:"A pump-dispenser bottle of 70% isopropyl alcohol hand sanitizer for on-the-go hand hygiene during ward rounds, between patient assessments, after handling equipment, or whenever hand washing isn't possible. Compact bottle suitable for carrying in a scrubs pocket or pouch. An essential hygiene item for all clinical and campus practical sessions throughout your BPT degree.", stock:200 },
-  { id:"i-16", type:"item", name:"Adhesive Tape",                tagline:"Clinical strapping tape",         price:90,  originalPrice:129,  badge:"CONSUMABLE",      images:IMG.medtape,       desc:"A hypoallergenic paper adhesive tape used for securing wound dressings, fixing electrodes during electrotherapy, bandage strapping, and general clinical taping applications. Gentle on skin, breathable, and easy to tear by hand without scissors. The adhesive holds securely without leaving residue on skin. A standard consumable in all physiotherapy labs — used for TENS/IFT electrode fixation, wound covering, and strapping practice in musculoskeletal practicals.", stock:200 },
-  { id:"i-30", type:"item", name:"Lubrication Gel",              tagline:"Massage & manual therapy gel",    price:299, originalPrice:399,  badge:"THERAPEUTIC",     images:IMG.lubgel,        desc:"A water-based lubricating gel used in physiotherapy for manual therapy, therapeutic massage, ultrasound coupling, and electrode fixation. Hypoallergenic, non-staining, and easy to wipe off. Provides the right consistency for myofascial techniques, joint mobilization, and soft tissue massage during physiotherapy practice sessions. Compatible with most ultrasound transducers and TENS/IFT machines.", stock:90 },
+  { id:"i-1",  type:"item", name:"BPL Dual-Sided Chestpiece Stethoscope", tagline:"Acoustic medical instrument", price:950, originalPrice:1299, badge:"MONITORING", images:IMG.stethoscope, desc:"A dual-head acoustic stethoscope with a diaphragm for high-frequency sounds and a bell for low-frequency sounds. Suitable for cardiac, pulmonary, and abdominal auscultation.", stock:55 },
+  { id:"i-2",  type:"item", name:"Universal Goniometer", tagline:"Large joint ROM measurement", price:293, originalPrice:450, badge:"PHYSIO TOOL", images:IMG.goniometer, desc:"A large transparent goniometer for measuring joint range of motion (ROM) in major joints like the hip, knee, and shoulder.", stock:80 },
+  { id:"i-3",  type:"item", name:"Half-Range Goniometer", tagline:"Medium joint ROM measurement", price:267, originalPrice:300, badge:"PHYSIO TOOL", images:IMG.goniometer, desc:"A standard 180-degree half-circle goniometer with two adjustable arms, perfect for elbow and ankle measurements.", stock:80 },
+  { id:"i-4",  type:"item", name:"Finger Goniometer", tagline:"Small joint ROM measurement", price:267, originalPrice:350, badge:"PHYSIO TOOL", images:IMG.goniometer, desc:"A small 90-degree finger goniometer for precision measurement of small joint ranges of motion.", stock:80 },
+  { id:"i-5",  type:"item", name:"128 Hz Tuning Fork", tagline:"Vibration & hearing tests", price:102, originalPrice:320, badge:"NEURO TOOL", images:IMG.tuningfork, desc:"A 128 Hz aluminium alloy tuning fork used for assessing vibration sense and conducting Rinne and Weber tests.", stock:60 },
+  { id:"i-6",  type:"item", name:"Reflex (Knee) Hammer", tagline:"Deep tendon reflex testing", price:78, originalPrice:220, badge:"NEURO TOOL", images:IMG.hammer, desc:"The Taylor percussion hammer is the standard tool for testing deep tendon reflexes in neurological and physiotherapy assessments.", stock:95 },
+  { id:"i-7",  type:"item", name:"Measuring Tape", tagline:"Body & limb measurement", price:100, originalPrice:150, badge:"MEASUREMENT", images:IMG.tape, desc:"A flexible 150cm measuring tape used extensively for limb girth measurements and postural assessment.", stock:150 },
+  { id:"i-8",  type:"item", name:"Assessment Notepad", tagline:"Clinical documentation forms", price:150, originalPrice:200, badge:"STUDY TOOL", images:IMG.notepad, desc:"A clinical assessment sheet pad with pre-printed forms for recording patient history, ROM measurements, and muscle testing grades.", stock:120 },
+  { id:"i-9",  type:"item", name:"Skin Marker", tagline:"Surgical skin marker", price:151, originalPrice:250, badge:"CLINICAL", images:IMG.markerset, desc:"A clinical skin marker for accurate marking during surgical procedures, orthopaedic assessments, and anatomy mapping.", stock:100 },
+  { id:"i-10", type:"item", name:"Neurological Pin Wheel", tagline:"Sensory testing wheel", price:200, originalPrice:300, badge:"NEURO TOOL", images:IMG.hammer, desc:"A Wartenberg pinwheel used to test nerve reactions (sensitivity) as it is rolled systematically across the skin.", stock:50 },
+  { id:"i-11", type:"item", name:"Cotton Swab", tagline:"Sensory testing", price:50, originalPrice:80, badge:"CONSUMABLE", images:IMG.cotton, desc:"Medical-grade cotton swabs often used for light touch sensory testing in neurological assessments.", stock:200 },
+  { id:"i-12", type:"item", name:"Safety Pin", tagline:"Pain sensation testing", price:50, originalPrice:80, badge:"CONSUMABLE", images:IMG.medtape, desc:"Clinical safety pins used for sharp/dull discrimination testing during neurological examinations.", stock:200 },
+  { id:"i-13", type:"item", name:"Pen Torch", tagline:"Pupillary reflex testing", price:124, originalPrice:250, badge:"NEURO TOOL", images:IMG.pentorch, desc:"A chrome LED medical pen torch with bright LED tip and pupil gauge millimetre scale on the barrel.", stock:100 },
+  { id:"i-14", type:"item", name:"Premium Carry Pouch", tagline:"Instrument storage", price:100, originalPrice:200, badge:"ACCESSORY", images:IMG.kit3, desc:"A premium zip carry pouch to safely store and transport all your clinical assessment instruments.", stock:150 },
+];
+
+// ── Accessories ────────────────────────────────────────────────
+const ACCESSORIES = [
+  {
+    id: "acc-1", type: "item",
+    name: "BPL Dual Head Stethoscope",
+    tagline: "Clear acoustics for clinical auscultation",
+    price:950, originalPrice:1299, badge: "MONITORING",
+    images: IMG.accStethoscope,
+    desc: "Experience clear acoustic performance with the trusted BPL Dual Head Stethoscope. Designed for accurate auscultation — ideal for physiotherapy students during clinical postings, practical examinations, and patient assessments. Features a dual head chest piece (diaphragm + bell) for both high and low frequency sounds, comfortable soft ear tips for extended wear, and excellent sound clarity tubing. Backed by a 1-Year Manufacturer Warranty. Perfect for BPT Students, MPT Students, and Healthcare Professionals.",
+    stock: 60,
+    features: ["Premium BPL Quality", "Dual Head Chest Piece", "Comfortable Soft Ear Tips", "Excellent Sound Clarity", "1-Year Manufacturer Warranty"],
+  },
+  {
+    id: "acc-2", type: "item",
+    name: "Personalized MedVault Clinical Pouch",
+    tagline: "Waterproof pouch with free name printing",
+    price: 399, originalPrice: 599, badge: "ACCESSORY",
+    images: IMG.accPouch,
+    desc: "Protect and organise your clinical instruments in a premium waterproof MedVault carrying pouch. Designed for BPT students to safely carry their entire assessment kit — goniometers, reflex hammer, tuning fork, and more — all in one place. Special launch offer: FREE personalisation for the first 50 orders — get your Name and RA Number printed at no extra cost. Durable waterproof exterior, soft inner lining, double zip closure, and multiple inner pockets.",
+    stock: 50,
+    features: ["Waterproof outer material", "Soft inner lining", "Double zip closure", "FREE Name Printing (limited)", "FREE RA Number Printing (limited)"],
+  },
+  {
+    id: "acc-3", type: "item",
+    name: "MedVault Physiotherapy Assessment Sheets",
+    tagline: "Professionally designed patient evaluation templates",
+    price: 149, originalPrice: 249, badge: "STUDY TOOL",
+    images: IMG.accSheets,
+    desc: "Professionally designed physiotherapy assessment templates for complete patient evaluation. Includes dedicated sections for Patient History, Pain Assessment (NRS/VAS scales), Range of Motion measurements, Muscle Strength grading, Postural Analysis, Functional Assessment, Treatment Plan, and Progress Notes. Perforated sheets for easy removal and submission during practicals. Perfectly formatted for clinical postings, internships, and practical exams.",
+    stock: 200,
+    features: ["Patient History & Pain Assessment", "ROM & Muscle Strength sections", "Posture & Functional Assessment", "Treatment Plan & Progress Notes", "Perforated for easy removal"],
+  },
+  {
+    id: "acc-4", type: "item",
+    name: "Surgical Skin Marker",
+    tagline: "Fine-tip clinical marking pen",
+    price: 120, originalPrice: 199, badge: "CLINICAL",
+    images: IMG.accMarker,
+    desc: "High-quality medical skin marker for clinical assessment, anatomical landmark identification, and treatment planning in physiotherapy. The fine precision tip allows accurate marking for electrode placement in electrotherapy, joint line identification, and postural assessment. Long-lasting, skin-friendly ink that is easy to remove. An essential tool for musculoskeletal and neurological practical sessions.",
+    stock: 150,
+    features: ["Long-lasting Ink", "Skin Friendly & Safe", "Fine Precision Tip", "Easy to Remove", "Ideal for electrotherapy & postural use"],
+  },
+  {
+    id: "acc-5", type: "item",
+    name: "Premium Yoga Mat",
+    tagline: "Anti-slip mat for rehab & home workouts",
+    price: 649, originalPrice: 999, badge: "REHAB",
+    images: IMG.accYogaMat,
+    desc: "Comfortable, non-slip yoga mat suitable for physiotherapy exercises, rehabilitation sessions, and home workouts. The textured anti-slip surface provides stability during balance exercises, core strengthening, and therapeutic movement routines. Lightweight, easy to clean, and made from durable PVC foam material. Available in multiple colours. Ideal for BPT students for home exercise practice, patient demonstration, and physiotherapy rehabilitation protocols.",
+    stock: 40,
+    features: ["Anti-Slip Surface", "Lightweight & portable", "Easy to Clean", "Durable PVC material", "Available in multiple colours"],
+  },
+  {
+    id: "acc-6", type: "item",
+    name: "Resistance Band Set",
+    tagline: "Progressive resistance for rehab & strength",
+    price: 299, originalPrice: 449, badge: "REHAB",
+    images: IMG.accBands,
+    desc: "Strengthen muscles and improve rehabilitation outcomes with premium latex-free resistance bands. Available in multiple resistance levels (light, medium, heavy) to match patient ability and progression. Suitable for Strength Training, Home Exercise Programs, Physiotherapy Rehabilitation, and Sports Conditioning. Used across BPT semesters for exercises like terminal knee extension, clamshell, and theraband shoulder routines. Lightweight and portable for campus and clinical use.",
+    stock: 120,
+    features: ["Multiple resistance levels", "Latex-free & skin-safe", "Suitable for all BPT years", "Home & clinical use", "Lightweight & portable"],
+  },
+  {
+    id: "acc-7", type: "item",
+    name: "Manual BP Apparatus",
+    tagline: "Professional aneroid blood pressure monitor",
+    price: 849, originalPrice: 1199, badge: "MONITORING",
+    images: IMG.accBP,
+    desc: "Professional manual sphygmomanometer for accurate cardiovascular assessment in clinical and practical settings. Features a high-accuracy aneroid gauge with clear mmHg scale (0–300), a durable fabric arm cuff with velcro closure, and an easy-grip rubber inflation bulb with release valve. Clinical grade performance trusted by students and practitioners. Essential for cardiopulmonary physiotherapy practicals and patient monitoring during clinical postings.",
+    stock: 35,
+    features: ["High Accuracy Aneroid Gauge", "Durable Velcro Arm Cuff", "Easy-to-Read mmHg Scale", "Clinical Grade Performance", "Ideal for students & practitioners"],
+  },
 ];
 
 // ── Apparel ────────────────────────────────────────────────────
@@ -467,9 +543,9 @@ const APPAREL = [
     name:"Lab Apron", tagline:"Full-length protective apron",
     price:349, originalPrice:499, badge:"APPAREL",
     images: IMG.apron,
-    desc:"A white full-length lab apron made from a polyester-cotton blend fabric that is easy to clean, resistant to light chemical splashes, and durable for semester-long lab use. Features two spacious front pockets for storing pens, notepads, and small instruments during lab sessions. The adjustable neck strap and back tie ensure a secure, comfortable fit across different body types. Meets SRM's practical lab dress code requirements for anatomy, physiology, and physiotherapy labs. Easy to wash and quick to dry — an essential item for every lab session.",
+    desc:"A white full-length lab apron made from a polyester-cotton blend fabric that is easy to clean, resistant to light chemical splashes, and durable for semester-long lab use. Features two spacious front pockets for storing pens, notepads, and small instruments during lab sessions. The adjustable neck strap and back tie ensure a secure, comfortable fit across different body types. Meets practical lab dress code requirements for anatomy, physiology, and physiotherapy labs. Easy to wash and quick to dry — an essential item for every lab session.",
     sizes:["S","M","L","XL"], sizeNote:"Select based on height. M fits 5'4\"–5'8\".", stock:80, colors:["White"],
-    features:["Polyester-cotton blend","Two front pockets","Adjustable neck strap","Easy to clean","SRM compliant"],
+    features:["Polyester-cotton blend","Two front pockets","Adjustable neck strap","Easy to clean","Lab compliant"],
   },
 ];
 
@@ -696,7 +772,7 @@ function HeroSection({ onShop }) {
             borderRadius: 100, padding: "6px 18px", marginBottom: 28,
           }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4CAF90", display: "block", boxShadow: "0 0 6px #4CAF90" }} />
-            <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Delivery</span>
+            <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>Campus Delivery</span>
           </div>
 
           <h1 style={{
@@ -712,7 +788,7 @@ function HeroSection({ onShop }) {
           </h1>
 
           <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", fontWeight: 400, maxWidth: 460, lineHeight: 1.8, marginBottom: 40 }}>
-            Physiotherapy instruments, clinical kits, scrubs &amp; study supplies — curated for SRM students and delivered to your hostel in 48 hours.
+            Physiotherapy instruments, clinical kits, scrubs &amp; study supplies — curated for BPT students and delivered in 48 hours.
           </p>
 
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 48 }}>
@@ -877,13 +953,217 @@ function BookYearFilter({ items, onView, onAddToCart }) {
   );
 }
 
+// ── Accessories Section ───────────────────────────────────────
+function AccessoriesSection({ onView, onAddToCart }) {
+  const [current, setCurrent] = useState(0);
+  const total = ACCESSORIES.length;
+
+  useEffect(() => {
+    const t = setInterval(() => setCurrent(c => (c + 1) % total), 2800);
+    return () => clearInterval(t);
+  }, [total]);
+
+  const acc = ACCESSORIES[current];
+  const pct = disc(acc.price, acc.originalPrice);
+  const saved = acc.originalPrice - acc.price;
+
+  return (
+    <div style={{ animation: "fadeUp 0.35s ease both" }}>
+      {/* Carousel */}
+      <div style={{ position: "relative", marginBottom: 40 }}>
+        <div
+          key={current}
+          style={{
+            display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0,
+            background: C.card, borderRadius: 20,
+            border: `1.5px solid ${C.border}`,
+            boxShadow: C.shadowHover, overflow: "hidden",
+            animation: "accFadeIn 0.45s ease both",
+          }}
+        >
+          {/* Image — fixed height */}
+          <div style={{ position: "relative", overflow: "hidden", background: "#F8FAFC", height: 340 }}>
+            <img
+              src={acc.images[0]}
+              alt={acc.name}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              onError={e => { if (acc.images[1]) e.target.src = acc.images[1]; else e.target.style.display = "none"; }}
+            />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,87,168,0.08), transparent)" }} />
+            <span style={{
+              position: "absolute", top: 16, left: 16,
+              background: C.deal, color: C.white,
+              borderRadius: 8, padding: "5px 12px", fontSize: 12, fontWeight: 800,
+              boxShadow: "0 2px 8px rgba(229,62,62,0.35)",
+            }}>-{pct}%</span>
+          </div>
+
+          {/* Content — fixed height */}
+          <div style={{ padding: "32px 36px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: 340, overflow: "hidden" }}>
+            <div>
+              <span style={{
+                display: "inline-block",
+                background: "#EBF5FF", color: C.primary,
+                border: `1px solid #BDD9FF`,
+                borderRadius: 100, padding: "3px 12px", fontSize: 10, fontWeight: 700,
+                letterSpacing: 1.5, marginBottom: 14,
+              }}>{acc.badge}</span>
+              <h3 style={{ fontWeight: 800, fontSize: 20, color: C.text, marginBottom: 8, lineHeight: 1.2 }}>{acc.name}</h3>
+              <p style={{ fontSize: 13, color: C.muted, marginBottom: 14, lineHeight: 1.6 }}>{acc.desc.slice(0, 180)}...</p>
+              {acc.features && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "5px 12px" }}>
+                  {acc.features.slice(0, 3).map((f, i) => (
+                    <span key={i} style={{ fontSize: 11, color: C.textSub, display: "flex", alignItems: "center", gap: 5 }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.primary, display: "inline-block", flexShrink: 0 }} />
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div>
+              <div style={{
+                background: "linear-gradient(135deg, #EBF5FF, #E0EEFF)",
+                border: `1px solid #BDD9FF`, borderRadius: 12,
+                padding: "10px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14,
+              }}>
+                <div>
+                  <span style={{ fontWeight: 900, fontSize: 26, color: C.primary }}>{fmt(acc.price)}</span>
+                  <span style={{ fontSize: 13, color: C.muted, textDecoration: "line-through", marginLeft: 8 }}>{fmt(acc.originalPrice)}</span>
+                </div>
+                <span style={{ fontSize: 13, color: C.primary, fontWeight: 700 }}>Save {fmt(saved)}</span>
+              </div>
+              <div style={{ display: "flex", gap: 10 }}>
+                <button onClick={() => onView(acc)} style={{
+                  flex: 1, padding: "11px", borderRadius: 10, cursor: "pointer",
+                  background: "none", border: `1.5px solid ${C.border}`,
+                  color: C.textSub, fontSize: 13, fontWeight: 600, transition: "all 0.18s",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.color = C.primary; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textSub; }}
+                >Details</button>
+                <button onClick={() => onAddToCart(acc)} style={{
+                  flex: 2, padding: "11px", borderRadius: 10, cursor: "pointer",
+                  background: `linear-gradient(135deg, ${C.primary}, ${C.primaryHover})`,
+                  border: "none", color: C.white,
+                  fontSize: 13, fontWeight: 700, transition: "all 0.18s",
+                  boxShadow: "0 4px 12px rgba(0,87,168,0.3)",
+                }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = "0.9"}
+                  onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+                >Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 16 }}>
+          <button onClick={() => setCurrent(c => (c - 1 + total) % total)} style={{
+            width: 32, height: 32, borderRadius: "50%", border: `1px solid ${C.border}`,
+            background: C.white, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center",
+            boxShadow: C.shadow, color: C.textSub,
+          }}>‹</button>
+          {ACCESSORIES.map((_, i) => (
+            <span key={i} onClick={() => setCurrent(i)} style={{
+              width: i === current ? 20 : 7, height: 7, borderRadius: 4,
+              background: i === current ? C.primary : C.border,
+              cursor: "pointer", transition: "all 0.25s", display: "inline-block",
+            }} />
+          ))}
+          <button onClick={() => setCurrent(c => (c + 1) % total)} style={{
+            width: 32, height: 32, borderRadius: "50%", border: `1px solid ${C.border}`,
+            background: C.white, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center",
+            boxShadow: C.shadow, color: C.textSub,
+          }}>›</button>
+        </div>
+        <p style={{ textAlign: "center", fontSize: 11, color: C.muted, marginTop: 6 }}>
+          ▶ Auto-playing — click dots or arrows to navigate
+        </p>
+      </div>
+
+      {/* Full grid — always shown */}
+      <div>
+        <p style={{ fontSize: 13, color: C.muted, marginBottom: 20 }}>{ACCESSORIES.length} accessories available</p>
+        <div className="items-grid">
+          {ACCESSORIES.map(item => (
+            <div
+              key={item.id}
+              onClick={() => onView(item)}
+              style={{
+                background: C.card, border: `1px solid ${C.border}`,
+                borderRadius: 12, overflow: "hidden", cursor: "pointer",
+                transition: "all 0.22s ease", boxShadow: C.shadow,
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = C.shadowHover;
+                e.currentTarget.style.borderColor = C.primary;
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = C.shadow;
+                e.currentTarget.style.borderColor = C.border;
+              }}
+            >
+              <div style={{ height: 160, position: "relative", overflow: "hidden", background: "#F8FAFC" }}>
+                <img
+                  src={item.images[0]}
+                  alt={item.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.35s" }}
+                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+                  onError={e => { if (item.images[1]) e.target.src = item.images[1]; else e.target.style.display = "none"; }}
+                />
+                <span style={{
+                  position: "absolute", top: 8, right: 8,
+                  background: C.deal, color: C.white,
+                  borderRadius: 5, padding: "3px 7px", fontSize: 10, fontWeight: 800,
+                }}>-{disc(item.price, item.originalPrice)}%</span>
+              </div>
+              {/* Fixed content area height so all cards uniform */}
+              <div style={{ padding: "12px 14px 14px", height: 130, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <p style={{ fontSize: 9, color: C.primary, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 4, fontWeight: 700 }}>{item.badge}</p>
+                  <h4 style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 3, lineHeight: 1.25,
+                    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical"
+                  }}>{item.name}</h4>
+                  <p style={{ fontSize: 11, color: C.muted, lineHeight: 1.35,
+                    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical"
+                  }}>{item.tagline}</p>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div>
+                    <span style={{ fontWeight: 800, fontSize: 16, color: C.text }}>{fmt(item.price)}</span>
+                    <span style={{ fontSize: 11, color: C.muted, textDecoration: "line-through", marginLeft: 5 }}>{fmt(item.originalPrice)}</span>
+                  </div>
+                  <button
+                    onClick={e => { e.stopPropagation(); onAddToCart(item); }}
+                    style={{
+                      background: C.primary, border: "none", color: C.white,
+                      borderRadius: 6, padding: "7px 12px", cursor: "pointer",
+                      fontSize: 12, fontWeight: 700, transition: "background 0.18s",
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = C.primaryHover}
+                    onMouseLeave={e => e.currentTarget.style.background = C.primary}
+                  >Add</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Tab Navigation ────────────────────────────────────────────
 function TabNav({ active, onChange }) {
   const tabs = [
     { id: "kits", label: "🎁 Curated Kits", desc: "Best value bundles" },
     { id: "items", label: "🔬 Individual Items", desc: "Buy what you need" },
+    { id: "accessories", label: "🩺 Accessories", desc: "Clinical add-ons" },
     { id: "apparel", label: "🥼 Scrubs & Aprons", desc: "Clinical uniform" },
-    { id: "books", label: "📚 Books", desc: "BPT Textbooks" },
   ];
   return (
     <div style={{ display: "flex", gap: 10, marginBottom: 40, overflowX: "auto", paddingBottom: 2 }}>
@@ -912,7 +1192,6 @@ function KitCard({ kit, onView, onAddToCart }) {
   const [hovered, setHovered] = useState(false);
   const pct = disc(kit.price, kit.originalPrice);
   const saved = kit.originalPrice - kit.price;
-  const retailTotal = kit.items.reduce((s, i) => s + i.retail, 0);
   const isGold = kit.badge === "BESTSELLER";
 
   return (
@@ -1006,7 +1285,7 @@ function KitCard({ kit, onView, onAddToCart }) {
           >Add to Cart</button>
         </div>
         <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10 }}>
-          <span style={{ color: C.accent }}>&#9679;</span> {kit.stock} in stock &middot; SRM campus delivery
+          <span style={{ color: C.accent }}>&#9679;</span> {kit.stock} in stock &middot; Delivery available
         </p>
       </div>
     </div>
@@ -1393,7 +1672,7 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
           <div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#EBF5FF", borderRadius: 100, padding: "4px 14px", marginBottom: 12 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.primary, display: "block" }} />
-              <span style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>SRM Campus Store</span>
+              <span style={{ fontSize: 11, color: C.primary, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>Campus Store</span>
             </div>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(26px,4vw,42px)", color: C.text, lineHeight: 1.08, letterSpacing: "-0.5px" }}>
               Shop <span style={{ color: C.primary }}>MedVault</span>
@@ -1421,6 +1700,16 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
             {KITS.map(k => <KitCard key={k.id} kit={k} onView={onView} onAddToCart={onAddToCart} />)}
           </div>
         )}
+
+        {tab === "accessories" && (
+          <AccessoriesSection onView={onView} onAddToCart={onAddToCart} />
+        )}
+
+      </div>
+
+      
+
+      <div id="__shop_cont_tail__" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5%" }}>
 
         {/* Individual items tab */}
         {tab === "items" && (
@@ -1492,31 +1781,84 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
           </div>
         )}
 
+      </div>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5%" }}>
+
         {/* Apparel tab */}
         {tab === "apparel" && (
-          <div style={{ animation: "fadeUp 0.35s ease both" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28, flexWrap: "wrap", gap: 12 }}>
-              <p style={{ fontSize: 14, color: C.muted, maxWidth: 480 }}>Select your size directly on the card. Use the size guide if needed.</p>
-              <button onClick={() => setShowSizeGuide(true)} style={{
-                background: C.white, border: `1px solid ${C.border}`, borderRadius: 8,
-                padding: "9px 18px", cursor: "pointer", color: C.primary, fontSize: 13, fontWeight: 600, boxShadow: C.shadow,
-                transition: "all 0.18s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = C.primary; e.currentTarget.style.background = "#EFF6FF"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.white; }}
-              >Size Guide</button>
-            </div>
-            <div className="apparel-grid">
-              {APPAREL.map(item => <ApparelCard key={item.id} item={item} onView={onView} onAddToCart={onAddToCart} />)}
-            </div>
-          </div>
-        )}
+  <div style={{ animation: "fadeUp 0.35s ease both" }}>
+    <div style={{
+      background: "linear-gradient(135deg, #0A1628 0%, #0D2D5A 100%)",
+      borderRadius: 20, padding: "52px 48px",
+      border: `1.5px solid rgba(255,255,255,0.07)`,
+      boxShadow: C.shadowHover,
+      position: "relative", overflow: "hidden",
+    }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: -60, right: "10%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,87,168,0.3) 0%, transparent 70%)", pointerEvents: "none" }} />
+
+      <div style={{ position: "relative", maxWidth: 560 }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: 8,
+          background: "rgba(0,87,168,0.35)", border: "1px solid rgba(0,87,168,0.6)",
+          borderRadius: 100, padding: "6px 18px", marginBottom: 24,
+        }}>
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#60A5FA", display: "block", boxShadow: "0 0 6px #60A5FA" }} />
+          <span style={{ fontSize: 11, color: "#A8D5FF", fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase" }}>Coming Soon</span>
+        </div>
+
+        <h2 style={{
+          fontWeight: 900, fontSize: "clamp(26px, 3.5vw, 40px)", lineHeight: 1.1,
+          color: "#FFFFFF", marginBottom: 16, letterSpacing: "-0.5px",
+        }}>
+          Scrubs & Aprons<br />
+          <span style={{
+            background: "linear-gradient(90deg, #60A5FA, #93C5FD)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          }}>on the Way.</span>
+        </h2>
+
+        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.8, marginBottom: 32, maxWidth: 420 }}>
+          MedVault scrubs, lab aprons, white coats, and more clinical uniform essentials are being added to the store shortly.
+        </p>
+
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {["Scrubs Set", "Lab Apron", "White Coat", "ID Badge Holder"].map(item => (
+            <span key={item} style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 8, padding: "8px 16px",
+              fontSize: 12, color: "rgba(255,255,255,0.6)", fontWeight: 600,
+            }}>{item}</span>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 36, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 14 }}>Get notified when stock is ready</p>
+          <a href={`https://wa.me/918248613274?text=${encodeURIComponent("Hi MedVault! I'd like to be notified when scrubs and aprons are available.")}`}
+            target="_blank" rel="noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.18)",
+              color: "rgba(255,255,255,0.85)", padding: "12px 22px", borderRadius: 10,
+              textDecoration: "none", fontWeight: 600, fontSize: 13, transition: "all 0.2s",
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+            onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.06)"}
+          >
+            <span style={{ fontSize: 15 }}>💬</span> Notify me on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
         {/* Books tab */}
         {tab === "books" && (
           <div style={{ animation: "fadeUp 0.35s ease both" }}>
             <div style={{ marginBottom: 28 }}>
-              <p style={{ fontSize: 14, color: C.muted, marginBottom: 20 }}>Year-wise BPT textbooks — add directly to cart and we'll deliver to your SRM hostel.</p>
+              <p style={{ fontSize: 14, color: C.muted, marginBottom: 20 }}>Year-wise BPT textbooks — add directly to cart and we'll deliver to your doorstep.</p>
               {/* Year filter pills */}
               <BookYearFilter items={BOOK_ITEMS} onView={onView} onAddToCart={onAddToCart} />
             </div>
@@ -1588,7 +1930,7 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
                     <span style={{ width: 36, height: 36, borderRadius: 10, background: "#F0FFF4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🚚</span>
                     <div>
                       <p style={{ fontSize: 12, color: C.muted, marginBottom: 1 }}>Delivery</p>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: C.text }}>SRM Campus · 48 hours</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: C.text }}>Campus · 48 hours</p>
                     </div>
                   </div>
                 </div>
@@ -1627,11 +1969,11 @@ function HomePage({ onView, onAddToCart, searchQuery }) {
             </div>
             <div>
               <p style={{ fontSize: 10, color: "rgba(100,180,255,0.7)", letterSpacing: 3, fontWeight: 700, marginBottom: 14, textTransform: "uppercase" }}>Our Vision</p>
-              <p style={{ fontSize: 16, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", maxWidth: 440 }}>Be the most trusted on-campus medical store at SRM — known for premium quality, honest pricing, and understanding what a physio student truly needs.</p>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", maxWidth: 440 }}>Be the most trusted on-campus medical store — known for premium quality, honest pricing, and understanding what a physio student truly needs.</p>
             </div>
           </div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>© 2025 MedVault · SRM Campus, Chennai</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>© 2025 MedVault · Campus Delivery</span>
             <a href={`https://wa.me/918248613274`} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: "rgba(100,200,120,0.8)", textDecoration: "none", fontWeight: 600 }}>
               💬 +91 82486 13274
             </a>
@@ -1763,7 +2105,7 @@ function ProductDetailPage({ product, onBack, onAddToCart }) {
             </div>
 
             <p style={{ marginTop: 12, fontSize: 12, color: C.muted }}>
-              <span style={{ color: C.accent }}>&#9679;</span> {product.stock} in stock &middot; Fast dispatch from SRM campus
+              <span style={{ color: C.accent }}>&#9679;</span> {product.stock} in stock &middot; Fast campus dispatch
             </p>
           </div>
         </div>
