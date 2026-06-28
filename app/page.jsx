@@ -138,34 +138,34 @@ const IMG = {
     "/placeholder.svg",
   ],
   goniometer: [
-    "/products/goniometer.jpg",
+    "/placeholder.svg",
   ],
   hammer: [
-    "/products/knee-hammer.jpg",
+    "/placeholder.svg",
   ],
   tuningfork: [
-    "/products/tuning-fork.jpg",
+    "/placeholder.svg",
   ],
   tape: [
-    "/products/inch-tape.jpg",
+    "/placeholder.svg",
   ],
   pentorch: [
-    "/products/pen-torch.jpg",
+    "/placeholder.svg",
   ],
   stethoscope: [
-    "/products/stethoscope.jpg",
+    "/placeholder.svg",
   ],
   sphygmo: [
-    "/products/sphygmomanometer.jpg",
+    "/placeholder.svg",
   ],
   yogamat: [
-    "/products/yoga-mat.jpg",
+    "/placeholder.svg",
   ],
   band: [
     "/placeholder.svg",
   ],
   dynamometer: [
-    "/products/dynamometer.jpg",
+    "/placeholder.svg",
   ],
   foamroller: [
     "/placeholder.svg",
@@ -238,7 +238,7 @@ const IMG = {
   ],
   // Accessory images (local generated + Pollinations fallbacks)
   accStethoscope: [
-    "/products/stethoscope.jpg",
+    "/placeholder.svg",
   ],
   accPouch: [
     "/pouch.jpg",
@@ -250,7 +250,7 @@ const IMG = {
     "/placeholder.svg",
   ],
   accYogaMat: [
-    "/products/yoga-mat.jpg",
+    "/placeholder.svg",
   ],
   accBands: [
     "/placeholder.svg",
